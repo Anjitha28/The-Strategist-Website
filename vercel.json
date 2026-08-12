@@ -4,16 +4,13 @@
   "buildCommand": "echo 'Build skipped'",
   "installCommand": "echo 'Install skipped'",
   "functions": {
-    "**/*.php": {
+    "api/index.php": {
       "runtime": "vercel-php@0.9.0"
     }
   },
   "routes": [
-    { "src": "/admin/?", "dest": "/admin/index.php" },
-    { "src": "/admin/([^/]+\\.php)", "dest": "/admin/$1" },
-    { "src": "/admin/([^./]+)", "dest": "/admin/$1.php" },
-    { "src": "/?", "dest": "/index.php" },
-    { "src": "/([^/]+\\.php)", "dest": "/$1" },
-    { "src": "/([^./]+)", "dest": "/$1.php" }
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/admin/assets/(.*)", "dest": "/admin/assets/$1" },
+    { "src": "/(.*)", "dest": "/api/index.php" }
   ]
 }
