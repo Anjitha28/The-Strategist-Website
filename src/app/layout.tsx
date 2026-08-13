@@ -3,6 +3,10 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { getSiteSettings } from "@/lib/cms";
 
+// Render at request time (this is a database-backed CMS), so the build
+// never needs DATABASE_URL and content changes appear without a rebuild.
+export const dynamic = "force-dynamic";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
