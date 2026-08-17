@@ -5,24 +5,33 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Settings, LogOut, Shield, FileText, Briefcase,
   MessageSquare, Package, BookOpen, Star, Users, ChevronRight,
-  BarChart3, Menu, X
+  BarChart3, Menu, X, Layout, Building2, Milestone
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const NAV_ITEMS = [
+const MAIN_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/enquiries", label: "Enquiries", icon: MessageSquare },
+];
+
+const CONTENT_ITEMS = [
+  { href: "/admin/pages", label: "Pages & Sections", icon: Layout },
   { href: "/admin/blogs", label: "Blog Posts", icon: FileText },
   { href: "/admin/careers", label: "Careers", icon: Briefcase },
-  { href: "/admin/services", label: "Services", icon: BarChart3 },
-  { href: "/admin/products", label: "Products", icon: Package },
-  { href: "/admin/courses", label: "Courses", icon: BookOpen },
+  { href: "/admin/services", label: "Services / Solutions", icon: BarChart3 },
+  { href: "/admin/products", label: "Products / Tech", icon: Package },
+  { href: "/admin/courses", label: "Learning Programs", icon: BookOpen },
+  { href: "/admin/industries", label: "Industries We Serve", icon: Building2 },
+  { href: "/admin/approach", label: "Methodology", icon: Milestone },
   { href: "/admin/testimonials", label: "Testimonials", icon: Star },
   { href: "/admin/team", label: "Team", icon: Users },
+];
+
+const SETTINGS_ITEMS = [
   { href: "/admin/settings", label: "Site Settings", icon: Settings },
 ];
 
-function NavLink({ href, label, icon: Icon, exact }: typeof NAV_ITEMS[0]) {
+function NavLink({ href, label, icon: Icon, exact }: { href: string; label: string; icon: any; exact?: boolean }) {
   const pathname = usePathname();
   const isActive = exact ? pathname === href : pathname.startsWith(href);
   return (
@@ -84,17 +93,17 @@ export function AdminSidebar({ userName, userEmail }: { userName: string; userEm
         <nav className="flex-1 overflow-y-auto px-3 py-4">
           <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-wider text-slate-400">Main</p>
           <div className="flex flex-col gap-0.5">
-            {NAV_ITEMS.slice(0, 1).map((item) => <NavLink key={item.href} {...item} />)}
+            {MAIN_ITEMS.map((item) => <NavLink key={item.href} {...item} />)}
           </div>
 
           <p className="mb-2 mt-5 px-3 text-[10px] font-semibold uppercase tracking-wider text-slate-400">Content</p>
           <div className="flex flex-col gap-0.5">
-            {NAV_ITEMS.slice(1, 8).map((item) => <NavLink key={item.href} {...item} />)}
+            {CONTENT_ITEMS.map((item) => <NavLink key={item.href} {...item} />)}
           </div>
 
           <p className="mb-2 mt-5 px-3 text-[10px] font-semibold uppercase tracking-wider text-slate-400">Settings</p>
           <div className="flex flex-col gap-0.5">
-            {NAV_ITEMS.slice(8).map((item) => <NavLink key={item.href} {...item} />)}
+            {SETTINGS_ITEMS.map((item) => <NavLink key={item.href} {...item} />)}
           </div>
         </nav>
 

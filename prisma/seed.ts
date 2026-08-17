@@ -266,6 +266,95 @@ async function seedOffices() {
   });
 }
 
+async function seedServices() {
+  await prisma.service.deleteMany({});
+  await prisma.serviceCategory.deleteMany({});
+
+  const corporateCategory = await prisma.serviceCategory.create({
+    data: {
+      name: "Corporate Solutions",
+      slug: "corporate",
+      description: "Enterprise Business Intelligence, AI, Analytics, and Digital Transformation.",
+      order: 0,
+    }
+  });
+
+  const servicesData = [
+    { name: "Corporate Analytics", slug: "corporate-analytics", icon: "bar-chart", shortDescription: "Transform business data into interactive dashboards and actionable insights.", features: JSON.stringify(["Executive Reporting", "KPI Monitoring", "Self-Service Dashboards"]), featured: true },
+    { name: "Digital Transformation", slug: "digital-transformation", icon: "rocket", shortDescription: "Modernize business operations, digitize workflows, and automate approval pipelines.", features: JSON.stringify(["Process Automation", "Cloud Platforms", "Workflow Streamlining"]), featured: true },
+    { name: "Enterprise Technology", slug: "enterprise-technology", icon: "cpu", shortDescription: "Scale your business with custom software development, secure architectures, and API integrations.", features: JSON.stringify(["API Integration", "Secure Architecture", "Enterprise Portals"]), featured: true },
+    { name: "Strategic Consulting", slug: "strategic-consulting", icon: "compass", shortDescription: "Work with business advisory and digital roadmap planning experts to manage change.", features: JSON.stringify(["Advisory Services", "Digital Roadmap", "Implementation Support"]), featured: true },
+    { name: "Business Intelligence", slug: "business-intelligence", icon: "line-chart", shortDescription: "Transform raw data into interactive dashboards and reporting systems.", features: JSON.stringify(["KPI Tracking", "Visual Analytics", "Interactive Dashboards"]), featured: false },
+    { name: "Data Analytics", slug: "data-analytics", icon: "activity", shortDescription: "Identify trends, discover opportunities, and make evidence-based decisions.", features: JSON.stringify(["Business Analytics", "Sales Analytics", "Operational Analytics"]), featured: false },
+    { name: "Artificial Intelligence", slug: "artificial-intelligence", icon: "brain", shortDescription: "Leverage machine learning and automated process intelligence.", features: JSON.stringify(["AI Assistants", "Predictive Modeling", "Process Intelligence"]), featured: false },
+    { name: "Report Automation", slug: "report-automation", icon: "file-text", shortDescription: "Automate repetitive business reporting and dashboard updates.", features: JSON.stringify(["Automated Delivery", "Scheduled Reports", "Email Distribution"]), featured: false },
+    { name: "Technology Consulting", slug: "technology-consulting", icon: "shield-check", shortDescription: "Select and implement technologies aligned with business objectives.", features: JSON.stringify(["Platform Assessment", "Architecture Planning", "Vendor Selection"]), featured: false }
+  ];
+
+  let order = 0;
+  for (const s of servicesData) {
+    await prisma.service.create({
+      data: {
+        ...s,
+        categoryId: corporateCategory.id,
+        description: s.shortDescription + "\n\nWe provide end-to-end design, implementation, and long-term support for this capability.",
+        status: "published",
+        order: order++,
+      }
+    });
+  }
+}
+
+async function seedApproachStages() {
+  await prisma.strategistApproachStage.deleteMany({});
+  const stages = [
+    { step: 1, title: "Discover", description: "Understanding your business goals, challenges, and opportunities." },
+    { step: 2, title: "Analyze", description: "Studying business processes, data sources, and operational workflows." },
+    { step: 3, title: "Design", description: "Designing strategic solutions aligned with organizational objectives." },
+    { step: 4, title: "Deliver", description: "Deploying solutions with minimal disruption." },
+    { step: 5, title: "Evolve", description: "Continuously improving systems using performance insights and analytics." }
+  ];
+
+  for (const s of stages) {
+    await prisma.strategistApproachStage.create({
+      data: {
+        step: s.step,
+        title: s.title,
+        description: s.description,
+        visible: true
+      }
+    });
+  }
+}
+
+async function seedIndustries() {
+  await prisma.strategistIndustry.deleteMany({});
+  const inds = [
+    { name: "Corporate Enterprises", slug: "corporate-enterprises", icon: "building", description: "Helping organizations optimize operations and improve decision making." },
+    { name: "Educational Institutions", slug: "educational-institutions", icon: "graduation-cap", description: "Supporting colleges and universities with analytics, automation, and professional training." },
+    { name: "Government Organizations", slug: "government-organizations", icon: "landmark", description: "Delivering strategic digital transformation initiatives." },
+    { name: "Healthcare", slug: "healthcare", icon: "heart-pulse", description: "Supporting healthcare organizations with reporting and operational intelligence." },
+    { name: "Manufacturing", slug: "manufacturing", icon: "factory", description: "Improving operational efficiency through business intelligence." },
+    { name: "Retail", slug: "retail", icon: "shopping-bag", description: "Helping retailers understand customer behavior and optimize performance." },
+    { name: "Financial Services", slug: "financial-services", icon: "banknote", description: "Delivering secure analytics and intelligent reporting." },
+    { name: "Startups", slug: "startups", icon: "rocket", description: "Building scalable technology strategies for growing businesses." }
+  ];
+
+  let order = 0;
+  for (const ind of inds) {
+    await prisma.strategistIndustry.create({
+      data: {
+        name: ind.name,
+        slug: ind.slug,
+        icon: ind.icon,
+        description: ind.description,
+        order: order++,
+        visible: true
+      }
+    });
+  }
+}
+
 async function main() {
   console.log("🌱 Seeding The Strategist…");
   await seedRolesAndUser();
@@ -280,6 +369,12 @@ async function main() {
   console.log("  ✓ collections (testimonials, products, courses, jobs, team)");
   await seedBlog();
   console.log("  ✓ blog");
+  await seedServices();
+  console.log("  ✓ services");
+  await seedApproachStages();
+  console.log("  ✓ approach stages");
+  await seedIndustries();
+  console.log("  ✓ industries");
   await seedPages();
   console.log("  ✓ pages & sections");
   await seedOffices();

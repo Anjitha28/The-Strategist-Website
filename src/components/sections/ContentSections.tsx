@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { CheckCircle2, ChevronRight } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
 type CardData = { title: string; description?: string; icon?: string; features?: string[] };
 type Step = { step: number; title: string; description?: string };
@@ -85,8 +86,16 @@ export function FeaturesSection({ data }: { data: { heading?: string; subtitle?:
   );
 }
 
-export function ProcessSection({ data }: { data: { heading?: string; subtitle?: string; items?: Step[] } }) {
-  const items = data.items ?? [];
+export async function ProcessSection({ data }: { data: { heading?: string; subtitle?: string; items?: Step[] } }) {
+  const dbItems = await prisma.strategistApproachStage.findMany({
+    where: { visible: true },
+    orderBy: { step: "asc" }
+  }).catch(() => []);
+
+  const items = dbItems.length > 0
+    ? dbItems.map((d) => ({ step: d.step, title: d.title, description: d.description ?? undefined }))
+    : (data.items ?? []);
+
   return (
     <Section className="relative overflow-hidden">
       <SectionHeader title={data.heading ?? ""} subtitle={data.subtitle} eyebrow="How We Work" eyebrowIcon="workflow" />
@@ -116,13 +125,22 @@ export function ProcessSection({ data }: { data: { heading?: string; subtitle?: 
   );
 }
 
-export function IndustriesSection({ data }: { data: { heading?: string; subtitle?: string; items?: Industry[] } }) {
+export async function IndustriesSection({ data }: { data: { heading?: string; subtitle?: string; items?: Industry[] } }) {
+  const dbItems = await prisma.strategistIndustry.findMany({
+    where: { visible: true },
+    orderBy: { order: "asc" }
+  }).catch(() => []);
+
+  const items = dbItems.length > 0
+    ? dbItems.map((d) => ({ name: d.name, description: d.description ?? undefined, icon: d.icon ?? undefined }))
+    : (data.items ?? []);
+
   return (
     <Section className="bg-[var(--surface-2)] relative overflow-hidden">
       <div className="absolute top-[10%] right-[-10%] w-[350px] aspect-square rounded-full bg-cyan-500/5 blur-3xl pointer-events-none -z-10" />
       <SectionHeader title={data.heading ?? ""} subtitle={data.subtitle} eyebrow="Industries" eyebrowIcon="building" />
       <RevealGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" stagger={0.06}>
-        {(data.items ?? []).map((ind) => (
+        {items.map((ind) => (
           <RevealItem key={ind.name}>
             <div className="group flex h-full flex-col justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--surface)] p-6 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-primary-500/40 transition-all duration-300">
               <div>
@@ -309,6 +327,128 @@ export function LegalSection({ data }: { data: { blocks?: { heading: string; bod
           ))}
         </RevealGroup>
       </div>
+    </Section>
+  );
+}
+
+export async function WhatWeDoSection({ data }: { data: { heading?: string; title?: string; subtitle?: string } }) {
+  const services = await prisma.service.findMany({
+    where: { status: "published", featured: true },
+    orderBy: { order: "asc" }
+  }).catch(() => []);
+
+  return (
+    <Section className="bg-slate-950 text-white relative overflow-hidden py-20">
+      <div className="absolute top-0 right-0 w-[400px] aspect-square rounded-full bg-teal-500/10 blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-0 left-0 w-[350px] aspect-square rounded-full bg-blue-500/5 blur-3xl pointer-events-none -z-10" />
+      
+      <div className="max-w-3xl mb-16">
+        <Reveal>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-400 mb-4">
+            <Icon name="layers" className="w-3.5 h-3.5" />
+            {data.heading ?? "WHAT WE DO"}
+          </span>
+          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-white">
+            {data.title ?? "Solutions that create measurable impact"}
+          </h2>
+          {data.subtitle && (
+            <p className="mt-4 text-base sm:text-lg text-slate-450 leading-relaxed">
+              {data.subtitle}
+            </p>
+          )}
+        </Reveal>
+      </div>
+
+      <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {services.map((item) => {
+          const features: string[] = JSON.parse(item.features || "[]");
+          return (
+            <RevealItem key={item.id}>
+              <div className="group h-full flex flex-col justify-between rounded-3xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/70 p-6.5 transition-all duration-300 hover:border-teal-500/30">
+                <div>
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-400 group-hover:scale-110 transition-transform">
+                    <Icon name={item.icon ?? "layers"} className="h-6 w-6" />
+                  </span>
+                  <h3 className="text-lg font-bold text-white mt-6 group-hover:text-teal-400 transition-colors">
+                    {item.name}
+                  </h3>
+                  <p className="text-xs leading-relaxed text-slate-450 mt-3 line-clamp-3">
+                    {item.shortDescription}
+                  </p>
+                </div>
+                {features.length > 0 && (
+                  <div className="mt-6 pt-5 border-t border-slate-800/80">
+                    <ul className="space-y-2">
+                      {features.slice(0, 3).map((f) => (
+                        <li key={f} className="flex items-center gap-2 text-xs text-slate-400">
+                          <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-teal-500" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </RevealItem>
+          );
+        })}
+      </RevealGroup>
+    </Section>
+  );
+}
+
+export function PositioningSection({ data }: { data: { heading?: string; title?: string; description?: string; darkPanelTitle?: string; darkPanelText?: string; lightPanelTitle?: string; lightPanelText?: string } }) {
+  return (
+    <Section className="relative overflow-hidden">
+      <div className="absolute top-[30%] left-[-5%] w-[350px] aspect-square rounded-full bg-blue-500/5 blur-3xl pointer-events-none -z-10" />
+      
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-16 items-start mb-16">
+        <Reveal>
+          <div className="relative pl-6 border-l-4 border-primary-500">
+            <span className="text-xs font-bold text-primary-600 uppercase tracking-widest block mb-2">{data.heading ?? "WHO WE ARE"}</span>
+            <h2 className="text-3xl font-extrabold sm:text-4xl lg:text-[40px] leading-tight text-[var(--fg)]">
+              {data.title}
+            </h2>
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="text-base leading-relaxed text-[var(--muted)] sm:text-lg">
+            {data.description}
+          </p>
+        </Reveal>
+      </div>
+
+      <RevealGroup className="grid gap-8 md:grid-cols-2">
+        <RevealItem>
+          <div className="group h-full rounded-[32px] bg-slate-950 border border-slate-900 p-8 sm:p-10 shadow-2xl relative overflow-hidden hover-lift transition-all duration-300">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-teal-500/5 to-transparent rounded-bl-3xl pointer-events-none" />
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-400 mb-6">
+              <Icon name="activity" className="h-6 w-6" />
+            </span>
+            <h3 className="text-2xl font-bold text-white tracking-tight">
+              {data.darkPanelTitle ?? "From better reports to better decisions."}
+            </h3>
+            <p className="mt-4 text-slate-400 text-sm leading-relaxed">
+              {data.darkPanelText}
+            </p>
+          </div>
+        </RevealItem>
+
+        <RevealItem>
+          <div className="group h-full rounded-[32px] bg-slate-50 border border-slate-200/80 p-8 sm:p-10 shadow-sm relative overflow-hidden hover-lift transition-all duration-300 dark:bg-slate-900/20 dark:border-slate-800">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/5 to-transparent rounded-bl-3xl pointer-events-none" />
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-blue-600 border border-blue-100/50 mb-6 dark:bg-slate-800 dark:text-blue-400 dark:border-slate-700">
+              <Icon name="trending-up" className="h-6 w-6" />
+            </span>
+            <h3 className="text-2xl font-bold text-slate-900 tracking-tight dark:text-white">
+              {data.lightPanelTitle ?? "Designed for sustainable growth."}
+            </h3>
+            <p className="mt-4 text-slate-600 text-sm leading-relaxed dark:text-slate-400">
+              {data.lightPanelText}
+            </p>
+          </div>
+        </RevealItem>
+      </RevealGroup>
     </Section>
   );
 }

@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -343,6 +343,7 @@ model Product {
   features         String           @default("[]") // JSON
   gallery          String           @default("[]") // JSON
   ctaLabel         String?
+  featured         Boolean          @default(false)
   order            Int              @default(0)
   status           String           @default("published")
   seoTitle         String?
@@ -504,6 +505,7 @@ model Service {
   description      String           @default("")
   icon             String?
   features         String           @default("[]") // JSON list of feature strings
+  featured         Boolean          @default(false)
   order            Int              @default(0)
   status           String           @default("published")
   seoTitle         String?
@@ -511,3 +513,34 @@ model Service {
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
 }
+
+// ============================================================
+// CMS-DRIVEN STRATEGIST DATA
+// ============================================================
+
+model StrategistIndustry {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  icon        String?
+  order       Int      @default(0)
+  visible     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("strategist_industries")
+}
+
+model StrategistApproachStage {
+  id          String   @id @default(cuid())
+  step        Int      @unique
+  title       String
+  description String?
+  visible     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("strategist_approach_stages")
+}
+

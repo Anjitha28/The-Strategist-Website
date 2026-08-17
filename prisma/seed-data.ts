@@ -38,11 +38,11 @@ const whyChoose = [
 ];
 
 const process = [
-  { step: 1, title: "Understand", description: "Understanding your business goals, challenges, and opportunities." },
+  { step: 1, title: "Discover", description: "Understanding your business goals, challenges, and opportunities." },
   { step: 2, title: "Analyze", description: "Studying business processes, data sources, and operational workflows." },
   { step: 3, title: "Design", description: "Designing strategic solutions aligned with organizational objectives." },
-  { step: 4, title: "Implement", description: "Deploying solutions with minimal disruption." },
-  { step: 5, title: "Optimize", description: "Continuously improving systems using performance insights and analytics." },
+  { step: 4, title: "Deliver", description: "Deploying solutions with minimal disruption." },
+  { step: 5, title: "Evolve", description: "Continuously improving systems using performance insights and analytics." },
 ];
 
 const industries = [
@@ -68,84 +68,81 @@ export const HOME: PageSeed = {
     {
       key: "hero", type: "hero", title: "Hero", order: 0,
       data: {
-        badge: "Business Intelligence • Artificial Intelligence • Data Analytics • Digital Transformation",
-        title: "Transforming Businesses Through Data, Intelligence & Innovation",
+        badge: "STRATEGY. DATA. TRANSFORMATION.",
+        title: "From Insights to Impact. We help you scale.",
         description:
-          "The Strategist empowers organizations to make smarter decisions through Business Intelligence, Artificial Intelligence, Data Analytics, Report Automation, and Digital Transformation. We partner with businesses, enterprises, government organizations, and educational institutions to build intelligent data ecosystems, automate business processes, and enable data-driven decision making that delivers measurable business outcomes.",
-        primaryLabel: "Explore Our Solutions", primaryHref: "/solutions",
-        secondaryLabel: "Schedule a Consultation", secondaryHref: "/contact",
-        stats: [
-          { value: "6+", label: "Core Solution Areas" },
-          { value: "9", label: "Industries Served" },
-          { value: "100%", label: "Tailored Engagements" },
-        ],
-        beats: {
-          captions: [
-            "Gain deep operational insights with integrated Business Intelligence dashboards.",
-            "Accelerate workflows through intelligent AI processes and automated reporting pipelines.",
-            "Empower your workforce with custom training to sustain the analytics systems we build."
-          ],
-          cards: {
-            income: "$598,000",
-            spending: "$270,000",
-            gauge: "75%",
-            userLabel: "Active User"
-          }
-        }
+          "We transform your data into actionable intelligence, automate operations and empower you to make better decisions that fuel sustainable growth.",
+        primaryLabel: "Explore Solutions", primaryHref: "/solutions",
+        secondaryLabel: "Watch Overview", secondaryHref: "#watch",
       },
     },
     {
-      key: "intro", type: "intro", title: "Introduction", order: 1,
+      key: "intro", type: "positioning", title: "Who We Are", order: 1,
       data: {
-        heading: "Transforming Data Into Strategic Decisions",
-        paragraphs: [
-          "Modern organizations generate enormous amounts of data every day.",
-          "The real challenge is not collecting data—it is converting it into meaningful insights that drive better business decisions.",
-          "The Strategist combines deep domain expertise with modern analytics technologies to help organizations transform raw information into actionable intelligence.",
-          "Whether improving operational efficiency, automating reporting, building AI-powered solutions, or implementing enterprise dashboards, we help organizations create measurable business value.",
-        ],
+        heading: "WHO WE ARE",
+        title: "Turning information into intelligence and intelligence into action.",
+        description:
+          "The Strategist combines business thinking, data and technology to help organizations improve visibility, automate operations and make confident decisions.",
+        darkPanelTitle: "From better reports to better decisions.",
+        darkPanelText:
+          "We help organizations move from fragmented information and manual reporting to connected data ecosystems, automated processes and actionable intelligence.",
+        lightPanelTitle: "Designed for sustainable growth.",
+        lightPanelText:
+          "Our work is focused on measurable business value — improving efficiency, strengthening decision-making and creating technology foundations that can scale with the organization.",
       },
     },
     {
-      key: "solutions", type: "cards", title: "Our Core Solutions", order: 2,
-      data: { heading: "Our Core Solutions", subtitle: "End-to-end capabilities that turn information into intelligence.", items: solutions },
+      key: "solutions", type: "what-we-do", title: "What We Do", order: 2,
+      data: {
+        heading: "WHAT WE DO",
+        title: "Solutions that create measurable impact",
+        subtitle:
+          "End-to-end solutions designed to solve today’s challenges and prepare your organization for tomorrow’s opportunities.",
+      },
     },
     {
       key: "why", type: "features", title: "Why The Strategist", order: 3,
       data: { heading: "Why Organizations Choose The Strategist", items: whyChoose },
     },
     {
-      key: "process", type: "process", title: "Our Process", order: 4,
-      data: { heading: "Our Process", subtitle: "A disciplined path from understanding to optimization.", items: process },
-    },
-    {
-      key: "industries", type: "industries", title: "Industries We Serve", order: 5,
-      data: { heading: "Industries We Serve", items: industries },
-    },
-    {
-      key: "products", type: "promo", title: "Products Preview", order: 6,
+      key: "process", type: "process", title: "Our Approach", order: 4,
       data: {
-        heading: "Technology Solutions Designed for Modern Organizations",
-        description:
-          "Our products simplify business operations through automation, analytics, and intelligent reporting. Every product is designed to improve productivity, enhance visibility, and enable smarter decision-making.",
-        ctaLabel: "Explore Products", ctaHref: "/products",
+        heading: "OUR APPROACH",
+        title: "A proven methodology for transformation",
+        subtitle: "A disciplined path from understanding to optimization.",
       },
     },
     {
-      key: "learn", type: "promo", title: "Learning Preview", order: 7,
+      key: "industries", type: "industries", title: "Industries We Serve", order: 5,
       data: {
-        heading: "Empowering Professionals Through Industry-Focused Learning",
+        heading: "INDUSTRIES WE SERVE",
+        title: "Deep expertise across key industries",
+      },
+    },
+    {
+      key: "products", type: "featured-products", title: "Featured Products", order: 6,
+      data: {
+        heading: "PRODUCTS",
+        title: "Technology Solutions Designed for Modern Organizations",
+        description:
+          "Our products simplify business operations through automation, analytics, and intelligent reporting. Every product is designed to improve productivity, enhance visibility, and enable smarter decision-making.",
+      },
+    },
+    {
+      key: "learn", type: "featured-learning", title: "Professional Learning", order: 7,
+      data: {
+        heading: "PROFESSIONAL LEARNING",
+        title: "Empowering Professionals Through Industry-Focused Learning",
         description:
           "The Strategist offers professional learning programs designed for students, working professionals, organizations, and educational institutions.",
-        bullets: ["Online Courses", "Corporate Training", "College Training", "One-to-One Learning", "Internship Programs", "Certification Programs", "Practical Projects"],
-        ctaLabel: "Explore Programs", ctaHref: "/learn",
       },
     },
     {
       key: "insights", type: "insights", title: "Insights", order: 8,
       data: {
         heading: "Latest Articles & Industry Insights",
-        subtitle: "Stay informed with expert articles covering business strategy, analytics, AI, automation, digital transformation, and emerging technologies.",
+        subtitle:
+          "Stay informed with expert articles covering business strategy, analytics, AI, automation, digital transformation, and emerging technologies.",
         ctaLabel: "Read Our Blog", ctaHref: "/blog",
       },
     },
@@ -154,11 +151,10 @@ export const HOME: PageSeed = {
     {
       key: "cta", type: "cta", title: "Final CTA", order: 11,
       data: {
-        heading: "Let's Build Smarter Businesses Together",
+        heading: "Let's turn your data into your next advantage.",
         description:
-          "Whether you're looking to modernize operations, implement Business Intelligence, automate reporting, train your workforce, or accelerate digital transformation, we're here to help.",
-        primaryLabel: "Get Started", primaryHref: "/contact",
-        secondaryLabel: "Contact Us", secondaryHref: "/contact",
+          "Whether you're looking to automate reporting, improve decision-making, modernize operations, build technology solutions or explore professional learning, let's talk.",
+        primaryLabel: "Start a Conversation →", primaryHref: "/contact",
       },
     },
   ],

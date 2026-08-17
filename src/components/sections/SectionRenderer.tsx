@@ -4,10 +4,12 @@ import { HeroStratus } from "./HeroStratus";
 import {
   Intro, CardsSection, FeaturesSection, ProcessSection, IndustriesSection,
   ServicesSection, ChallengesSection, VisionMission, PromoSection, CtaSection, LegalSection,
+  WhatWeDoSection, PositioningSection,
 } from "./ContentSections";
 import {
   FaqsSection, TestimonialsSection, ClientMarquee, InsightsSection, ProductCatalog,
   CourseCategoriesSection, CourseCatalog, DepartmentsSection, TeamSection, ContactDepartments,
+  FeaturedProducts, FeaturedLearning,
 } from "./DataSections";
 import { ContactSection, ConsultationSection, NewsletterSection } from "./FormSections";
 import { BlogListSection } from "./BlogListSection";
@@ -22,7 +24,7 @@ type SectionInput = {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const REGISTRY: Record<string, (props: { data: any }) => React.ReactNode> = {
-  hero: HeroScroll,
+  hero: HeroStratus,
   "legal-hero": LegalHero,
   intro: Intro,
   cards: CardsSection,
@@ -35,10 +37,14 @@ const REGISTRY: Record<string, (props: { data: any }) => React.ReactNode> = {
   promo: PromoSection,
   cta: CtaSection,
   legal: LegalSection,
+  "what-we-do": WhatWeDoSection as never,
+  positioning: PositioningSection as never,
   faqs: FaqsSection as never,
   testimonials: TestimonialsSection as never,
   insights: InsightsSection,
   "product-catalog": ProductCatalog as never,
+  "featured-products": FeaturedProducts as never,
+  "featured-learning": FeaturedLearning as never,
   "course-categories": CourseCategoriesSection as never,
   "course-catalog": CourseCatalog as never,
   departments: DepartmentsSection as never,
@@ -59,9 +65,6 @@ export function SectionRenderer({ sections, theme }: { sections: SectionInput[];
       {sections
         .filter((s) => s.visible)
         .map((s) => {
-          if (s.type === "hero" && theme === "stratus") {
-            return <HeroStratus key={s.key} data={s.data as any} />;
-          }
           const Cmp = REGISTRY[s.type];
           if (!Cmp) return null;
           return <Cmp key={s.key} data={s.data} />;

@@ -317,3 +317,130 @@ export function ContactDepartments({ data }: { data: { heading?: string; items?:
     </Section>
   );
 }
+
+export async function FeaturedProducts({ data }: { data: { heading?: string; title?: string; description?: string } }) {
+  let products = await prisma.product.findMany({
+    where: { status: "published", featured: true },
+    orderBy: { order: "asc" }
+  }).catch(() => []);
+
+  if (products.length === 0) {
+    products = await prisma.product.findMany({
+      where: { status: "published" },
+      take: 3,
+      orderBy: { order: "asc" }
+    }).catch(() => []);
+  }
+
+  return (
+    <Section className="relative overflow-hidden">
+      <SectionHeader
+        title={data.title ?? "Technology Solutions Designed for Modern Organizations"}
+        subtitle={data.description}
+        eyebrow={data.heading ?? "PRODUCTS"}
+        eyebrowIcon="boxes"
+      />
+      
+      <RevealGroup className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+        {products.map((p) => {
+          const features = parseJson<string[]>(p.features, []);
+          return (
+            <RevealItem key={p.id}>
+              <Card className="flex h-full flex-col justify-between group hover:border-primary-500/40">
+                <div>
+                  <IconBadge icon={<Icon name={p.icon} className="h-6 w-6" />} />
+                  <h3 className="mt-5 text-lg font-bold tracking-tight text-[var(--fg)]">{p.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{p.shortDescription}</p>
+                  {features.length > 0 && (
+                    <ul className="mt-5 flex flex-col gap-2 border-t border-[var(--border-color)]/60 pt-4">
+                      {features.slice(0, 3).map((f) => (
+                        <li key={f} className="flex items-start gap-2.5 text-xs text-[var(--fg)] font-medium">
+                          <Icon name="check-circle" className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" /> 
+                          <span className="leading-snug">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <div className="mt-6 flex items-center justify-between">
+                  <Link href={`/products/${p.slug}`} className="inline-flex items-center gap-1.5 text-sm font-bold text-primary-600 hover:gap-2.5 transition-all">
+                    Explore Product <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </Card>
+            </RevealItem>
+          );
+        })}
+      </RevealGroup>
+
+      <div className="mt-12 text-center">
+        <Button href="/products" variant="secondary" icon="arrow-right" iconRight>
+          View All Products
+        </Button>
+      </div>
+    </Section>
+  );
+}
+
+export async function FeaturedLearning({ data }: { data: { heading?: string; title?: string; description?: string } }) {
+  let courses = await prisma.course.findMany({
+    where: { status: "published", featured: true },
+    orderBy: { order: "asc" },
+    include: { category: true }
+  }).catch(() => []);
+
+  if (courses.length === 0) {
+    courses = await prisma.course.findMany({
+      where: { status: "published" },
+      take: 3,
+      orderBy: { order: "asc" },
+      include: { category: true }
+    }).catch(() => []);
+  }
+
+  return (
+    <Section className="bg-[var(--surface-2)] relative overflow-hidden">
+      <div className="absolute inset-0 mesh-grid opacity-30 pointer-events-none" />
+      <SectionHeader
+        title={data.title ?? "Empowering Professionals Through Industry-Focused Learning"}
+        subtitle={data.description}
+        eyebrow={data.heading ?? "PROFESSIONAL LEARNING"}
+        eyebrowIcon="graduation-cap"
+      />
+
+      <RevealGroup className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+        {courses.map((c) => (
+          <RevealItem key={c.id}>
+            <Link href={`/training/${c.slug}`} className="group block h-full">
+              <Card className="flex h-full flex-col justify-between group-hover:border-primary-500/40" hover>
+                <div>
+                  <div className="mb-5 flex aspect-[16/9] items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-15 mesh-grid" />
+                    <Icon name={c.category?.icon ?? "graduation-cap"} className="h-10 w-10 relative z-10 group-hover:scale-110 transition-transform duration-500" />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {c.category && <span className="text-[10px] font-bold tracking-wider uppercase text-primary-600">{c.category.name}</span>}
+                    {c.level && <span className="text-xs font-semibold text-[var(--muted)]">{c.level}</span>}
+                  </div>
+                  <h3 className="mt-3.5 text-lg font-bold leading-snug text-[var(--fg)] transition-colors group-hover:text-primary-600">{c.title}</h3>
+                  <p className="mt-2.5 line-clamp-2 text-sm text-[var(--muted)] leading-relaxed">{c.shortDescription}</p>
+                </div>
+                <div className="mt-5 border-t border-[var(--border-color)]/60 pt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[var(--muted)] font-medium">
+                  <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5 text-primary-500" /> {c.duration}</span>
+                  <span className="flex items-center gap-1"><BookOpen className="h-3.5 w-3.5 text-primary-500" /> {c.modulesCount} modules</span>
+                  {c.certificate && <span className="flex items-center gap-1"><Award className="h-3.5 w-3.5 text-primary-500" /> Certificate</span>}
+                </div>
+              </Card>
+            </Link>
+          </RevealItem>
+        ))}
+      </RevealGroup>
+
+      <div className="mt-12 text-center">
+        <Button href="/learn" variant="secondary" icon="arrow-right" iconRight>
+          Explore All Programs
+        </Button>
+      </div>
+    </Section>
+  );
+}
