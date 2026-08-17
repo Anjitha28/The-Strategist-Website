@@ -20,6 +20,13 @@ type HeroData = {
 
 export function HeroStratus({ data }: { data: HeroData }) {
   const reduce = useReducedMotion();
+  const float = (delay: number) =>
+    reduce
+      ? {}
+      : {
+          animate: { y: [0, -12, 0] },
+          transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const, delay },
+        };
 
   // Emphasize "We help you scale." with a teal accent and serif typography
   const renderTitle = (titleStr: string) => {
@@ -54,7 +61,7 @@ export function HeroStratus({ data }: { data: HeroData }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-28">
       {/* Background organic shape 1 (top-left) */}
       <div className="absolute top-0 left-0 w-[40%] aspect-square -translate-x-[20%] -translate-y-[20%] pointer-events-none opacity-40 bg-[radial-gradient(circle_at_20%_20%,rgba(24,184,173,0.05)_0%,rgba(124,227,218,0.05)_40%,transparent_75%)] blur-3xl -z-10" />
 
@@ -68,9 +75,9 @@ export function HeroStratus({ data }: { data: HeroData }) {
         </svg>
       </div>
 
-      <div className="container-page flex flex-col items-center justify-center text-center relative z-10">
-        {/* Centered Column: Text Content */}
-        <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto">
+      <div className="container-page grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] relative z-10">
+        {/* Left Column: Text Content */}
+        <div className="flex flex-col items-start gap-6 lg:pr-4">
           {data.badge && (
             <Reveal>
               <Badge className="bg-[#EEF4F3] text-[#18B8AD] border border-[#DCE6E7] uppercase tracking-wider px-3 py-1 font-semibold text-xs rounded-full">
@@ -79,19 +86,19 @@ export function HeroStratus({ data }: { data: HeroData }) {
             </Reveal>
           )}
           <Reveal delay={0.05}>
-            <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-[#071820] sm:text-5xl lg:text-[60px] font-display">
+            <h1 className="max-w-2xl text-4xl font-bold leading-[1.1] tracking-tight text-[#071820] sm:text-5xl lg:text-[54px] font-display">
               {renderTitle(data.title ?? "")}
             </h1>
           </Reveal>
           {data.description && (
             <Reveal delay={0.12}>
-              <p className="max-w-2xl text-base leading-relaxed text-[#68787D] sm:text-lg">
+              <p className="max-w-xl text-base leading-relaxed text-[#68787D] sm:text-lg">
                 {data.description}
               </p>
             </Reveal>
           )}
           <Reveal delay={0.18}>
-            <div className="flex flex-wrap justify-center items-center gap-4 mt-2">
+            <div className="flex flex-wrap items-center gap-3">
               {data.primaryLabel && (
                 <Button 
                   href={data.primaryHref ?? "/solutions"} 
@@ -118,9 +125,9 @@ export function HeroStratus({ data }: { data: HeroData }) {
 
           {data.stats && data.stats.length > 0 && (
             <Reveal delay={0.24}>
-              <dl className="mt-8 flex flex-wrap justify-center gap-x-12 gap-y-4 border-t border-[#DCE6E7] pt-8 w-full">
+              <dl className="mt-6 flex flex-wrap gap-x-10 gap-y-4 border-t border-[#DCE6E7] pt-6 w-full">
                 {data.stats.map((s) => (
-                  <div key={s.label} className="flex flex-col items-center">
+                  <div key={s.label} className="flex flex-col">
                     <dt className="text-[#18B8AD] text-3xl font-bold sm:text-4xl">
                       {s.value}
                     </dt>
@@ -132,6 +139,28 @@ export function HeroStratus({ data }: { data: HeroData }) {
               </dl>
             </Reveal>
           )}
+        </div>
+
+        {/* Right Column: Premium Illustration Container */}
+        <div className="relative flex justify-center items-center">
+          <motion.div 
+            {...float(0)}
+            className="relative w-full max-w-lg aspect-[3/2]"
+          >
+            {/* Visual background blob curves */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-[#EEF4F3] to-[#FFFFFF] rounded-[2rem] -z-10 blur-xl opacity-80" />
+            
+            <div className="w-full h-full relative rounded-[2rem] overflow-hidden shadow-2xl border border-white/60 bg-white/40 backdrop-blur-md hover-lift transition-transform">
+              <Image
+                src="/brand/business-growth-progression.jpg"
+                alt="Business Growth Progression"
+                fill
+                sizes="(max-width: 768px) 100vw, 500px"
+                priority
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
