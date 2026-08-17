@@ -20,13 +20,6 @@ type HeroData = {
 
 export function HeroStratus({ data }: { data: HeroData }) {
   const reduce = useReducedMotion();
-  const float = (delay: number) =>
-    reduce
-      ? {}
-      : {
-          animate: { y: [0, -12, 0] },
-          transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const, delay },
-        };
 
   // Emphasize "We help you scale." with a teal accent and serif typography
   const renderTitle = (titleStr: string) => {
@@ -61,7 +54,7 @@ export function HeroStratus({ data }: { data: HeroData }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-28">
+    <section className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-32">
       {/* Background organic shape 1 (top-left) */}
       <div className="absolute top-0 left-0 w-[40%] aspect-square -translate-x-[20%] -translate-y-[20%] pointer-events-none opacity-40 bg-[radial-gradient(circle_at_20%_20%,rgba(24,184,173,0.05)_0%,rgba(124,227,218,0.05)_40%,transparent_75%)] blur-3xl -z-10" />
 
@@ -75,9 +68,9 @@ export function HeroStratus({ data }: { data: HeroData }) {
         </svg>
       </div>
 
-      <div className="container-page grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] relative">
-        {/* Left Column: Text Content */}
-        <div className="flex flex-col items-start gap-6 lg:pr-4">
+      <div className="container-page flex flex-col items-center justify-center text-center relative z-10">
+        {/* Centered Column: Text Content */}
+        <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto">
           {data.badge && (
             <Reveal>
               <Badge className="bg-[#EEF4F3] text-[#18B8AD] border border-[#DCE6E7] uppercase tracking-wider px-3 py-1 font-semibold text-xs rounded-full">
@@ -86,19 +79,19 @@ export function HeroStratus({ data }: { data: HeroData }) {
             </Reveal>
           )}
           <Reveal delay={0.05}>
-            <h1 className="max-w-2xl text-4xl font-semibold leading-[1.08] tracking-tight text-[#071820] sm:text-5xl lg:text-[54px] font-display">
+            <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-[#071820] sm:text-5xl lg:text-[60px] font-display">
               {renderTitle(data.title ?? "")}
             </h1>
           </Reveal>
           {data.description && (
             <Reveal delay={0.12}>
-              <p className="max-w-xl text-base leading-relaxed text-[#68787D] sm:text-lg">
+              <p className="max-w-2xl text-base leading-relaxed text-[#68787D] sm:text-lg">
                 {data.description}
               </p>
             </Reveal>
           )}
           <Reveal delay={0.18}>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap justify-center items-center gap-4 mt-2">
               {data.primaryLabel && (
                 <Button 
                   href={data.primaryHref ?? "/solutions"} 
@@ -125,9 +118,9 @@ export function HeroStratus({ data }: { data: HeroData }) {
 
           {data.stats && data.stats.length > 0 && (
             <Reveal delay={0.24}>
-              <dl className="mt-6 flex flex-wrap gap-x-10 gap-y-4 border-t border-[#DCE6E7] pt-6 w-full">
+              <dl className="mt-8 flex flex-wrap justify-center gap-x-12 gap-y-4 border-t border-[#DCE6E7] pt-8 w-full">
                 {data.stats.map((s) => (
-                  <div key={s.label} className="flex flex-col">
+                  <div key={s.label} className="flex flex-col items-center">
                     <dt className="text-[#18B8AD] text-3xl font-bold sm:text-4xl">
                       {s.value}
                     </dt>
@@ -139,53 +132,6 @@ export function HeroStratus({ data }: { data: HeroData }) {
               </dl>
             </Reveal>
           )}
-        </div>
-
-        {/* Right Column: Premium Vector Illustration Container */}
-        <div className="relative flex justify-center items-center">
-          <motion.div 
-            {...float(0)}
-            className="relative w-full max-w-lg aspect-square"
-          >
-            {/* Visual background blob curves */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-[#EEF4F3] to-[#FFFFFF] rounded-[3rem] -z-10 blur-xl opacity-80" />
-            
-            {/* Organic foliage background elements */}
-            <div className="absolute -bottom-4 -left-4 w-28 h-28 bg-[radial-gradient(circle_at_bottom_left,rgba(24,184,173,0.1),transparent_70%)] rounded-full -z-10" />
-            <div className="absolute -bottom-4 -right-4 w-36 h-36 bg-[radial-gradient(circle_at_bottom_right,rgba(124,227,218,0.1),transparent_70%)] rounded-full -z-10" />
-
-            <div className="w-full h-full relative p-4 flex items-center justify-center">
-              {/* Premium image container */}
-              <div className="relative w-[92%] h-[92%] rounded-3xl overflow-hidden shadow-2xl border border-white/60 bg-white/40 backdrop-blur-md hover-lift transition-transform">
-                <Image
-                  src="/brand/data-analytics.png"
-                  alt="Data Analytics Workspace"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 500px"
-                  priority
-                  className="object-cover"
-                />
-              </div>
-
-              {/* Decorative floating badge 1 */}
-              <motion.div
-                {...float(1.5)}
-                className="absolute top-[12%] -left-[4%] bg-white/95 backdrop-blur-md border border-[#DCE6E7] px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2"
-              >
-                <span className="flex h-2.5 w-2.5 rounded-full bg-[#18B8AD] animate-pulse" />
-                <span className="text-xs font-bold text-[#071820]">Operational Insights</span>
-              </motion.div>
-
-              {/* Decorative floating badge 2 */}
-              <motion.div
-                {...float(2.8)}
-                className="absolute bottom-[20%] -right-[6%] bg-white/95 backdrop-blur-md border border-[#DCE6E7] px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2"
-              >
-                <span className="flex h-2.5 w-2.5 rounded-full bg-[#18B8AD]" />
-                <span className="text-xs font-bold text-[#071820]">100% Automated</span>
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>
