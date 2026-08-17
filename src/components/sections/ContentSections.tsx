@@ -97,11 +97,11 @@ export async function ProcessSection({ data }: { data: { heading?: string; subti
     : (data.items ?? []);
 
   return (
-    <Section className="relative overflow-hidden">
+    <Section className="relative overflow-hidden bg-white">
       <SectionHeader title={data.heading ?? ""} subtitle={data.subtitle} eyebrow="How We Work" eyebrowIcon="workflow" />
       <div className="relative mt-20">
         {/* Desktop connection lines */}
-        <div className="absolute left-[10%] right-[10%] top-7 hidden h-0.5 bg-gradient-to-r from-blue-500/10 via-blue-500/40 to-blue-500/10 lg:block -z-10" />
+        <div className="absolute left-[10%] right-[10%] top-7 hidden h-0.5 bg-gradient-to-r from-[#18B8AD]/10 via-[#18B8AD]/30 to-[#18B8AD]/10 lg:block -z-10" />
         <RevealGroup
           className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5"
           stagger={0.12}
@@ -109,13 +109,13 @@ export async function ProcessSection({ data }: { data: { heading?: string; subti
           {items.map((s) => (
             <RevealItem key={s.step} className="group">
               <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-blue-600 via-blue-600 to-indigo-600 text-lg font-bold text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF4F3] border border-[#DCE6E7] text-lg font-bold text-[#18B8AD] shadow-sm group-hover:scale-110 group-hover:bg-[#18B8AD] group-hover:text-white group-hover:border-transparent transition-all duration-350">
                   {String(s.step).padStart(2, "0")}
                 </div>
-                <h3 className="mt-5 text-lg font-bold tracking-tight text-[var(--fg)] group-hover:text-primary-600 transition-colors">
+                <h3 className="mt-5 text-lg font-bold tracking-tight text-[#071820] group-hover:text-[#18B8AD] transition-colors">
                   {s.title}
                 </h3>
-                {s.description && <p className="mt-2.5 text-sm leading-relaxed text-[var(--muted)]">{s.description}</p>}
+                {s.description && <p className="mt-2.5 text-sm leading-relaxed text-[#68787D]">{s.description}</p>}
               </div>
             </RevealItem>
           ))}
@@ -136,23 +136,23 @@ export async function IndustriesSection({ data }: { data: { heading?: string; su
     : (data.items ?? []);
 
   return (
-    <Section className="bg-[var(--surface-2)] relative overflow-hidden">
-      <div className="absolute top-[10%] right-[-10%] w-[350px] aspect-square rounded-full bg-cyan-500/5 blur-3xl pointer-events-none -z-10" />
+    <Section className="bg-[#F7F9F8] relative overflow-hidden">
+      <div className="absolute top-[10%] right-[10%] w-[350px] aspect-square rounded-full bg-[#18B8AD]/5 blur-3xl pointer-events-none -z-10" />
       <SectionHeader title={data.heading ?? ""} subtitle={data.subtitle} eyebrow="Industries" eyebrowIcon="building" />
       <RevealGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" stagger={0.06}>
         {items.map((ind) => (
           <RevealItem key={ind.name}>
-            <div className="group flex h-full flex-col justify-between rounded-2xl border border-[var(--border-color)] bg-[var(--surface)] p-6 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-primary-500/40 transition-all duration-300">
+            <div className="group flex h-full flex-col justify-between rounded-2xl border border-[#DCE6E7] bg-white p-6 shadow-sm hover:-translate-y-1.5 hover:shadow-md hover:border-[#18B8AD]/40 transition-all duration-300">
               <div>
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-md shadow-cyan-500/10 group-hover:scale-110 transition-transform">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#EEF4F3] border border-[#DCE6E7] text-[#18B8AD] shadow-sm group-hover:scale-110 transition-transform">
                   <Icon name={ind.icon} className="h-5 w-5" />
                 </span>
-                <h3 className="text-base font-bold text-[var(--fg)] mt-4 group-hover:text-primary-600 transition-colors">
+                <h3 className="text-base font-bold text-[#071820] mt-4 group-hover:text-[#18B8AD] transition-colors">
                   {ind.name}
                 </h3>
-                {ind.description && <p className="text-xs leading-relaxed text-[var(--muted)] mt-2">{ind.description}</p>}
+                {ind.description && <p className="text-xs leading-relaxed text-[#68787D] mt-2">{ind.description}</p>}
               </div>
-              <div className="mt-4 flex items-center text-[10px] font-bold text-primary-600 tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="mt-4 flex items-center text-[10px] font-bold text-[#18B8AD] tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
                 Explore <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
               </div>
             </div>
@@ -285,24 +285,24 @@ export function PromoSection({ data }: { data: { heading?: string; description?:
 
 export function CtaSection({ data }: { data: { heading?: string; description?: string; primaryLabel?: string; primaryHref?: string; secondaryLabel?: string; secondaryHref?: string } }) {
   return (
-    <Section>
+    <Section className="bg-white">
       <Reveal>
-        <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-br from-blue-800 via-indigo-900 to-slate-950 px-6 py-16 text-center text-white sm:px-12 sm:py-20 shadow-2xl">
-          <div className="absolute inset-0 -z-0 opacity-20 mesh-grid" />
-          <div className="absolute -top-[30%] -left-[20%] w-[50%] aspect-square rounded-full bg-blue-500/20 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-[30%] -right-[20%] w-[50%] aspect-square rounded-full bg-purple-500/15 blur-3xl pointer-events-none" />
+        <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-br from-[#DDF7F4] to-[#A7E9E3] px-6 py-16 text-center text-[#071820] sm:px-12 sm:py-20 shadow-sm border border-[#DCE6E7]">
+          <div className="absolute inset-0 -z-0 opacity-10 mesh-grid" />
+          <div className="absolute -top-[30%] -left-[20%] w-[50%] aspect-square rounded-full bg-white/20 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-[30%] -right-[20%] w-[50%] aspect-square rounded-full bg-white/15 blur-3xl pointer-events-none" />
           
           <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-6">
-            <h2 className="text-3xl font-extrabold sm:text-4xl lg:text-[46px] leading-[1.1] tracking-tight">{data.heading}</h2>
-            {data.description && <p className="text-base leading-relaxed text-slate-200/90 sm:text-lg">{data.description}</p>}
+            <h2 className="text-3xl font-bold sm:text-4xl lg:text-[46px] leading-[1.1] tracking-tight text-[#071820] font-display">{data.heading}</h2>
+            {data.description && <p className="text-base leading-relaxed text-[#68787D] sm:text-lg">{data.description}</p>}
             <div className="flex flex-wrap justify-center gap-4 mt-2">
               {data.primaryLabel && (
-                <Button href={data.primaryHref ?? "/contact"} size="lg" variant="white" icon="arrow-right" iconRight className="font-bold">
+                <Button href={data.primaryHref ?? "/contact"} size="lg" variant="primary" icon="arrow-right" iconRight className="font-bold bg-[#071820] text-white hover:bg-[#18B8AD]">
                   {data.primaryLabel}
                 </Button>
               )}
               {data.secondaryLabel && (
-                <Button href={data.secondaryHref ?? "/contact"} size="lg" variant="glass" className="text-white border border-white/20 font-bold hover:bg-white/10">
+                <Button href={data.secondaryHref ?? "/contact"} size="lg" variant="secondary" className="bg-transparent border border-[#071820]/30 text-[#071820] hover:bg-white/40 font-bold">
                   {data.secondaryLabel}
                 </Button>
               )}
@@ -338,21 +338,21 @@ export async function WhatWeDoSection({ data }: { data: { heading?: string; titl
   }).catch(() => []);
 
   return (
-    <Section className="bg-slate-950 text-white relative overflow-hidden py-20">
-      <div className="absolute top-0 right-0 w-[400px] aspect-square rounded-full bg-teal-500/10 blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-0 left-0 w-[350px] aspect-square rounded-full bg-blue-500/5 blur-3xl pointer-events-none -z-10" />
+    <Section className="bg-[#071820] text-white relative overflow-hidden py-20">
+      <div className="absolute top-0 right-0 w-[400px] aspect-square rounded-full bg-[#18B8AD]/5 blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-0 left-0 w-[350px] aspect-square rounded-full bg-[#7CE3DA]/5 blur-3xl pointer-events-none -z-10" />
       
       <div className="max-w-3xl mb-16">
         <Reveal>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-400 mb-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#18B8AD]/10 border border-[#18B8AD]/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#18B8AD] mb-4">
             <Icon name="layers" className="w-3.5 h-3.5" />
             {data.heading ?? "WHAT WE DO"}
           </span>
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-white">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white font-display">
             {data.title ?? "Solutions that create measurable impact"}
           </h2>
           {data.subtitle && (
-            <p className="mt-4 text-base sm:text-lg text-slate-450 leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-[#9DB1B6] leading-relaxed">
               {data.subtitle}
             </p>
           )}
@@ -364,24 +364,24 @@ export async function WhatWeDoSection({ data }: { data: { heading?: string; titl
           const features: string[] = JSON.parse(item.features || "[]");
           return (
             <RevealItem key={item.id}>
-              <div className="group h-full flex flex-col justify-between rounded-3xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/70 p-6.5 transition-all duration-300 hover:border-teal-500/30">
+              <div className="group h-full flex flex-col justify-between rounded-3xl border border-[rgba(124,227,218,0.15)] bg-[#0D252C] hover:bg-[#0D252C]/90 p-6.5 transition-all duration-300 hover:border-[#18B8AD]/50 hover:shadow-[0_0_15px_rgba(24,184,173,0.08)]">
                 <div>
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-400 group-hover:scale-110 transition-transform">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#18B8AD]/10 border border-[#18B8AD]/20 text-[#18B8AD] group-hover:scale-110 transition-transform">
                     <Icon name={item.icon ?? "layers"} className="h-6 w-6" />
                   </span>
-                  <h3 className="text-lg font-bold text-white mt-6 group-hover:text-teal-400 transition-colors">
+                  <h3 className="text-lg font-bold text-white mt-6 group-hover:text-[#18B8AD] transition-colors">
                     {item.name}
                   </h3>
-                  <p className="text-xs leading-relaxed text-slate-450 mt-3 line-clamp-3">
+                  <p className="text-xs leading-relaxed text-[#9DB1B6] mt-3 line-clamp-3">
                     {item.shortDescription}
                   </p>
                 </div>
                 {features.length > 0 && (
-                  <div className="mt-6 pt-5 border-t border-slate-800/80">
+                  <div className="mt-6 pt-5 border-t border-[rgba(124,227,218,0.1)]">
                     <ul className="space-y-2">
                       {features.slice(0, 3).map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-xs text-slate-400">
-                          <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-teal-500" />
+                        <li key={f} className="flex items-center gap-2 text-xs text-[#9DB1B6]">
+                          <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-[#18B8AD]" />
                           <span>{f}</span>
                         </li>
                       ))}
@@ -399,20 +399,20 @@ export async function WhatWeDoSection({ data }: { data: { heading?: string; titl
 
 export function PositioningSection({ data }: { data: { heading?: string; title?: string; description?: string; darkPanelTitle?: string; darkPanelText?: string; lightPanelTitle?: string; lightPanelText?: string } }) {
   return (
-    <Section className="relative overflow-hidden">
-      <div className="absolute top-[30%] left-[-5%] w-[350px] aspect-square rounded-full bg-blue-500/5 blur-3xl pointer-events-none -z-10" />
+    <Section className="relative overflow-hidden bg-white">
+      <div className="absolute top-[30%] left-[-5%] w-[350px] aspect-square rounded-full bg-[#18B8AD]/5 blur-3xl pointer-events-none -z-10" />
       
       <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-16 items-start mb-16">
         <Reveal>
-          <div className="relative pl-6 border-l-4 border-primary-500">
-            <span className="text-xs font-bold text-primary-600 uppercase tracking-widest block mb-2">{data.heading ?? "WHO WE ARE"}</span>
-            <h2 className="text-3xl font-extrabold sm:text-4xl lg:text-[40px] leading-tight text-[var(--fg)]">
+          <div className="relative pl-6 border-l-4 border-[#18B8AD]">
+            <span className="text-xs font-bold text-[#18B8AD] uppercase tracking-widest block mb-2">{data.heading ?? "WHO WE ARE"}</span>
+            <h2 className="text-3xl font-bold sm:text-4xl lg:text-[40px] leading-tight text-[#071820] font-display">
               {data.title}
             </h2>
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="text-base leading-relaxed text-[var(--muted)] sm:text-lg">
+          <p className="text-base leading-relaxed text-[#68787D] sm:text-lg">
             {data.description}
           </p>
         </Reveal>
@@ -420,30 +420,30 @@ export function PositioningSection({ data }: { data: { heading?: string; title?:
 
       <RevealGroup className="grid gap-8 md:grid-cols-2">
         <RevealItem>
-          <div className="group h-full rounded-[32px] bg-slate-950 border border-slate-900 p-8 sm:p-10 shadow-2xl relative overflow-hidden hover-lift transition-all duration-300">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-teal-500/5 to-transparent rounded-bl-3xl pointer-events-none" />
-            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-400 mb-6">
+          <div className="group h-full rounded-[32px] bg-[#071820] border border-[rgba(124,227,218,0.15)] p-8 sm:p-10 shadow-2xl relative overflow-hidden hover-lift transition-all duration-300">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#18B8AD]/5 to-transparent rounded-bl-3xl pointer-events-none" />
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#18B8AD]/10 border border-[#18B8AD]/20 text-[#18B8AD] mb-6">
               <Icon name="activity" className="h-6 w-6" />
             </span>
             <h3 className="text-2xl font-bold text-white tracking-tight">
               {data.darkPanelTitle ?? "From better reports to better decisions."}
             </h3>
-            <p className="mt-4 text-slate-400 text-sm leading-relaxed">
+            <p className="mt-4 text-[#9DB1B6] text-sm leading-relaxed">
               {data.darkPanelText}
             </p>
           </div>
         </RevealItem>
 
         <RevealItem>
-          <div className="group h-full rounded-[32px] bg-slate-50 border border-slate-200/80 p-8 sm:p-10 shadow-sm relative overflow-hidden hover-lift transition-all duration-300 dark:bg-slate-900/20 dark:border-slate-800">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/5 to-transparent rounded-bl-3xl pointer-events-none" />
-            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-blue-600 border border-blue-100/50 mb-6 dark:bg-slate-800 dark:text-blue-400 dark:border-slate-700">
+          <div className="group h-full rounded-[32px] bg-[#F7F9F8] border border-[#DCE6E7] p-8 sm:p-10 shadow-sm relative overflow-hidden hover-lift transition-all duration-300">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#18B8AD]/5 to-transparent rounded-bl-3xl pointer-events-none" />
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#EEF4F3] border border-[#DCE6E7] text-[#18B8AD] mb-6">
               <Icon name="trending-up" className="h-6 w-6" />
             </span>
-            <h3 className="text-2xl font-bold text-slate-900 tracking-tight dark:text-white">
+            <h3 className="text-2xl font-bold text-[#071820] tracking-tight font-display">
               {data.lightPanelTitle ?? "Designed for sustainable growth."}
             </h3>
-            <p className="mt-4 text-slate-600 text-sm leading-relaxed dark:text-slate-400">
+            <p className="mt-4 text-[#68787D] text-sm leading-relaxed">
               {data.lightPanelText}
             </p>
           </div>

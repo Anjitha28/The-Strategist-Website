@@ -78,40 +78,40 @@ export default async function CourseDetailPage({ params }: Props) {
             <Reveal>
               <div className="flex flex-col gap-6">
                 {course.category && (
-                  <span className="w-fit rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-700">
+                  <span className="w-fit rounded-full bg-[#EEF4F3] border border-[#DCE6E7] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#18B8AD]">
                     {course.category.name}
                   </span>
                 )}
-                <h1 className="text-4xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl">{course.title}</h1>
-                <p className="text-lg leading-relaxed text-[var(--muted)]">{course.shortDescription}</p>
+                <h1 className="text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl text-[#071820] font-display">{course.title}</h1>
+                <p className="text-lg leading-relaxed text-[#68787D]">{course.shortDescription}</p>
                 
                 {/* Meta details */}
-                <div className="grid grid-cols-2 gap-4 border-t border-[var(--border-color)]/60 pt-6 mt-2 max-w-md">
-                  <div className="flex items-center gap-2.5 text-sm text-[var(--fg)] font-medium">
-                    <Clock className="h-5 w-5 text-primary-600 shrink-0" />
+                <div className="grid grid-cols-2 gap-4 border-t border-[#DCE6E7]/60 pt-6 mt-2 max-w-md">
+                  <div className="flex items-center gap-2.5 text-sm text-[#071820] font-medium">
+                    <Clock className="h-5 w-5 text-[#18B8AD] shrink-0" />
                     <div>
-                      <p className="text-xs text-[var(--muted)]">Duration</p>
+                      <p className="text-xs text-[#68787D]">Duration</p>
                       <p className="text-slate-900 font-semibold">{course.duration || "Self-Paced"}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2.5 text-sm text-[var(--fg)] font-medium">
-                    <BookOpen className="h-5 w-5 text-primary-600 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-sm text-[#071820] font-medium">
+                    <BookOpen className="h-5 w-5 text-[#18B8AD] shrink-0" />
                     <div>
-                      <p className="text-xs text-[var(--muted)]">Curriculum</p>
+                      <p className="text-xs text-[#68787D]">Curriculum</p>
                       <p className="text-slate-900 font-semibold">{course.modulesCount || curriculum.length} Modules</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2.5 text-sm text-[var(--fg)] font-medium">
-                    <Award className="h-5 w-5 text-primary-600 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-sm text-[#071820] font-medium">
+                    <Award className="h-5 w-5 text-[#18B8AD] shrink-0" />
                     <div>
-                      <p className="text-xs text-[var(--muted)]">Certification</p>
+                      <p className="text-xs text-[#68787D]">Certification</p>
                       <p className="text-slate-900 font-semibold">{course.certificate ? "Certificate Included" : "Certificate Optional"}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2.5 text-sm text-[var(--fg)] font-medium">
-                    <Languages className="h-5 w-5 text-primary-600 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-sm text-[#071820] font-medium">
+                    <Languages className="h-5 w-5 text-[#18B8AD] shrink-0" />
                     <div>
-                      <p className="text-xs text-[var(--muted)]">Language</p>
+                      <p className="text-xs text-[#68787D]">Language</p>
                       <p className="text-slate-900 font-semibold">{course.language || "English"}</p>
                     </div>
                   </div>
@@ -119,8 +119,8 @@ export default async function CourseDetailPage({ params }: Props) {
               </div>
             </Reveal>
             <Reveal delay={0.15}>
-              <div className="flex aspect-[16/10] items-center justify-center rounded-3xl bg-gradient-to-br from-blue-600 via-indigo-600 to-indigo-700 shadow-2xl text-white">
-                <Icon name={course.category?.icon ?? "graduation-cap"} className="h-28 w-28 text-white/95" />
+              <div className="flex aspect-[16/10] items-center justify-center rounded-3xl bg-[#EEF4F3] border border-[#DCE6E7] shadow-md text-[#18B8AD]">
+                <Icon name={course.category?.icon ?? "graduation-cap"} className="h-28 w-28 text-[#18B8AD]/95" />
               </div>
             </Reveal>
           </div>
@@ -145,12 +145,12 @@ export default async function CourseDetailPage({ params }: Props) {
             {/* Learning Outcomes */}
             {objectives.length > 0 && (
               <div className="border-t border-[var(--border-color)]/60 pt-8">
-                <h3 className="text-xl font-bold tracking-tight text-[var(--fg)]">What You'll Learn</h3>
+                <h3 className="text-xl font-bold tracking-tight text-[var(--fg)] font-display">What You'll Learn</h3>
                 <RevealGroup className="mt-4 grid gap-4 sm:grid-cols-2" stagger={0.05}>
                   {objectives.map((obj, i) => (
                     <RevealItem key={i}>
                       <div className="flex items-start gap-3 rounded-2xl border border-[var(--border-color)] bg-[var(--surface)] px-5 py-4 shadow-sm h-full">
-                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary-600" />
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#18B8AD]" />
                         <span className="text-sm font-medium text-[var(--fg)] leading-snug">{obj}</span>
                       </div>
                     </RevealItem>
@@ -164,11 +164,11 @@ export default async function CourseDetailPage({ params }: Props) {
               <div className="grid gap-6 sm:grid-cols-2 border-t border-[var(--border-color)]/60 pt-8">
                 {audience.length > 0 && (
                   <div>
-                    <h3 className="text-lg font-bold text-[var(--fg)]">Who This Is For</h3>
+                    <h3 className="text-lg font-bold text-[var(--fg)] font-display">Who This Is For</h3>
                     <ul className="mt-4 space-y-3">
                       {audience.map((aud, i) => (
                         <li key={i} className="flex items-start gap-3 text-sm text-[var(--muted)]">
-                          <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary-600" />
+                          <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#18B8AD]" />
                           <span>{aud}</span>
                         </li>
                       ))}
@@ -177,7 +177,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 )}
                 {prerequisites.length > 0 && (
                   <div>
-                    <h3 className="text-lg font-bold text-[var(--fg)]">Prerequisites</h3>
+                    <h3 className="text-lg font-bold text-[var(--fg)] font-display">Prerequisites</h3>
                     <ul className="mt-4 space-y-3">
                       {prerequisites.map((pre, i) => (
                         <li key={i} className="flex items-start gap-3 text-sm text-[var(--muted)]">
@@ -194,17 +194,17 @@ export default async function CourseDetailPage({ params }: Props) {
             {/* Curriculum */}
             {curriculum.length > 0 && (
               <div className="border-t border-[var(--border-color)]/60 pt-8">
-                <h3 className="text-xl font-bold tracking-tight text-[var(--fg)] mb-6">Program Curriculum</h3>
+                <h3 className="text-xl font-bold tracking-tight text-[var(--fg)] mb-6 font-display">Program Curriculum</h3>
                 <div className="flex flex-col gap-4">
                   {curriculum.map((module, i) => (
                     <Card key={i} className="p-6">
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <span className="text-xs font-bold text-primary-600 uppercase tracking-wide">Module {i + 1}</span>
-                          <h4 className="text-lg font-bold text-[var(--fg)] mt-1">{module.title}</h4>
+                          <span className="text-xs font-bold text-[#18B8AD] uppercase tracking-wide">Module {i + 1}</span>
+                          <h4 className="text-lg font-bold text-[var(--fg)] mt-1 font-display">{module.title}</h4>
                         </div>
                         {module.lessons && (
-                          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                          <span className="rounded-full bg-[#EEF4F3] border border-[#DCE6E7] px-3 py-1 text-xs font-semibold text-[#68787D]">
                             {module.lessons.length} topics
                           </span>
                         )}

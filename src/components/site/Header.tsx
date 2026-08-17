@@ -74,14 +74,14 @@ export function Header({ items, settings }: { items: NavItem[]; settings: Header
                     href={item.url}
                     className={cn(
                       "group relative flex items-center gap-1 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors duration-300",
-                      isActive(item.url) ? "text-primary-700 dark:text-primary-300" : "text-[var(--fg)] hover:text-primary-600",
+                      isActive(item.url) ? "text-[#18B8AD]" : "text-[#56666B] hover:text-[#18B8AD]",
                     )}
                   >
                     {item.label}
                     {hasMega && <ChevronDown className="h-3.5 w-3.5 opacity-60 group-hover:rotate-180 transition-transform duration-350" />}
                     <span
                       className={cn(
-                        "absolute inset-x-4 bottom-0 h-0.5 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-transform duration-300",
+                        "absolute inset-x-4 bottom-0 h-0.5 rounded-full bg-[#18B8AD] transition-transform duration-300",
                         isActive(item.url) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
                       )}
                     />
@@ -96,18 +96,18 @@ export function Header({ items, settings }: { items: NavItem[]; settings: Header
                         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                         className="absolute left-1/2 top-full z-50 w-[580px] -translate-x-1/2 pt-3"
                       >
-                        <div className="glass border border-[var(--border-color)]/60 grid grid-cols-2 gap-2 rounded-[28px] p-4 shadow-2xl">
+                        <div className="glass border border-[#DCE6E7] grid grid-cols-2 gap-2 rounded-[28px] p-4 shadow-2xl">
                           {item.children.map((child) => (
                             <Link
                               key={child.id}
                               href={child.url}
                               className="group flex items-start gap-3.5 rounded-2xl p-3.5 transition-all duration-300 hover:bg-[var(--surface-2)]/90 hover:scale-[1.02]"
                             >
-                              <span className="mt-0.5 grid h-9.5 w-9.5 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-sm">
+                              <span className="mt-0.5 grid h-9.5 w-9.5 shrink-0 place-items-center rounded-xl bg-gradient-to-tr from-[#071820] to-[#18B8AD] text-white shadow-sm">
                                 <Icon name={child.icon ?? "sparkles"} className="h-4.5 w-4.5" />
                               </span>
                               <span className="flex flex-col">
-                                <span className="text-sm font-bold text-[var(--fg)] group-hover:text-primary-600 transition-colors">{child.label}</span>
+                                <span className="text-sm font-bold text-[#071820] group-hover:text-[#18B8AD] transition-colors">{child.label}</span>
                                 {child.description && (
                                   <span className="mt-1 text-xs leading-snug text-[var(--muted)]">{child.description}</span>
                                 )}
@@ -127,8 +127,8 @@ export function Header({ items, settings }: { items: NavItem[]; settings: Header
           <div className="flex items-center gap-2">
             <SearchOverlay />
             <ThemeToggle className="hidden sm:grid" />
-            <Button href="/contact" size="sm" className="hidden md:inline-flex font-bold">
-              Get Started
+            <Button href="/contact" size="sm" className="hidden md:inline-flex font-bold bg-[#071820] text-white hover:bg-[#18B8AD] border-0 transition-colors duration-300">
+              Let's Talk &rarr;
             </Button>
             <button
               className="grid h-10 w-10 place-items-center rounded-full glass text-[var(--fg)] lg:hidden"
@@ -181,11 +181,11 @@ export function Header({ items, settings }: { items: NavItem[]; settings: Header
                     >
                       {item.label}
                     </Link>
-                    {item.children.length > 0 && (
+                     {item.children.length > 0 && (
                       <div className="ml-3 flex flex-col gap-0.5 pb-2">
                         {item.children.map((c) => (
                           <Link key={c.id} href={c.url} className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-[var(--muted)]">
-                            <Icon name={c.icon ?? "sparkles"} className="h-4 w-4 text-primary-500" />
+                            <Icon name={c.icon ?? "sparkles"} className="h-4 w-4 text-[#18B8AD]" />
                             {c.label}
                           </Link>
                         ))}
@@ -195,7 +195,7 @@ export function Header({ items, settings }: { items: NavItem[]; settings: Header
                 ))}
               </nav>
               <div className="mt-6 flex items-center gap-3">
-                <Button href="/contact" className="flex-1">Get Started</Button>
+                <Button href="/contact" className="flex-1 bg-[#071820] text-white hover:bg-[#18B8AD]">Let's Talk &rarr;</Button>
                 <ThemeToggle />
               </div>
             </motion.div>

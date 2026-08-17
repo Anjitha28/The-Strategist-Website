@@ -10,14 +10,14 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "text-white shadow-[0_6px_20px_rgba(37,99,235,0.2)] dark:shadow-[0_6px_20px_rgba(0,0,0,0.3)] bg-gradient-to-r from-blue-600 to-indigo-600 hover:brightness-110 hover:shadow-[0_10px_25px_rgba(37,99,235,0.3)] hover:-translate-y-0.5",
+    "text-white bg-[#071820] hover:bg-[#18B8AD] shadow-sm hover:-translate-y-0.5 transition-all duration-300",
   secondary:
-    "bg-[var(--surface)] text-[var(--fg)] border border-[var(--border-color)] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-primary-400 hover:bg-[var(--surface-2)] hover:-translate-y-0.5",
+    "bg-[var(--surface)] text-[#071820] border border-[#DCE6E7] shadow-sm hover:border-[#18B8AD] hover:bg-[#F7F9F8] hover:-translate-y-0.5 transition-all duration-300",
   outline:
-    "border-2 border-primary-500/80 text-primary-600 hover:bg-primary-500 hover:text-white hover:-translate-y-0.5 dark:text-primary-400 dark:border-primary-500 dark:hover:bg-primary-500/20",
-  ghost: "text-[var(--fg)] hover:bg-[var(--surface-2)] hover:text-primary-600",
+    "border border-[#18B8AD] text-[#18B8AD] hover:bg-[#18B8AD] hover:text-white hover:-translate-y-0.5 transition-all duration-300",
+  ghost: "text-[var(--fg)] hover:bg-[var(--surface-2)] hover:text-[#18B8AD]",
   glass: "glass text-[var(--fg)] hover:-translate-y-0.5 hover:bg-white/10",
-  white: "bg-white text-blue-700 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)]",
+  white: "bg-white text-[#071820] border border-[#DCE6E7] shadow-sm hover:-translate-y-0.5 hover:bg-[#F7F9F8] transition-all duration-300",
 };
 
 const sizes: Record<Size, string> = {

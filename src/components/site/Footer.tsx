@@ -25,13 +25,13 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-24 border-t border-[var(--border-color)]/80 bg-[var(--surface)] transition-colors duration-500 rounded-t-[32px] shadow-[0_-8px_30px_rgb(0,0,0,0.01)] dark:shadow-[0_-8px_30px_rgb(0,0,0,0.15)]">
+    <footer className="relative mt-24 border-t border-[rgba(124,227,218,0.15)] bg-[#071820] text-[#91A4A9] rounded-t-[32px] shadow-lg">
       <div className="container-page py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr_1.4fr]">
           {/* Brand */}
           <div className="flex flex-col gap-6">
-            <Image src={settings.logoUrl} alt={settings.siteName} width={180} height={48} className="h-9 w-auto" />
-            <p className="max-w-sm text-sm leading-relaxed text-[var(--muted)]">{settings.companyDescription}</p>
+            <Image src={settings.logoUrl} alt={settings.siteName} width={180} height={48} className="h-9 w-auto brightness-110" />
+            <p className="max-w-sm text-sm leading-relaxed text-[#91A4A9]/90">{settings.companyDescription}</p>
             <div className="flex gap-2.5">
               {SOCIALS.map((s) => {
                 const url = settings.social[s.key];
@@ -43,7 +43,7 @@ export async function Footer() {
                     aria-label={s.label}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="grid h-10 w-10 place-items-center rounded-full bg-[var(--surface-2)] text-[var(--muted)] transition-all duration-300 hover:bg-gradient-to-tr hover:from-blue-600 hover:to-indigo-600 hover:text-white hover:scale-110 active:scale-95 shadow-sm"
+                    className="grid h-10 w-10 place-items-center rounded-full bg-[#0D252C] border border-[#18B8AD]/10 text-[#91A4A9] transition-all duration-300 hover:bg-[#18B8AD] hover:text-white hover:scale-110 active:scale-95 shadow-sm"
                   >
                     <Icon name={s.icon} className="h-4 w-4" />
                   </a>
@@ -56,11 +56,11 @@ export async function Footer() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {Array.from(columns.entries()).map(([col, links]) => (
               <div key={col} className="flex flex-col gap-4">
-                <h3 className="text-sm font-bold text-[var(--fg)] uppercase tracking-wider">{col}</h3>
-                <ul className="flex flex-col gap-2.5 border-t border-[var(--border-color)]/50 pt-3">
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider">{col}</h3>
+                <ul className="flex flex-col gap-2.5 border-t border-[rgba(124,227,218,0.1)] pt-3">
                   {links.map((l) => (
                     <li key={l.label + l.url}>
-                      <Link href={l.url} className="text-sm text-[var(--muted)] transition-all duration-300 hover:text-primary-600 hover:translate-x-1 inline-block">
+                      <Link href={l.url} className="text-sm text-[#91A4A9] transition-all duration-300 hover:text-[#18B8AD] hover:translate-x-1 inline-block">
                         {l.label}
                       </Link>
                     </li>
@@ -72,37 +72,37 @@ export async function Footer() {
 
           {/* Newsletter + contact */}
           <div className="flex flex-col gap-5">
-            <h3 className="text-sm font-bold text-[var(--fg)] uppercase tracking-wider">Stay Updated</h3>
-            <p className="text-sm text-[var(--muted)] leading-relaxed border-t border-[var(--border-color)]/50 pt-3">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider">Stay Updated</h3>
+            <p className="text-sm text-[#91A4A9] leading-relaxed border-t border-[rgba(124,227,218,0.1)] pt-3">
               Subscribe to receive industry insights, product updates, technology trends, and learning opportunities.
             </p>
             <NewsletterForm />
-            <div className="flex flex-col gap-3 pt-2 text-sm text-[var(--muted)]">
+            <div className="flex flex-col gap-3 pt-2 text-sm text-[#91A4A9]">
               {settings.businessEmail && (
-                <a href={`mailto:${settings.businessEmail}`} className="flex items-center gap-2.5 hover:text-primary-600 transition-colors">
-                  <Icon name="mail" className="h-4 w-4 text-blue-500" /> {settings.businessEmail}
+                <a href={`mailto:${settings.businessEmail}`} className="flex items-center gap-2.5 hover:text-[#18B8AD] transition-colors">
+                  <Icon name="mail" className="h-4 w-4 text-[#18B8AD]" /> {settings.businessEmail}
                 </a>
               )}
               {settings.phone && (
-                <a href={`tel:${settings.phone}`} className="flex items-center gap-2.5 hover:text-primary-600 transition-colors">
-                  <Icon name="phone" className="h-4 w-4 text-blue-500" /> {settings.phone}
+                <a href={`tel:${settings.phone}`} className="flex items-center gap-2.5 hover:text-[#18B8AD] transition-colors">
+                  <Icon name="phone" className="h-4 w-4 text-[#18B8AD]" /> {settings.phone}
                 </a>
               )}
               {settings.address && (
                 <span className="flex items-start gap-2.5">
-                  <Icon name="map-pin" className="mt-0.5 h-4 w-4 text-blue-500 shrink-0" /> <span className="leading-snug">{settings.address}</span>
+                  <Icon name="map-pin" className="mt-0.5 h-4 w-4 text-[#18B8AD] shrink-0" /> <span className="leading-snug">{settings.address}</span>
                 </span>
               )}
             </div>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[var(--border-color)]/60 pt-6 sm:flex-row">
-          <p className="text-sm text-[var(--muted)] font-medium">© {year} {settings.siteName}. All Rights Reserved.</p>
-          <div className="flex gap-6 text-sm text-[var(--muted)] font-medium">
-            <Link href="/privacy-policy" className="hover:text-primary-600 transition-colors">Privacy Policy</Link>
-            <Link href="/terms-conditions" className="hover:text-primary-600 transition-colors">Terms &amp; Conditions</Link>
-            <Link href="/cookie-policy" className="hover:text-primary-600 transition-colors">Cookie Policy</Link>
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[rgba(124,227,218,0.1)] pt-6 sm:flex-row">
+          <p className="text-sm text-[#91A4A9] font-medium">© {year} {settings.siteName}. All Rights Reserved.</p>
+          <div className="flex gap-6 text-sm text-[#91A4A9] font-medium">
+            <Link href="/privacy-policy" className="hover:text-[#18B8AD] transition-colors">Privacy Policy</Link>
+            <Link href="/terms-conditions" className="hover:text-[#18B8AD] transition-colors">Terms &amp; Conditions</Link>
+            <Link href="/cookie-policy" className="hover:text-[#18B8AD] transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>

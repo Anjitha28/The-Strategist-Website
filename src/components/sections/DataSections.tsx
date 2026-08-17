@@ -105,11 +105,11 @@ async function InsightsSectionInner({ data }: { data: { heading?: string; subtit
   if (posts.length === 0) return null;
 
   return (
-    <Section className="relative overflow-hidden">
-      <div className="absolute top-[20%] left-[-10%] w-[350px] aspect-square rounded-full bg-indigo-500/5 blur-3xl pointer-events-none -z-10" />
+    <Section className="relative overflow-hidden bg-white">
+      <div className="absolute top-[20%] left-[-10%] w-[350px] aspect-square rounded-full bg-[#18B8AD]/5 blur-3xl pointer-events-none -z-10" />
       <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
         <SectionHeader title={data.heading ?? "Latest Articles & Industry Insights"} subtitle={data.subtitle} align="left" eyebrow="Insights" eyebrowIcon="newspaper" />
-        <Button href={data.ctaHref ?? "/blog"} variant="secondary" icon="arrow-right" iconRight className="shrink-0 font-bold border border-slate-200">
+        <Button href={data.ctaHref ?? "/blog"} variant="secondary" icon="arrow-right" iconRight className="shrink-0 font-bold border border-[#DCE6E7] text-[#071820]">
           {data.ctaLabel ?? "Read Our Blog"}
         </Button>
       </div>
@@ -117,17 +117,17 @@ async function InsightsSectionInner({ data }: { data: { heading?: string; subtit
         {posts.map((p) => (
           <RevealItem key={p.id}>
             <Link href={`/blog/${p.slug}`} className="group block h-full">
-              <Card className="flex h-full flex-col justify-between group-hover:border-primary-500/40 relative overflow-hidden" hover>
+              <Card className="flex h-full flex-col justify-between group-hover:border-[#18B8AD]/40 relative overflow-hidden" hover>
                 <div>
-                  <div className="mb-5 flex aspect-[16/10] items-center justify-center rounded-2xl bg-gradient-to-tr from-blue-500/5 to-indigo-500/10 dark:from-slate-900 dark:to-indigo-950/40 border border-slate-250/20 overflow-hidden relative">
-                    <Icon name="newspaper" className="h-10 w-10 text-blue-500/60 group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="mb-5 flex aspect-[16/10] items-center justify-center rounded-2xl bg-[#EEF4F3] border border-[#DCE6E7] overflow-hidden relative">
+                    <Icon name="newspaper" className="h-10 w-10 text-[#18B8AD] group-hover:scale-110 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-[#18B8AD]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  {p.category && <Pill className="mb-3 w-fit">{p.category.name}</Pill>}
-                  <h3 className="text-lg font-bold leading-snug text-[var(--fg)] transition-colors group-hover:text-primary-600">{p.title}</h3>
-                  <p className="mt-2.5 line-clamp-2 text-sm text-[var(--muted)] leading-relaxed">{p.excerpt}</p>
+                  {p.category && <Pill className="mb-3 w-fit bg-[#EEF4F3] text-[#18B8AD] border border-[#DCE6E7]">{p.category.name}</Pill>}
+                  <h3 className="text-lg font-bold leading-snug text-[#071820] transition-colors group-hover:text-[#18B8AD] font-display">{p.title}</h3>
+                  <p className="mt-2.5 line-clamp-2 text-sm text-[#68787D] leading-relaxed">{p.excerpt}</p>
                 </div>
-                <div className="mt-5 border-t border-[var(--border-color)]/60 pt-4 flex items-center justify-between text-xs text-[var(--muted)] font-medium">
+                <div className="mt-5 border-t border-[#DCE6E7] pt-4 flex items-center justify-between text-xs text-[#68787D] font-medium">
                   <span>{p.author?.name}</span>
                   <span>{formatDate(p.publishedAt)}</span>
                 </div>
@@ -143,30 +143,30 @@ async function InsightsSectionInner({ data }: { data: { heading?: string; subtit
 export async function ProductCatalog({ data }: { data: { heading?: string; subtitle?: string } }) {
   const products = await prisma.product.findMany({ where: { status: "published" }, orderBy: { order: "asc" } });
   return (
-    <Section id="catalog">
+    <Section id="catalog" className="bg-white">
       <SectionHeader title={data.heading ?? "Explore Our Product Portfolio"} subtitle={data.subtitle} eyebrow="Products" eyebrowIcon="boxes" />
       <RevealGroup className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
         {products.map((p) => {
           const features = parseJson<string[]>(p.features, []);
           return (
             <RevealItem key={p.id}>
-              <Card className="flex h-full flex-col justify-between group hover:border-primary-500/40">
+              <Card className="flex h-full flex-col justify-between group hover:border-[#18B8AD]/40">
                 <div>
-                  <IconBadge icon={<Icon name={p.icon} className="h-6 w-6" />} />
-                  <h3 className="mt-5 text-lg font-bold tracking-tight text-[var(--fg)]">{p.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{p.shortDescription}</p>
+                  <IconBadge icon={<Icon name={p.icon} className="h-6 w-6 text-[#18B8AD]" />} />
+                  <h3 className="mt-5 text-lg font-bold tracking-tight text-[#071820] font-display">{p.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#68787D]">{p.shortDescription}</p>
                   {features.length > 0 && (
-                    <ul className="mt-5 flex flex-col gap-2 border-t border-[var(--border-color)]/60 pt-4">
+                    <ul className="mt-5 flex flex-col gap-2 border-t border-[#DCE6E7] pt-4">
                       {features.slice(0, 5).map((f) => (
-                        <li key={f} className="flex items-start gap-2.5 text-xs text-[var(--fg)] font-medium">
-                          <Icon name="check-circle" className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" /> 
+                        <li key={f} className="flex items-start gap-2.5 text-xs text-[#071820] font-medium">
+                          <Icon name="check-circle" className="h-4 w-4 text-[#18B8AD] shrink-0 mt-0.5" /> 
                           <span className="leading-snug">{f}</span>
                         </li>
                       ))}
                     </ul>
                   )}
                 </div>
-                <Link href={`/products/${p.slug}`} className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-primary-600 hover:gap-2.5 transition-all">
+                <Link href={`/products/${p.slug}`} className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold text-[#18B8AD] hover:gap-2.5 transition-all">
                   Learn More <ArrowRight className="h-4 w-4" />
                 </Link>
               </Card>
@@ -181,22 +181,22 @@ export async function ProductCatalog({ data }: { data: { heading?: string; subti
 export async function CourseCategoriesSection({ data }: { data: { heading?: string; subtitle?: string } }) {
   const cats = await prisma.courseCategory.findMany({ orderBy: { order: "asc" } });
   return (
-    <Section className="bg-[var(--surface-2)] relative overflow-hidden">
-      <div className="absolute inset-0 mesh-grid opacity-30 pointer-events-none" />
+    <Section className="bg-[#F7F9F8] relative overflow-hidden">
+      <div className="absolute inset-0 mesh-grid opacity-10 pointer-events-none" />
       <SectionHeader title={data.heading ?? "Explore Learning Categories"} subtitle={data.subtitle} eyebrow="Categories" eyebrowIcon="grid" />
       <RevealGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10" stagger={0.05}>
         {cats.map((c) => {
           const topics = parseJson<string[]>(c.topics, []);
           return (
             <RevealItem key={c.id}>
-              <div className="flex h-full flex-col gap-4 rounded-2xl border border-[var(--border-color)]/80 bg-[var(--surface)] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:border-primary-500/40 group">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-blue-50 text-blue-600 dark:bg-slate-900 dark:text-blue-400 group-hover:scale-110 transition-transform">
+              <div className="flex h-full flex-col gap-4 rounded-2xl border border-[#DCE6E7] bg-white p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:border-[#18B8AD]/40 group">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#EEF4F3] border border-[#DCE6E7] text-[#18B8AD] group-hover:scale-110 transition-transform">
                   <Icon name={c.icon} className="h-5.5 w-5.5" />
                 </span>
-                <h3 className="text-base font-bold text-[var(--fg)] mt-1">{c.name}</h3>
-                <div className="flex flex-wrap gap-1.5 border-t border-[var(--border-color)]/50 pt-3 mt-2">
+                <h3 className="text-base font-bold text-[#071820] mt-1 font-display">{c.name}</h3>
+                <div className="flex flex-wrap gap-1.5 border-t border-[#DCE6E7] pt-3 mt-2">
                   {topics.map((t) => (
-                    <span key={t} className="rounded-full bg-[var(--surface-2)] px-3 py-1 text-[11px] font-semibold text-[var(--muted)] border border-slate-200/40">
+                    <span key={t} className="rounded-full bg-[#F7F9F8] px-3 py-1 text-[11px] font-semibold text-[#68787D] border border-[#DCE6E7]">
                       {t}
                     </span>
                   ))}
@@ -333,7 +333,7 @@ export async function FeaturedProducts({ data }: { data: { heading?: string; tit
   }
 
   return (
-    <Section className="relative overflow-hidden">
+    <Section className="relative overflow-hidden bg-white">
       <SectionHeader
         title={data.title ?? "Technology Solutions Designed for Modern Organizations"}
         subtitle={data.description}
@@ -346,16 +346,16 @@ export async function FeaturedProducts({ data }: { data: { heading?: string; tit
           const features = parseJson<string[]>(p.features, []);
           return (
             <RevealItem key={p.id}>
-              <Card className="flex h-full flex-col justify-between group hover:border-primary-500/40">
+              <Card className="flex h-full flex-col justify-between group hover:border-[#18B8AD]/40">
                 <div>
-                  <IconBadge icon={<Icon name={p.icon} className="h-6 w-6" />} />
-                  <h3 className="mt-5 text-lg font-bold tracking-tight text-[var(--fg)]">{p.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{p.shortDescription}</p>
+                  <IconBadge icon={<Icon name={p.icon} className="h-6 w-6 text-[#18B8AD]" />} />
+                  <h3 className="mt-5 text-lg font-bold tracking-tight text-[#071820] font-display">{p.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#68787D]">{p.shortDescription}</p>
                   {features.length > 0 && (
-                    <ul className="mt-5 flex flex-col gap-2 border-t border-[var(--border-color)]/60 pt-4">
+                    <ul className="mt-5 flex flex-col gap-2 border-t border-[#DCE6E7] pt-4">
                       {features.slice(0, 3).map((f) => (
-                        <li key={f} className="flex items-start gap-2.5 text-xs text-[var(--fg)] font-medium">
-                          <Icon name="check-circle" className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" /> 
+                        <li key={f} className="flex items-start gap-2.5 text-xs text-[#071820] font-medium">
+                          <Icon name="check-circle" className="h-4 w-4 text-[#18B8AD] shrink-0 mt-0.5" /> 
                           <span className="leading-snug">{f}</span>
                         </li>
                       ))}
@@ -363,7 +363,7 @@ export async function FeaturedProducts({ data }: { data: { heading?: string; tit
                   )}
                 </div>
                 <div className="mt-6 flex items-center justify-between">
-                  <Link href={`/products/${p.slug}`} className="inline-flex items-center gap-1.5 text-sm font-bold text-primary-600 hover:gap-2.5 transition-all">
+                  <Link href={`/products/${p.slug}`} className="inline-flex items-center gap-1.5 text-sm font-bold text-[#18B8AD] hover:gap-2.5 transition-all">
                     Explore Product <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
@@ -399,8 +399,8 @@ export async function FeaturedLearning({ data }: { data: { heading?: string; tit
   }
 
   return (
-    <Section className="bg-[var(--surface-2)] relative overflow-hidden">
-      <div className="absolute inset-0 mesh-grid opacity-30 pointer-events-none" />
+    <Section className="bg-[#F7F9F8] relative overflow-hidden">
+      <div className="absolute inset-0 mesh-grid opacity-10 pointer-events-none" />
       <SectionHeader
         title={data.title ?? "Empowering Professionals Through Industry-Focused Learning"}
         subtitle={data.description}
@@ -412,23 +412,23 @@ export async function FeaturedLearning({ data }: { data: { heading?: string; tit
         {courses.map((c) => (
           <RevealItem key={c.id}>
             <Link href={`/training/${c.slug}`} className="group block h-full">
-              <Card className="flex h-full flex-col justify-between group-hover:border-primary-500/40" hover>
+              <Card className="flex h-full flex-col justify-between group-hover:border-[#18B8AD]/40" hover>
                 <div>
-                  <div className="mb-5 flex aspect-[16/9] items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-15 mesh-grid" />
+                  <div className="mb-5 flex aspect-[16/9] items-center justify-center rounded-2xl bg-[#EEF4F3] border border-[#DCE6E7] text-[#18B8AD] shadow-sm relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-5 mesh-grid" />
                     <Icon name={c.category?.icon ?? "graduation-cap"} className="h-10 w-10 relative z-10 group-hover:scale-110 transition-transform duration-500" />
                   </div>
                   <div className="flex items-center gap-3">
-                    {c.category && <span className="text-[10px] font-bold tracking-wider uppercase text-primary-600">{c.category.name}</span>}
-                    {c.level && <span className="text-xs font-semibold text-[var(--muted)]">{c.level}</span>}
+                    {c.category && <span className="text-[10px] font-bold tracking-wider uppercase text-[#18B8AD]">{c.category.name}</span>}
+                    {c.level && <span className="text-xs font-semibold text-[#68787D]">{c.level}</span>}
                   </div>
-                  <h3 className="mt-3.5 text-lg font-bold leading-snug text-[var(--fg)] transition-colors group-hover:text-primary-600">{c.title}</h3>
-                  <p className="mt-2.5 line-clamp-2 text-sm text-[var(--muted)] leading-relaxed">{c.shortDescription}</p>
+                  <h3 className="mt-3.5 text-lg font-bold leading-snug text-[#071820] transition-colors group-hover:text-[#18B8AD] font-display">{c.title}</h3>
+                  <p className="mt-2.5 line-clamp-2 text-sm text-[#68787D] leading-relaxed">{c.shortDescription}</p>
                 </div>
-                <div className="mt-5 border-t border-[var(--border-color)]/60 pt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[var(--muted)] font-medium">
-                  <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5 text-primary-500" /> {c.duration}</span>
-                  <span className="flex items-center gap-1"><BookOpen className="h-3.5 w-3.5 text-primary-500" /> {c.modulesCount} modules</span>
-                  {c.certificate && <span className="flex items-center gap-1"><Award className="h-3.5 w-3.5 text-primary-500" /> Certificate</span>}
+                <div className="mt-5 border-t border-[#DCE6E7] pt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[#68787D] font-medium">
+                  <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5 text-[#18B8AD]" /> {c.duration}</span>
+                  <span className="flex items-center gap-1"><BookOpen className="h-3.5 w-3.5 text-[#18B8AD]" /> {c.modulesCount} modules</span>
+                  {c.certificate && <span className="flex items-center gap-1"><Award className="h-3.5 w-3.5 text-[#18B8AD]" /> Certificate</span>}
                 </div>
               </Card>
             </Link>
