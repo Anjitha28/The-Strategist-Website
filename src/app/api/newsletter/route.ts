@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
 
 const schema = z.object({
   email: z.string().email(),
@@ -16,13 +15,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
     }
     const { email, name } = parsed.data;
-    await prisma.newsletterSubscriber.upsert({
-      where: { email },
-      update: { active: true, name: name || undefined },
-      create: { email, name: name || null },
-    });
+    console.log(`[Newsletter Subscription - Static Mode]: email=${email}, name=${name}`);
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("Error in newsletter subscription:", err);
     return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
   }
 }

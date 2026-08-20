@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { getSiteSettings } from "@/lib/cms";
+import { SITE_CONFIG } from "@/config/site";
 
-// Render at request time (this is a database-backed CMS), so the build
-// never needs DATABASE_URL and content changes appear without a rebuild.
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,37 +19,37 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const s = await getSiteSettings();
+  const brandName = SITE_CONFIG.brand.name;
+  const tagline = SITE_CONFIG.brand.tagline;
+
   return {
     metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
     title: {
-      default: s.defaultSeoTitle,
-      template: `%s | ${s.siteName}`,
+      default: `${brandName} | Strategy • Analytics • Automation • Technology`,
+      template: `%s | ${brandName}`,
     },
-    description: s.defaultSeoDescription,
-    keywords: s.defaultKeywords,
+    description: tagline,
     icons: { icon: "/favicon.ico" },
     openGraph: {
       type: "website",
-      siteName: s.siteName,
-      title: s.ogTitle,
-      description: s.ogDescription,
+      siteName: brandName,
+      title: brandName,
+      description: tagline,
     },
     twitter: {
       card: "summary_large_image",
-      title: s.ogTitle,
-      description: s.ogDescription,
+      title: brandName,
+      description: tagline,
     },
   };
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const s = await getSiteSettings();
-  const defaultTheme = s.theme || "aurora";
+  const defaultTheme = "light";
 
-  // Set the theme before paint to avoid flash, prioritizing localStorage and falling back to DB setting
+  // Set the theme before paint to avoid flash
   const themeScript = `(function(){try{var t=localStorage.getItem('ts-theme');var d=t||'${defaultTheme}';document.documentElement.setAttribute('data-theme',d);}catch(e){}})();`;
 
   return (
@@ -59,7 +57,7 @@ export default async function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen bg-[var(--bg)] text-[var(--fg)]">{children}</body>
     </html>
   );
 }

@@ -34,8 +34,10 @@ export function SearchOverlay() {
 
   useEffect(() => {
     if (!q.trim()) {
-      setResults([]);
-      return;
+      const handle = setTimeout(() => {
+        setResults([]);
+      }, 0);
+      return () => clearTimeout(handle);
     }
     setLoading(true);
     const t = setTimeout(async () => {

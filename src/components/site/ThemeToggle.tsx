@@ -8,9 +8,12 @@ export function ThemeToggle({ className }: { className?: string }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const current = document.documentElement.getAttribute("data-theme");
-    setTheme(current === "nebula" ? "dark" : "light");
+    const handle = setTimeout(() => {
+      setMounted(true);
+      const current = document.documentElement.getAttribute("data-theme");
+      setTheme(current === "nebula" ? "dark" : "light");
+    }, 0);
+    return () => clearTimeout(handle);
   }, []);
 
   function toggle() {
