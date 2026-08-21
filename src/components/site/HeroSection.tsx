@@ -34,12 +34,12 @@ export async function HeroSection() {
     >
       {/* Background 3D visualization image */}
       <Image
-        src="/brand/hero-clean-final.jpg"
+        src="/brand/hero-visual-final.png"
         alt="The Strategist growth visualization"
         fill
         className="object-cover object-center"
         priority
-        quality={100}
+        quality={90}
       />
 
       {/* Gradient overlay so left text stays legible */}
