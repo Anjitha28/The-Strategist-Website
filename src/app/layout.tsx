@@ -3,7 +3,6 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SITE_CONFIG } from "@/config/site";
 
-export const dynamic = "force-static";
 
 const inter = Inter({
   variable: "--font-inter",

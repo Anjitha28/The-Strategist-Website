@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { Section } from "@/components/ui/Section";
@@ -8,7 +9,7 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { LeadForm, type FormFieldDef } from "@/components/site/LeadForm";
 import { SITE_CONFIG } from "@/config/site";
 
-export default function ContactPage() {
+function ContactContent() {
   const searchParams = useSearchParams();
   const defaultService = searchParams.get("service") ?? "";
   const defaultProduct = searchParams.get("product") ?? "";
@@ -186,5 +187,13 @@ export default function ContactPage() {
         </div>
       </Section>
     </>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-[#56666b]">Loading contact details...</div>}>
+      <ContactContent />
+    </Suspense>
   );
 }

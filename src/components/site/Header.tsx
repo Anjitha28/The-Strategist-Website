@@ -17,7 +17,7 @@ export function Header() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -41,20 +41,27 @@ export function Header() {
   const brandName = SITE_CONFIG.brand.name;
   const phoneNum = SITE_CONFIG.brand.phones[0];
 
-    const isHome = pathname === "/";
+  const isHome = pathname === "/";
+  // Hero-integrated: transparent on home until scrolled, always solid on other pages
+  const isTransparent = isHome && !scrolled;
 
   return (
     <>
       <header
         className={cn(
-          "absolute z-50 top-[3px] left-1/2 -translate-x-1/2 transition-all duration-300",
-          "w-[calc(100%-24px)] max-w-[1240px] rounded-b-[30px] border border-solid border-[rgba(7,24,32,0.08)] shadow-[0_15px_45px_rgba(7,30,35,0.08)]"
+          "fixed z-50 top-0 left-1/2 -translate-x-1/2 transition-all duration-500",
+          isTransparent
+            ? "w-full max-w-none border-transparent shadow-none top-0"
+            : "top-[6px] w-[calc(100%-24px)] max-w-[1240px] rounded-[30px] border border-solid border-[rgba(7,24,32,0.08)] shadow-[0_15px_45px_rgba(7,30,35,0.08)]"
         )}
         style={{
-          background: "rgba(255,255,255,0.96)",
+          background: isTransparent
+            ? "transparent"
+            : "rgba(255,255,255,0.97)",
+          backdropFilter: isTransparent ? "none" : "blur(16px)",
         }}
       >
-        <div className="w-full flex items-center justify-between gap-7 transition-all duration-300 px-5" style={{ height: 78 }}>
+        <div className="w-full flex items-center justify-between gap-7 transition-all duration-300 px-5" style={{ height: isTransparent ? 84 : 72 }}>
           {/* Logo */}
           <Link
             href="/"
@@ -64,9 +71,9 @@ export function Header() {
             <Image
               src="/brand/strategist-logo.png"
               alt="The Strategist"
-              width={160}
-              height={40}
-              className="h-8 sm:h-9 w-auto object-contain"
+              width={180}
+              height={45}
+              className="h-9 sm:h-10 w-auto object-contain"
               priority
             />
           </Link>
@@ -79,14 +86,14 @@ export function Header() {
                 href={item.url}
                 className={cn(
                   "px-3.5 py-2 transition-colors",
-                  isActive(item.url)
-                    ? "font-bold"
-                    : ""
+                  isActive(item.url) ? "font-bold" : ""
                 )}
                 style={{
                   fontSize: 12,
                   fontWeight: isActive(item.url) ? 800 : 750,
-                  color: isActive(item.url) ? "#18b8ad" : "#56666b",
+                  color: isTransparent
+                    ? (isActive(item.url) ? "#18b8ad" : "rgba(7,24,32,0.85)")
+                    : (isActive(item.url) ? "#18b8ad" : "#56666b"),
                 }}
               >
                 {item.label}
@@ -98,9 +105,9 @@ export function Header() {
           <div className="flex items-center gap-3 ml-auto lg:ml-3">
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center gap-2 rounded-full font-bold"
+              className="hidden md:inline-flex items-center gap-2 rounded-full font-bold transition-all duration-300"
               style={{
-                background: "#071820",
+                background: isTransparent ? "rgba(7,24,32,0.9)" : "#071820",
                 color: "#fff",
                 padding: "13px 19px",
                 fontSize: 11,
@@ -111,8 +118,12 @@ export function Header() {
             </Link>
             <ThemeToggle className="hidden sm:grid" />
             <button
-              className="grid h-10 w-10 place-items-center rounded-full border text-[var(--fg)] lg:hidden"
-              style={{ borderColor: "rgba(7,24,32,0.12)", background: "rgba(255,255,255,0.8)" }}
+              className="grid h-10 w-10 place-items-center rounded-full border lg:hidden transition-all duration-300"
+              style={{
+                borderColor: isTransparent ? "rgba(7,24,32,0.2)" : "rgba(7,24,32,0.12)",
+                background: isTransparent ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.8)",
+                color: isTransparent ? "#071820" : "var(--fg)",
+              }}
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
@@ -193,6 +204,7 @@ export function Header() {
         )}
       </AnimatePresence>
       </header>
+      {/* Spacer: only on non-home pages since hero already pads for fixed header */}
       {!isHome && <div className="h-[84px] w-full shrink-0" />}
     </>
   );
