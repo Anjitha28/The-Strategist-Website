@@ -1,8 +1,30 @@
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { FloatingContact } from "@/components/site/FloatingContact";
+import { getSiteSettings } from "@/lib/settings";
+import { prisma } from "@/lib/prisma";
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default async function SiteLayout({ children }: { children: React.ReactNode }) {
+  let settings;
+  let navItems: any[] = [];
+  try {
+    settings = await getSiteSettings();
+    navItems = await prisma.navigationItem.findMany({
+      where: { visible: true },
+      orderBy: { order: "asc" },
+    });
+  } catch (error) {
+    console.error("Failed to query settings or navigation:", error);
+  }
+
+  const headerNav = navItems.filter((item) => item.location === "header" && !item.parentId);
+  const footerNav = navItems.filter((item) => item.location === "footer");
+
+  const logoUrl = settings?.logoUrl || "/brand/strategist-logo.png";
+  const phoneNum = settings?.phone || "";
+  const address = settings?.address || "";
+  const email = settings?.businessEmail || "";
+
   return (
     <div className="flex min-h-screen flex-col">
       <a
@@ -12,13 +34,23 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Skip to content
       </a>
 
-      <Header />
+      <Header navItems={headerNav} phoneNum={phoneNum} logoUrl={logoUrl} />
 
       <main id="main" className="flex-1">
         {children}
       </main>
 
-      <Footer />
+      <Footer
+        navItems={footerNav}
+        siteName={settings?.siteName}
+        address={address}
+        email={email}
+        phones={phoneNum ? [phoneNum] : undefined}
+        linkedinUrl={settings?.linkedin}
+        facebookUrl={settings?.facebook}
+        twitterUrl={settings?.twitter}
+        instagramUrl={settings?.instagram}
+      />
       <FloatingContact />
     </div>
   );

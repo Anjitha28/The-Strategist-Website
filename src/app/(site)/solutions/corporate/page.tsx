@@ -1,11 +1,18 @@
-"use client";
-
-import { Workflow, PieChart, Table, Gauge, Cpu, Zap, Presentation, Settings, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import type { Metadata } from "next";
+import { Workflow, PieChart, Table, Gauge, Cpu, Zap, Presentation, Settings, ArrowRight, Compass, LineChart, Brain, FileText, ShieldCheck } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { SITE_CONFIG } from "@/config/site";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Corporate Solutions | The Strategist",
+  description:
+    "Enterprise-grade business solutions designed around real organizational challenges — from automating reporting to building enterprise analytics ecosystems.",
+};
 
 const SOL_ICONS: Record<string, React.ReactNode> = {
   "Report Automation": <Workflow className="h-6 w-6 text-[#18b8ad]" />,
@@ -15,10 +22,45 @@ const SOL_ICONS: Record<string, React.ReactNode> = {
   "Application Development": <Cpu className="h-6 w-6 text-[#18b8ad]" />,
   "Process Automation": <Zap className="h-6 w-6 text-[#18b8ad]" />,
   "Corporate Training": <Presentation className="h-6 w-6 text-[#18b8ad]" />,
+  "Business Intelligence": <LineChart className="h-6 w-6 text-[#18b8ad]" />,
+  "Data Analytics": <LineChart className="h-6 w-6 text-[#18b8ad]" />,
+  "Artificial Intelligence": <Brain className="h-6 w-6 text-[#18b8ad]" />,
+  "Technology Consulting": <ShieldCheck className="h-6 w-6 text-[#18b8ad]" />,
 };
 
-export default function CorporateSolutionsPage() {
-  const solutions = SITE_CONFIG.corporate.solutions;
+export default async function CorporateSolutionsPage() {
+  let dbPage = null;
+  let dbServices: any[] = [];
+
+  try {
+    dbPage = await prisma.page.findUnique({
+      where: { slug: "solutions/corporate" },
+      include: { sections: true },
+    });
+
+    dbServices = await prisma.service.findMany({
+      where: { status: "published", category: { slug: "corporate" } },
+      orderBy: { order: "asc" },
+    });
+  } catch (error) {
+    console.error("Failed to fetch corporate solutions page data:", error);
+  }
+
+  // Fallbacks
+  const heroData = dbPage?.sections.find(s => s.key === "hero")?.data
+    ? JSON.parse(dbPage.sections.find(s => s.key === "hero")!.data)
+    : {
+        badge: "Corporate Solutions",
+        title: "Enterprise-Grade Business Solutions",
+        description: "Technology and analytics solutions designed around real organizational challenges — from automating reporting workflows to building enterprise-grade analytics systems.",
+      };
+
+  const services = dbServices.length > 0
+    ? dbServices.map(s => ({
+        title: s.name,
+        desc: s.shortDescription || s.description,
+      }))
+    : SITE_CONFIG.corporate.solutions;
 
   return (
     <>
@@ -33,22 +75,21 @@ export default function CorporateSolutionsPage() {
           <Reveal className="flex flex-col gap-6 max-w-2xl">
             <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#18b8ad]/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
-              Corporate Solutions
+              {heroData.badge || "Corporate Solutions"}
             </span>
             <h1 className="font-serif text-5xl sm:text-6xl text-white leading-[1.05] tracking-tight font-medium">
-              Enterprise-Grade<br />
+              {heroData.title.split("Business Solutions")[0]}
               <span className="italic text-[#18b8ad]">Business Solutions</span>
+              {heroData.title.split("Business Solutions")[1] || ""}
             </h1>
             <p className="text-base leading-relaxed text-[#a1b4b9] max-w-xl">
-              Technology and analytics solutions designed around real organizational challenges — from automating reporting workflows to building enterprise-grade analytics systems.
+              {heroData.description}
             </p>
             <div className="flex flex-wrap gap-4 mt-2">
               <a
                 href="/contact?service=Corporate Solutions"
-                className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 bg-[#18b8ad] text-[#071820]"
                 style={{
-                  background: "#18b8ad",
-                  color: "#071820",
                   padding: "13px 22px",
                   fontSize: 11,
                   fontWeight: 850
@@ -88,11 +129,11 @@ export default function CorporateSolutionsPage() {
           </div>
 
           <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {solutions.map((sol, i) => (
+            {services.map((sol, i) => (
               <RevealItem key={sol.title}>
                 <div
-                  className="group relative flex flex-col gap-6 bg-white p-6 h-full transition-all duration-300 hover:shadow-md"
-                  style={{ borderRadius: 18, border: "1px solid #dce6e7" }}
+                  className="group relative flex flex-col gap-6 bg-white p-6 h-full transition-all duration-300 hover:shadow-md border border-[#dce6e7]"
+                  style={{ borderRadius: 18 }}
                 >
                   <div
                     className="grid h-12 w-12 place-items-center rounded-xl bg-[#e7f6f4] text-[#18b8ad] transition-colors"
@@ -103,7 +144,7 @@ export default function CorporateSolutionsPage() {
                     <h3 className="text-base font-bold text-[#071820]">{sol.title}</h3>
                     <p className="text-xs text-[#68787d] leading-relaxed mt-2">{sol.desc}</p>
                   </div>
-                  <div className="mt-auto pt-3 flex items-center justify-between" style={{ borderTop: "1px solid #dce6e7" }}>
+                  <div className="mt-auto pt-3 flex items-center justify-between border-t border-[#dce6e7]">
                     <span className="text-[9px] font-black text-[#8a979b] uppercase tracking-wider">
                       Service {String(i + 1).padStart(2, "0")}
                     </span>
@@ -150,8 +191,7 @@ export default function CorporateSolutionsPage() {
                 ].map((item) => (
                   <RevealItem key={item.label}>
                     <div
-                      className="rounded-2xl p-6 transition-colors"
-                      style={{ border: "1px solid rgba(124,227,218,0.15)", background: "linear-gradient(145deg,#0d252c,#112e35)" }}
+                      className="rounded-2xl p-6 transition-colors border border-[rgba(124,227,218,0.15)] bg-gradient-to-br from-[#0d252c] to-[#112e35]"
                     >
                       <p className="text-3xl font-black text-[#18b8ad]">{item.stat}</p>
                       <p className="text-xs text-[#9db1b6] mt-1.5 leading-snug">{item.label}</p>
@@ -183,10 +223,8 @@ export default function CorporateSolutionsPage() {
           <Reveal delay={0.16}>
             <a
               href="/contact?service=Corporate Solutions"
-              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 shadow-md"
+              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 shadow-md bg-[#071820] text-white"
               style={{
-                background: "#071820",
-                color: "#fff",
                 padding: "13px 22px",
                 fontSize: 11,
                 fontWeight: 850

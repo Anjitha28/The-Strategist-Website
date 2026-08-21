@@ -1,13 +1,18 @@
-"use client";
-
-import Link from "next/link";
-
-import { BarChart3, Award, BookOpen, Target, GraduationCap, Building, Globe, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import type { Metadata } from "next";
+import { BarChart3, Award, BookOpen, Target, GraduationCap, Building, Globe, ArrowRight, ShieldCheck, Users, Briefcase } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { SITE_CONFIG } from "@/config/site";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Educational Solutions | The Strategist",
+  description:
+    "We help educational institutions transform how they collect, analyze, and act on student and institutional data — bridging the gap between academic learning and industry requirements.",
+};
 
 const SOL_ICONS: Record<string, React.ReactNode> = {
   "Academic Analytics": <BarChart3 className="h-6 w-6 text-[#18b8ad]" />,
@@ -17,10 +22,62 @@ const SOL_ICONS: Record<string, React.ReactNode> = {
   "Training Programs": <GraduationCap className="h-6 w-6 text-[#18b8ad]" />,
   "Institutional Technology": <Building className="h-6 w-6 text-[#18b8ad]" />,
   "Industry Partnership": <Globe className="h-6 w-6 text-[#18b8ad]" />,
+  "Individual Learning": <Users className="h-6 w-6 text-[#18b8ad]" />,
+  "Corporate Learning": <Briefcase className="h-6 w-6 text-[#18b8ad]" />,
+  "College Training": <GraduationCap className="h-6 w-6 text-[#18b8ad]" />,
+  "Online Learning": <Globe className="h-6 w-6 text-[#18b8ad]" />,
+  "Internship Programs": <Target className="h-6 w-6 text-[#18b8ad]" />,
 };
 
-export default function EducationalSolutionsPage() {
-  const solutions = SITE_CONFIG.educational.solutions;
+export default async function EducationalSolutionsPage() {
+  let dbPage = null;
+
+  try {
+    dbPage = await prisma.page.findUnique({
+      where: { slug: "solutions/educational" },
+      include: { sections: true },
+    });
+  } catch (error) {
+    console.error("Failed to fetch educational solutions page data:", error);
+  }
+
+  // Fallbacks
+  const heroData = dbPage?.sections.find(s => s.key === "hero")?.data
+    ? JSON.parse(dbPage.sections.find(s => s.key === "hero")!.data)
+    : {
+        badge: "Educational Solutions",
+        title: "Building Smarter Learning Systems",
+        description: "We help educational institutions transform how they collect, analyze, and act on student and institutional data — bridging the gap between academic learning and industry requirements.",
+      };
+
+  const programsData = dbPage?.sections.find(s => s.key === "programs")?.data
+    ? JSON.parse(dbPage.sections.find(s => s.key === "programs")!.data)
+    : null;
+
+  const solutions = programsData?.items
+    ? programsData.items.map((item: any) => ({
+        title: item.title,
+        desc: item.description,
+        icon: item.icon,
+      }))
+    : SITE_CONFIG.educational.solutions;
+
+  const journeyData = dbPage?.sections.find(s => s.key === "journey")?.data
+    ? JSON.parse(dbPage.sections.find(s => s.key === "journey")!.data)
+    : null;
+
+  const approachSteps = journeyData?.items
+    ? journeyData.items.map((item: any) => ({
+        step: String(item.step).padStart(2, "0"),
+        title: item.title,
+        desc: item.description,
+      }))
+    : [
+        { step: "01", title: "Needs Discovery", desc: "We map your current systems, pain points, and institutional priorities before any solution design." },
+        { step: "02", title: "Tailored Design", desc: "Solutions are custom-built around your academic calendar, curriculum structure, and technology environment." },
+        { step: "03", title: "Deployment & Training", desc: "We deploy, onboard staff, and ensure adoption — not just installation." },
+        { step: "04", title: "Ongoing Support", desc: "Post-delivery support and continuous improvement as your institution grows and requirements evolve." },
+      ];
 
   return (
     <>
@@ -35,22 +92,21 @@ export default function EducationalSolutionsPage() {
           <Reveal className="flex flex-col gap-6 max-w-2xl">
             <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#18b8ad]/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
-              Educational Solutions
+              {heroData.badge || "Educational Solutions"}
             </span>
             <h1 className="font-serif text-5xl sm:text-6xl text-white leading-[1.05] tracking-tight font-medium">
-              Building Smarter<br />
+              {heroData.title.split("Learning Systems")[0]}
               <span className="italic text-[#18b8ad]">Learning Systems</span>
+              {heroData.title.split("Learning Systems")[1] || ""}
             </h1>
             <p className="text-base leading-relaxed text-[#a1b4b9] max-w-xl">
-              We help educational institutions transform how they collect, analyze, and act on student and institutional data — bridging the gap between academic learning and industry requirements.
+              {heroData.description}
             </p>
             <div className="flex flex-wrap gap-4 mt-2">
               <a
                 href="/contact?service=Educational Solutions"
-                className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 bg-[#18b8ad] text-[#071820]"
                 style={{
-                  background: "#18b8ad",
-                  color: "#071820",
                   padding: "13px 22px",
                   fontSize: 11,
                   fontWeight: 850
@@ -90,11 +146,11 @@ export default function EducationalSolutionsPage() {
           </div>
 
           <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {solutions.map((sol, i) => (
+            {solutions.map((sol: any, i: number) => (
               <RevealItem key={sol.title}>
                 <div
-                  className="group flex flex-col gap-6 bg-white p-6 h-full transition-all duration-300 hover:shadow-md"
-                  style={{ borderRadius: 18, border: "1px solid #dce6e7" }}
+                  className="group flex flex-col gap-6 bg-white p-6 h-full transition-all duration-300 hover:shadow-md border border-[#dce6e7]"
+                  style={{ borderRadius: 18 }}
                 >
                   <div
                     className="grid h-12 w-12 place-items-center rounded-xl bg-[#e7f6f4] text-[#18b8ad] transition-colors"
@@ -105,7 +161,7 @@ export default function EducationalSolutionsPage() {
                     <h3 className="text-base font-bold text-[#071820]">{sol.title}</h3>
                     <p className="text-xs text-[#68787d] leading-relaxed mt-2">{sol.desc}</p>
                   </div>
-                  <div className="mt-auto pt-3 flex items-center justify-between" style={{ borderTop: "1px solid #dce6e7" }}>
+                  <div className="mt-auto pt-3 flex items-center justify-between border-t border-[#dce6e7]">
                     <span className="text-[9px] font-black text-[#8a979b] uppercase tracking-wider">
                       Service {String(i + 1).padStart(2, "0")}
                     </span>
@@ -135,34 +191,27 @@ export default function EducationalSolutionsPage() {
                 We work alongside educators, administrators, and institutional leaders to understand specific needs before designing any solution — ensuring practical outcomes over theoretical frameworks.
               </p>
               <div className="mt-2">
-                <Link
+                <a
                   href="/contact?service=Educational Solutions"
-                  className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90"
+                  className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 bg-[#071820] text-white"
                   style={{
-                    background: "#071820",
-                    color: "#fff",
                     padding: "13px 22px",
                     fontSize: 11,
                     fontWeight: 850
                   }}
                 >
                   Start a Partnership <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
+                </a>
               </div>
             </div>
             
             <div className="lg:col-span-7">
               <RevealGroup className="flex flex-col gap-4">
-                {[
-                  { step: "01", title: "Needs Discovery", desc: "We map your current systems, pain points, and institutional priorities before any solution design." },
-                  { step: "02", title: "Tailored Design", desc: "Solutions are custom-built around your academic calendar, curriculum structure, and technology environment." },
-                  { step: "03", title: "Deployment & Training", desc: "We deploy, onboard staff, and ensure adoption — not just installation." },
-                  { step: "04", title: "Ongoing Support", desc: "Post-delivery support and continuous improvement as your institution grows and requirements evolve." },
-                ].map((s) => (
+                {approachSteps.map((s: any) => (
                   <RevealItem key={s.step}>
                     <div
-                      className="flex items-start gap-5 p-5 transition-all duration-300 hover:shadow-sm bg-[#f7f9f8]"
-                      style={{ borderRadius: 16, border: "1px solid #dce6e7" }}
+                      className="flex items-start gap-5 p-5 transition-all duration-300 hover:shadow-sm bg-[#f7f9f8] border border-[#dce6e7]"
+                      style={{ borderRadius: 16 }}
                     >
                       <span className="text-3xl font-black text-[#18b8ad]/30 font-display leading-none shrink-0">{s.step}</span>
                       <div>
@@ -197,10 +246,8 @@ export default function EducationalSolutionsPage() {
           <Reveal delay={0.16}>
             <a
               href="/contact?service=Educational Solutions"
-              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 shadow-md"
+              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 shadow-md bg-[#071820] text-white"
               style={{
-                background: "#071820",
-                color: "#fff",
                 padding: "13px 22px",
                 fontSize: 11,
                 fontWeight: 850

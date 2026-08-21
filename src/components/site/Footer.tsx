@@ -11,13 +11,100 @@ const SOCIALS: { key: "linkedin" | "facebook" | "instagram" | "twitter"; icon: s
   { key: "twitter", icon: "twitter", label: "X (Twitter)" },
 ];
 
-export function Footer() {
-  const brandName = SITE_CONFIG.brand.name;
+interface FooterProps {
+  navItems?: { label: string; url: string; location: string; footerColumn?: string | null }[];
+  address?: string;
+  email?: string;
+  phones?: string[];
+  linkedinUrl?: string;
+  facebookUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  siteName?: string;
+}
+
+export function Footer({
+  navItems: propNavItems,
+  address: propAddress,
+  email: propEmail,
+  phones: propPhones,
+  linkedinUrl,
+  facebookUrl,
+  twitterUrl,
+  instagramUrl,
+  siteName: propSiteName,
+}: FooterProps) {
+  const brandName = propSiteName || SITE_CONFIG.brand.name;
   const companyDescription = "Helping businesses and institutions build smarter systems through analytics, automation, technology, and practical solutions.";
-  const address = SITE_CONFIG.brand.address;
-  const email = SITE_CONFIG.brand.email;
-  const phones = SITE_CONFIG.brand.phones;
+  const address = propAddress || SITE_CONFIG.brand.address;
+  const email = propEmail || SITE_CONFIG.brand.email;
+  const phones = propPhones || SITE_CONFIG.brand.phones;
   const year = new Date().getFullYear();
+
+  const socialUrls: Record<string, string> = {
+    linkedin: linkedinUrl || SITE_CONFIG.brand.socials.linkedin,
+    facebook: facebookUrl || SITE_CONFIG.brand.socials.facebook,
+    twitter: twitterUrl || SITE_CONFIG.brand.socials.twitter,
+    instagram: instagramUrl || SITE_CONFIG.brand.socials.instagram,
+  };
+
+  // Group footer links if provided, else fall back to static SITE_CONFIG/standard
+  const columns: { title: string; links: { label: string; url: string }[] }[] = [];
+
+  if (propNavItems && propNavItems.length > 0) {
+    const grouped = propNavItems.reduce<Record<string, { label: string; url: string }[]>>((acc, item) => {
+      if (item.location === "footer" && item.footerColumn) {
+        if (!acc[item.footerColumn]) acc[item.footerColumn] = [];
+        acc[item.footerColumn].push({ label: item.label, url: item.url });
+      }
+      return acc;
+    }, {});
+
+    Object.entries(grouped).forEach(([colName, links]) => {
+      columns.push({ title: colName, links });
+    });
+  } else {
+    // Standard static fallback columns
+    columns.push(
+      {
+        title: "Corporate Solutions",
+        links: [
+          { label: "Report Automation", url: "/solutions/corporate" },
+          { label: "Dashboard Development", url: "/solutions/corporate" },
+          { label: "Data Visualization", url: "/solutions/corporate" },
+          { label: "Process Automation", url: "/solutions/corporate" },
+          { label: "Application Development", url: "/solutions/corporate" },
+          { label: "Corporate Training", url: "/solutions/corporate" },
+        ],
+      },
+      {
+        title: "Educational Solutions",
+        links: [
+          { label: "Training Programs", url: "/solutions/educational" },
+          { label: "Certification Programs", url: "/solutions/educational" },
+          { label: "Curriculum Development", url: "/solutions/educational" },
+          { label: "Academic Analytics", url: "/solutions/educational" },
+          { label: "Skill Development Programs", url: "/solutions/educational" },
+        ],
+      },
+      {
+        title: "Products",
+        links: [
+          { label: "Grade Scope", url: "/products" },
+          { label: "Proctrix", url: "/products" },
+          { label: "BeInTrack", url: "/products" },
+        ],
+      },
+      {
+        title: "Company",
+        links: [
+          { label: "About Us", url: "/about" },
+          { label: "Blog", url: "/blog" },
+          { label: "Contact", url: "/contact" },
+        ],
+      }
+    );
+  }
 
   return (
     <footer className="relative mt-24 border-t border-[rgba(32,217,160,0.15)] bg-[#062D24] text-[#97aba2] rounded-t-[32px] shadow-lg">
@@ -39,7 +126,7 @@ export function Footer() {
             </p>
             <div className="flex gap-2.5">
               {SOCIALS.map((s) => {
-                const url = SITE_CONFIG.brand.socials[s.key];
+                const url = socialUrls[s.key];
                 return (
                   <a
                     key={s.key}
@@ -58,94 +145,23 @@ export function Footer() {
 
           {/* Columns */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {/* Corporate */}
-            <div className="flex flex-col gap-4">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">Corporate Solutions</h3>
-              <ul className="flex flex-col gap-2.5 border-t border-[rgba(32,217,160,0.1)] pt-3">
-                {[
-                  "Report Automation",
-                  "Dashboard Development",
-                  "Data Visualization",
-                  "Process Automation",
-                  "Application Development",
-                  "Corporate Training"
-                ].map((item) => (
-                  <li key={item}>
-                    <Link
-                      href="/solutions/corporate"
-                      className="text-xs text-[#97aba2] transition-all duration-300 hover:text-[#20D9A0] hover:translate-x-1 inline-block"
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Educational */}
-            <div className="flex flex-col gap-4">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">Educational Solutions</h3>
-              <ul className="flex flex-col gap-2.5 border-t border-[rgba(32,217,160,0.1)] pt-3">
-                {[
-                  "Training Programs",
-                  "Certification Programs",
-                  "Curriculum Development",
-                  "Academic Analytics",
-                  "Skill Development Programs"
-                ].map((item) => (
-                  <li key={item}>
-                    <Link
-                      href="/solutions/educational"
-                      className="text-xs text-[#97aba2] transition-all duration-300 hover:text-[#20D9A0] hover:translate-x-1 inline-block"
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Products */}
-            <div className="flex flex-col gap-4">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">Products</h3>
-              <ul className="flex flex-col gap-2.5 border-t border-[rgba(32,217,160,0.1)] pt-3">
-                {[
-                  { name: "Grade Scope", href: "/products/grade-scope" },
-                  { name: "Proctrix", href: "/products/proctrix" },
-                  { name: "BeInTrack", href: "/products/beintrack" }
-                ].map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-xs text-[#97aba2] transition-all duration-300 hover:text-[#20D9A0] hover:translate-x-1 inline-block"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div className="flex flex-col gap-4">
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">Company</h3>
-              <ul className="flex flex-col gap-2.5 border-t border-[rgba(32,217,160,0.1)] pt-3">
-                {[
-                  { name: "About Us", href: "/about" },
-                  { name: "Blog", href: "/blog" },
-                  { name: "Contact", href: "/contact" }
-                ].map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="text-xs text-[#97aba2] transition-all duration-300 hover:text-[#20D9A0] hover:translate-x-1 inline-block"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {columns.map((col) => (
+              <div key={col.title} className="flex flex-col gap-4">
+                <h3 className="text-xs font-bold text-white uppercase tracking-wider">{col.title}</h3>
+                <ul className="flex flex-col gap-2.5 border-t border-[rgba(32,217,160,0.1)] pt-3">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.url}
+                        className="text-xs text-[#97aba2] transition-all duration-300 hover:text-[#20D9A0] hover:translate-x-1 inline-block"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
           {/* Newsletter & Direct Contact */}

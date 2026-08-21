@@ -13,6 +13,24 @@ const SECTIONS = [
     label: "Hero Section",
     description: "Edit the homepage headline, tagline, body text and CTA button.",
   },
+  {
+    href: "/admin/settings",
+    icon: "⚙️",
+    label: "Site Settings",
+    description: "Manage brand names, contact details, social media links, and default SEO tags.",
+  },
+  {
+    href: "/admin/testimonials",
+    icon: "💬",
+    label: "Testimonials",
+    description: "Manage customer quotes, ratings, designations, and display orders on the website.",
+  },
+  {
+    href: "/admin/faqs",
+    icon: "❓",
+    label: "FAQs Accordion",
+    description: "Manage and organize frequently asked questions across different pages.",
+  },
 ];
 
 export default async function AdminDashboard() {

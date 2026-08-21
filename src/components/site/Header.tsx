@@ -5,13 +5,19 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Phone, ArrowRight } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "./ThemeToggle";
 import { SITE_CONFIG } from "@/config/site";
 
-export function Header() {
+interface HeaderProps {
+  navItems?: { label: string; url: string }[];
+  phoneNum?: string;
+  logoUrl?: string;
+}
+
+export function Header({ navItems: propNavItems, phoneNum: propPhoneNum, logoUrl: propLogoUrl }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
@@ -37,9 +43,9 @@ export function Header() {
     return pathname.startsWith(url);
   };
 
-  const navItems = SITE_CONFIG.navigation.header;
-  const brandName = SITE_CONFIG.brand.name;
-  const phoneNum = SITE_CONFIG.brand.phones[0];
+  const navItems = propNavItems || SITE_CONFIG.navigation.header;
+  const phoneNum = propPhoneNum || SITE_CONFIG.brand.phones[0];
+  const logoUrl = propLogoUrl || "/brand/strategist-logo.png";
 
   const isHome = pathname === "/";
   // Hero-integrated: transparent on home until scrolled, always solid on other pages
@@ -69,7 +75,7 @@ export function Header() {
             aria-label="The Strategist — Home"
           >
             <Image
-              src="/brand/strategist-logo.png"
+              src={logoUrl}
               alt="The Strategist"
               width={180}
               height={45}
@@ -152,7 +158,7 @@ export function Header() {
             >
               <div className="mb-6 flex items-center justify-between">
                 <Image
-                  src="/brand/strategist-logo.png"
+                  src={logoUrl}
                   alt="The Strategist"
                   width={140}
                   height={36}

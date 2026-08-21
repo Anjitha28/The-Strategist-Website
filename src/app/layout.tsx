@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { SITE_CONFIG } from "@/config/site";
-
+import { getSiteSettings } from "@/lib/settings";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,27 +17,29 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const brandName = SITE_CONFIG.brand.name;
-  const tagline = SITE_CONFIG.brand.tagline;
+  const settings = await getSiteSettings();
+  const brandName = settings.siteName;
+  const description = settings.defaultSeoDescription || settings.tagline;
 
   return {
     metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
     title: {
-      default: `${brandName} | Strategy • Analytics • Automation • Technology`,
+      default: settings.defaultSeoTitle || `${brandName} | Strategy • Analytics • Automation • Technology`,
       template: `%s | ${brandName}`,
     },
-    description: tagline,
-    icons: { icon: "/favicon.ico" },
+    description,
+    keywords: settings.defaultKeywords,
+    icons: { icon: settings.faviconUrl || "/favicon.ico" },
     openGraph: {
       type: "website",
       siteName: brandName,
-      title: brandName,
-      description: tagline,
+      title: settings.defaultSeoTitle,
+      description,
     },
     twitter: {
       card: "summary_large_image",
-      title: brandName,
-      description: tagline,
+      title: settings.defaultSeoTitle,
+      description,
     },
   };
 }
