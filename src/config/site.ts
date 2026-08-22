@@ -251,7 +251,7 @@ Ernakulam, Kerala, India`,
       slug: "proctrix",
       name: "Proctrix",
       category: "ASSIGNMENT & ASSESSMENT AUTOMATION PLATFORM",
-      description: "Proctrix helps educators create, manage, and evaluate practical assignments while helping students practice and improve relevant skills.",
+      description: "Proctrix helps teachers generate, manage, and evaluate practical assignments while helping students practice and improve skills.",
       features: [
         "Assignment Automation",
         "Automated Evaluation",

@@ -45,8 +45,9 @@ export default async function AboutPage() {
     : {
         heading: "Who We Are",
         paragraphs: [
-          "The Strategist is a technology and analytics organization focused on helping businesses and institutions improve the way they work, understand information, and make decisions.",
-          "We combine analytical thinking, automation, technology development, and practical industry knowledge to create solutions that are useful, scalable, and aligned with real-world requirements."
+          "The Strategist is an analytics, automation, and technology company with 16+ years of experience supporting corporates and educational institutions.",
+          "We combine analytical thinking, automation, technology development, and practical industry knowledge to create solutions that are useful, scalable, and aligned with real-world requirements.",
+          "Our services and training programs have reached clients across Kerala, India, UAE, Oman, USA, and Europe."
         ]
       };
 
@@ -105,6 +106,36 @@ export default async function AboutPage() {
               </p>
             ))}
           </Reveal>
+        </div>
+      </Section>
+
+      {/* Vision & Mission */}
+      <Section className="bg-[#f7f9f8] py-20 border-t border-[#dce6e7]">
+        <div className="container-page">
+          <div className="grid gap-12 lg:grid-cols-2">
+            <Reveal className="flex flex-col gap-4 p-8 bg-white border border-[#dce6e7] rounded-[20px]">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                Our Vision
+              </span>
+              <h2 className="font-serif text-2xl text-[#071820] font-medium leading-tight">
+                To build smarter organizations and industry-ready professionals.
+              </h2>
+              <p className="text-sm text-[#68787d] leading-relaxed">
+                To build smarter organizations and industry-ready professionals through analytics, automation, and practical learning.
+              </p>
+            </Reveal>
+            <Reveal className="flex flex-col gap-4 p-8 bg-white border border-[#dce6e7] rounded-[20px]">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                Our Mission
+              </span>
+              <h2 className="font-serif text-2xl text-[#071820] font-medium leading-tight">
+                To help organizations unlock their full potential.
+              </h2>
+              <p className="text-sm text-[#68787d] leading-relaxed">
+                To help organizations unlock their full potential by combining Business Intelligence, Artificial Intelligence, Data Analytics, Digital Transformation, Professional Training, and innovative technology solutions that create measurable value.
+              </p>
+            </Reveal>
+          </div>
         </div>
       </Section>
 
@@ -228,6 +259,48 @@ export default async function AboutPage() {
         </div>
       </Section>
 
+      {/* Our Impact */}
+      <Section className="bg-white py-24 border-t border-[#dce6e7]">
+        <div className="container-page">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                Our Impact
+              </span>
+              <h2 className="font-serif text-4xl text-[#071820] leading-tight font-medium">
+                Helping Organizations Create Measurable Outcomes
+              </h2>
+              <p className="text-sm text-[#68787d] leading-relaxed">
+                For over 16 years, our analytics, automation, and training solutions have enabled organizations and institutions to streamline operations, optimize reporting, and build data-driven cultures.
+              </p>
+            </div>
+            <div className="lg:col-span-7">
+              <RevealGroup className="grid gap-4 sm:grid-cols-2">
+                {[
+                  { stat: "5+", label: "Regions Served", desc: "Kerala, India, UAE, Oman, USA, Europe" },
+                  { stat: "20+", label: "Corporate Clients", desc: "Enterprise solutions & business analytics" },
+                  { stat: "50,000+", label: "Professionals Trained", desc: "Young professionals and students" },
+                  { stat: "5,000+", label: "Senior Leaders Trained", desc: "Executive capability programs" },
+                ].map((item) => (
+                  <RevealItem key={item.label}>
+                    <div
+                      className="rounded-2xl p-6 bg-[#f7f9f8] border border-[#dce6e7] flex flex-col justify-between"
+                      style={{ minHeight: 140 }}
+                    >
+                      <p className="text-3xl font-black text-[#18b8ad] font-display">{item.stat}</p>
+                      <div>
+                        <p className="text-sm font-bold text-[#071820] mt-2">{item.label}</p>
+                        <p className="text-[11px] text-[#68787d] mt-1 leading-snug">{item.desc}</p>
+                      </div>
+                    </div>
+                  </RevealItem>
+                ))}
+              </RevealGroup>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       {/* Final CTA — Teal gradient */}
       <section
         className="py-20 text-center"
@@ -236,12 +309,12 @@ export default async function AboutPage() {
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
           <Reveal>
             <h2 className="font-serif text-3xl text-[#071820] sm:text-4xl font-medium">
-              Let&apos;s Build Something Smarter
+              Let&apos;s Build Smarter Systems Together
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="text-base text-[#3d6461] leading-relaxed">
-              Schedule a free consultation with The Strategist to explore how analytics and automation can create immediate impact for your organization.
+              Whether you are a corporate organization seeking automation and analytics, or an institution wanting industry-ready outcomes, The Strategist is ready to support your transformation journey.
             </p>
           </Reveal>
           <Reveal delay={0.16}>

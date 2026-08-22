@@ -134,7 +134,7 @@ export function Footer({
                     aria-label={s.label}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="grid h-10 w-10 place-items-center rounded-full bg-[#073B30] border border-[#20D9A0]/10 text-[#97aba2] transition-all duration-300 hover:bg-[#00B894] hover:text-white hover:scale-110 active:scale-95 shadow-sm"
+                    className="grid h-10 w-10 place-items-center rounded-full bg-[#071820] border border-[#18b8ad]/10 text-[#97aba2] transition-all duration-300 hover:bg-[#18b8ad] hover:text-white hover:scale-110 active:scale-95 shadow-sm"
                   >
                     <Icon name={s.icon} className="h-4 w-4" />
                   </a>

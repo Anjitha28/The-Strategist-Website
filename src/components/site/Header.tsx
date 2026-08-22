@@ -43,7 +43,7 @@ export function Header({ navItems: propNavItems, phoneNum: propPhoneNum, logoUrl
     return pathname.startsWith(url);
   };
 
-  const navItems = propNavItems || SITE_CONFIG.navigation.header;
+  const navItems = propNavItems && propNavItems.length > 0 ? propNavItems : SITE_CONFIG.navigation.header;
   const phoneNum = propPhoneNum || SITE_CONFIG.brand.phones[0];
   const logoUrl = propLogoUrl || "/brand/strategist-logo.png";
 
@@ -84,22 +84,26 @@ export function Header({ navItems: propNavItems, phoneNum: propPhoneNum, logoUrl
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-0 ml-auto lg:flex" aria-label="Primary">
+          {/* Desktop Navigation - Pill Ribbon Style */}
+          <nav 
+            className="hidden lg:flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-[rgba(7,24,32,0.06)] bg-[rgba(255,255,255,0.65)] backdrop-blur-md shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),_0_2px_8px_rgba(7,24,32,0.03)] mx-auto"
+            aria-label="Primary"
+          >
             {navItems.map((item) => (
               <Link
                 key={item.url}
                 href={item.url}
                 className={cn(
-                  "px-3.5 py-2 transition-colors",
-                  isActive(item.url) ? "font-bold" : ""
+                  "px-3.5 py-1.5 rounded-full transition-all duration-300 relative text-xs font-bold",
+                  isActive(item.url) 
+                    ? "bg-[#18b8ad] text-white shadow-[0_4px_12px_rgba(24,184,173,0.22)]" 
+                    : "text-[#56666b] hover:text-[#071820] hover:bg-[rgba(7,24,32,0.04)]"
                 )}
                 style={{
-                  fontSize: 12,
-                  fontWeight: isActive(item.url) ? 800 : 750,
-                  color: isTransparent
-                    ? (isActive(item.url) ? "#18b8ad" : "rgba(7,24,32,0.85)")
-                    : (isActive(item.url) ? "#18b8ad" : "#56666b"),
+                  fontWeight: isActive(item.url) ? 850 : 750,
+                  color: isActive(item.url)
+                    ? "#ffffff"
+                    : (isTransparent ? "rgba(7,24,32,0.85)" : "#56666b"),
                 }}
               >
                 {item.label}
@@ -108,7 +112,7 @@ export function Header({ navItems: propNavItems, phoneNum: propPhoneNum, logoUrl
           </nav>
 
           {/* Action buttons */}
-          <div className="flex items-center gap-3 ml-auto lg:ml-3">
+          <div className="flex items-center gap-3 ml-auto lg:ml-0 shrink-0">
             <Link
               href="/contact"
               className="hidden md:inline-flex items-center gap-2 rounded-full font-bold transition-all duration-300"
@@ -179,7 +183,7 @@ export function Header({ navItems: propNavItems, phoneNum: propPhoneNum, logoUrl
                       href={item.url}
                       className={cn(
                         "block rounded-xl px-3 py-3 text-base font-semibold",
-                        isActive(item.url) ? "text-[#00B894] bg-[#00B894]/5" : "text-[var(--fg)]"
+                        isActive(item.url) ? "text-[#18b8ad] bg-[#18b8ad]/5" : "text-[var(--fg)]"
                       )}
                     >
                       {item.label}
@@ -196,7 +200,7 @@ export function Header({ navItems: propNavItems, phoneNum: propPhoneNum, logoUrl
                 </a>
                 <Button
                   href="/contact?service=Products#form"
-                  className="w-full bg-[#073B30] text-white hover:bg-[#00B894]"
+                  className="w-full bg-[#071820] text-white hover:bg-[#18b8ad]"
                 >
                   Request Demo &rarr;
                 </Button>

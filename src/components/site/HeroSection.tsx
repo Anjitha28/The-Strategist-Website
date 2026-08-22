@@ -29,15 +29,15 @@ export async function HeroSection() {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{ background: "#ffffff", minHeight: "clamp(480px, 54vw, 860px)" }}
+      className="relative w-full flex items-center overflow-hidden"
+      style={{ background: "#ffffff", minHeight: "clamp(550px, 60vw, 860px)" }}
     >
       {/* Background 3D visualization image */}
       <Image
         src="/brand/hero-visual-final.png"
         alt="The Strategist growth visualization"
         fill
-        className="object-cover object-center"
+        className="object-cover object-center md:object-[85%_center]"
         priority
         quality={90}
       />
@@ -52,8 +52,8 @@ export async function HeroSection() {
       />
 
       {/* Text content — overlaid on left */}
-      <div className="relative container-page h-full flex items-center">
-        <div style={{ paddingTop: "clamp(90px,9vw,130px)", paddingBottom: "clamp(64px,7vw,110px)", maxWidth: 540 }}>
+      <div className="relative container-page w-full flex items-center">
+        <div style={{ paddingTop: "clamp(110px, 11vw, 140px)", paddingBottom: "clamp(64px, 7vw, 110px)", maxWidth: 540 }}>
 
           {/* Eyebrow */}
           <p

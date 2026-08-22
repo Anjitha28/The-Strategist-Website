@@ -184,17 +184,16 @@ export const ABOUT: PageSeed = {
       data: {
         heading: "Who We Are",
         paragraphs: [
-          "Technology alone does not transform organizations. People, strategy, processes, and intelligent decision-making create lasting transformation.",
-          "The Strategist was founded with the vision of helping organizations leverage technology in meaningful ways. We believe data should become knowledge, knowledge should become strategy, and strategy should drive measurable business success.",
-          "Every engagement begins with understanding our clients' challenges before recommending the right technology, analytical approach, or business solution.",
-          "Rather than delivering isolated software or reports, we build long-term partnerships focused on continuous improvement and sustainable growth.",
+          "The Strategist is an analytics, automation, and technology company with 16+ years of experience supporting corporates and educational institutions.",
+          "We combine analytical thinking, automation, technology development, and practical industry knowledge to create solutions that are useful, scalable, and aligned with real-world requirements.",
+          "Our services and training programs have reached clients across Kerala, India, UAE, Oman, USA, and Europe."
         ],
       },
     },
     {
       key: "vision-mission", type: "vision-mission", title: "Vision & Mission", order: 2,
       data: {
-        vision: "To become a trusted global partner that empowers organizations through intelligent technologies, strategic consulting, innovative learning, and data-driven decision-making.",
+        vision: "To build smarter organizations and industry-ready professionals through analytics, automation, and practical learning.",
         mission: "To help organizations unlock their full potential by combining Business Intelligence, Artificial Intelligence, Data Analytics, Digital Transformation, Professional Training, and innovative technology solutions that create measurable value.",
       },
     },
