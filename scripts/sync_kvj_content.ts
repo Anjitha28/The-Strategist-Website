@@ -18,97 +18,131 @@ async function main() {
     ctaHref: "/contact"
   });
 
-  // 2️⃣ Solutions Section – 4 cards, exact order
-  await saveSupabaseSection("solutions", "Our Solutions", {
-    eyebrow: "Enterprise Solutions That Drive Business Growth",
-    heading: "Enterprise Solutions That Drive Business Growth",
-    description: "We help organizations transform data into strategic assets through intelligent analytics, automation and enterprise technology solutions.",
-    cards: [
-      {
-        title: "Corporate Analytics",
-        desc: "Business Intelligence, Executive Dashboards, Data Visualization, Performance Analytics, Decision Support",
-        icon: "CorporateAnalytics"
-      },
-      {
-        title: "Digital Transformation",
-        desc: "Business Process Automation, Workflow Optimization, Cloud Transformation, Digital Strategy, Technology Modernization",
-        icon: "DigitalTransformation"
-      },
-      {
-        title: "Enterprise Technology",
-        desc: "Custom Business Applications, Enterprise Portals, Analytics Platforms, Data Platforms, System Integration",
-        icon: "EnterpriseTechnology"
-      },
-      {
-        title: "Consulting Services",
-        desc: "Analytics Consulting, Technology Advisory, Digital Strategy, Business Process Analysis, Implementation Roadmaps",
-        icon: "ConsultingServices"
-      }
-    ]
-  });
+// Existing Solutions section unchanged (kept for branding)
+await saveSupabaseSection("solutions", "Our Solutions", {
+  eyebrow: "Enterprise Solutions That Drive Business Growth",
+  heading: "Enterprise Solutions That Drive Business Growth",
+  description: "We help organizations transform data into strategic assets through intelligent analytics, automation and enterprise technology solutions.",
+  cards: [
+    {
+      title: "Corporate Analytics",
+      desc: "Business Intelligence, Executive Dashboards, Data Visualization, Performance Analytics, Decision Support",
+      icon: "CorporateAnalytics"
+    },
+    {
+      title: "Digital Transformation",
+      desc: "Business Process Automation, Workflow Optimization, Cloud Transformation, Digital Strategy, Technology Modernization",
+      icon: "DigitalTransformation"
+    },
+    {
+      title: "Enterprise Technology",
+      desc: "Custom Business Applications, Enterprise Portals, Analytics Platforms, Data Platforms, System Integration",
+      icon: "EnterpriseTechnology"
+    },
+    {
+      title: "Consulting Services",
+      desc: "Analytics Consulting, Technology Advisory, Digital Strategy, Business Process Analysis, Implementation Roadmaps",
+      icon: "ConsultingServices"
+    }
+  ]
+});
 
-  // 3️⃣ Why Section – "Why The Strategist"
-  await saveSupabaseSection("why", "Why The Strategist", {
-    heading: "Why The Strategist",
-    subheading: "Turning Complex Data into Clear Decisions",
-    description: "Enterprise capability across intelligence, automation and platforms — engineered around measurable business outcomes.",
-    items: [
-      { number: "01", title: "Business Intelligence" },
-      { number: "02", title: "Automation" },
-      { number: "03", title: "Artificial Intelligence" },
-      { number: "04", title: "Enterprise Platforms" },
-      { number: "05", title: "Custom Solutions" },
-      { number: "06", title: "Innovation" }
-    ]
-  });
+// Why KVJ Analytics section (new label and heading)
+await saveSupabaseSection("why_kvj", "Why KVJ Analytics", {
+  heading: "Turning Complex Data into Clear Decisions",
+  subheading: "",
+  description: "Enterprise capability across intelligence, automation and platforms — engineered around measurable business outcomes.",
+  items: [
+    { number: "01", title: "Business Intelligence" },
+    { number: "02", title: "Automation" },
+    { number: "03", title: "Artificial Intelligence" },
+    { number: "04", title: "Enterprise Platforms" },
+    { number: "05", title: "Custom Solutions" },
+    { number: "06", title: "Innovation" }
+  ]
+});
 
-  // 4️⃣ Industries Section – 8 industries exact order
-  await saveSupabaseSection("industries", "Industries", {
-    eyebrow: "Solutions Built For Every Industry",
-    heading: "Solutions Built For Every Industry",
-    description: "Tailored analytics frameworks and automated systems engineered to solve industry‑specific operations and workflows.",
-    industries: [
-      { name: "Education", icon: "Education" },
-      { name: "Healthcare", icon: "Healthcare" },
-      { name: "Manufacturing", icon: "Manufacturing" },
-      { name: "Retail", icon: "Retail" },
-      { name: "Financial Services", icon: "FinancialServices" },
-      { name: "Startups", icon: "Startups" },
-      { name: "SMEs", icon: "SMEs" },
-      { name: "Large Enterprises", icon: "LargeEnterprises" }
-    ]
-  });
+// Our Solutions (second Enterprise Solutions section)
+await saveSupabaseSection("solutions_repeat", "Our Solutions", {
+  eyebrow: "Enterprise Solutions That Drive Business Growth",
+  heading: "Enterprise Solutions That Drive Business Growth",
+  description: "We help organizations transform data into strategic assets through intelligent analytics, automation and enterprise technology solutions.",
+  cards: [
+    { title: "Corporate Analytics", desc: "Business Intelligence, Executive Dashboards, Data Visualization, Performance Analytics, Decision Support", icon: "CorporateAnalytics" },
+    { title: "Digital Transformation", desc: "Business Process Automation, Workflow Optimization, Cloud Transformation, Digital Strategy, Technology Modernization", icon: "DigitalTransformation" },
+    { title: "Enterprise Technology", desc: "Custom Business Applications, Enterprise Portals, Analytics Platforms, Data Platforms, System Integration", icon: "EnterpriseTechnology" },
+    { title: "Consulting Services", desc: "Analytics Consulting, Technology Advisory, Digital Strategy, Business Process Analysis, Implementation Roadmaps", icon: "ConsultingServices" }
+  ]
+});
 
-  // 5️⃣ Framework / Approach – 7 stages exact order
-  await saveSupabaseSection("framework", "Our Approach", {
-    eyebrow: "A Proven Framework For Digital Transformation",
-    heading: "A Proven Framework For Digital Transformation",
-    description: "How we partner with organizations to turn complex data into clear, lasting business decisions and operational efficiency.",
-    stages: [
-      { number: "01", title: "Discover", desc: "Identify key challenges, gather stakeholder requirements, and audit existing data assets to establish a clear digital roadmap." },
-      { number: "02", title: "Design", desc: "Co‑create tailored analytics and automation blueprints aligned with your operational workflows and KPIs." },
-      { number: "03", title: "Build", desc: "Develop and deploy high‑performance dashboards, report automation pipelines, and platforms with precision." },
-      { number: "04", title: "Deploy", desc: "Roll out solutions to production environments with robust testing and monitoring." },
-      { number: "05", title: "Optimize", desc: "Continuous performance tuning, data quality improvement, and workflow refinement." },
-      { number: "06", title: "Report Automation", desc: "Automate scheduled reporting, alerts, and distribution for faster decision making." },
-      { number: "07", title: "Business Decisions", desc: "Empower leadership teams with clear, actionable insights, predictive analytics models, and automated reporting systems to drive growth." }
-    ]
-  });
+// Our Approach section (framework) – moved after second Enterprise Solutions
+await saveSupabaseSection("framework", "Our Approach", {
+  eyebrow: "A Proven Framework For Digital Transformation",
+  heading: "A Proven Framework For Digital Transformation",
+  description: "How we partner with organizations to turn complex data into clear, lasting business decisions and operational efficiency.",
+  stages: [
+    { number: "01", title: "Discover", desc: "Identify key challenges, gather stakeholder requirements, and audit existing data assets to establish a clear digital roadmap." },
+    { number: "02", title: "Design", desc: "Co‑create tailored analytics and automation blueprints aligned with your operational workflows and KPIs." },
+    { number: "03", title: "Build", desc: "Develop and deploy high‑performance dashboards, report automation pipelines, and platforms with precision." },
+    { number: "04", title: "Deploy", desc: "Roll out solutions to production environments with robust testing and monitoring." },
+    { number: "05", title: "Optimize", desc: "Continuous performance tuning, data quality improvement, and workflow refinement." },
+    { number: "06", title: "Report Automation", desc: "Automate scheduled reporting, alerts, and distribution for faster decision making." },
+    { number: "07", title: "Business Decisions", desc: "Empower leadership teams with clear, actionable insights, predictive analytics models, and automated reporting systems to drive growth." }
+  ]
+});
 
-  // 6️⃣ Insights Section – placeholder
-  await saveSupabaseSection("insights", "Insights", {
-    heading: "Insights That Drive Better Decisions",
-    ctaLabel: "Read All Insights",
-    ctaHref: "/insights"
-  });
+// Technology Products section – new content
+await saveSupabaseSection("technology_products", "Technology Products", {
+  eyebrow: "Technology Products",
+  heading: "Proprietary Technology Platforms",
+  description: "Purpose-built platforms — GradeScope, Proctrix, BeInTrack — designed to solve practical reporting, assessment, and institutional operations.",
+  products: [
+    { title: "GradeScope", desc: "Academic reporting", icon: "GradeScope" },
+    { title: "Proctrix", desc: "Exam assessment", icon: "Proctrix" },
+    { title: "BeInTrack", desc: "Process analytics", icon: "BeInTrack" }
+  ],
+  ctaLabel: "Explore Products",
+  ctaHref: "/products"
+});
 
-  // 7️⃣ Final CTA Section
-  await saveSupabaseSection("final_cta", "Final CTA", {
-    heading: "Ready to Transform Your Business?",
-    body: "Partner with The Strategist to build intelligent analytics platforms, automate operations and enable data‑driven decisions that create measurable business outcomes.",
-    ctaPrimary: { label: "Schedule a Consultation", href: "/contact" },
-    ctaSecondary: { label: "Contact Us", href: "/contact" }
-  });
+// Insights section – detailed articles
+await saveSupabaseSection("insights", "Insights", {
+  eyebrow: "Insights",
+  heading: "From Our Knowledge Base",
+  ctaLabel: "View All Articles",
+  ctaHref: "/blog",
+  articles: [
+    {
+      category: "Automation",
+      title: "How Automation Can Reduce Repetitive Reporting Work",
+      description: "Learn how modern workflow tools and automation scripts can free up valuable time by taking over manual report compilation.",
+      ctaLabel: "Read article",
+      ctaHref: "/blog/reduce-reporting-work"
+    },
+    {
+      category: "Analytics",
+      title: "Turning Business Data Into Actionable Insights",
+      description: "A practical guide to sorting through raw business data and highlighting the key metrics that drive growth.",
+      ctaLabel: "Read article",
+      ctaHref: "/blog/actionable-insights"
+    },
+    {
+      category: "Business Intelligence",
+      title: "Why Interactive Dashboards Improve Decision-Making",
+      description: "Discover the visual principles and layout strategies that make real-time dashboards effective for management teams.",
+      ctaLabel: "Read article",
+      ctaHref: "/blog/dashboards-decision-making"
+    }
+  ]
+});
+
+// Final CTA – updated as required
+await saveSupabaseSection("final_cta", "Final CTA", {
+  heading: "Let's Build Smarter Systems Together",
+  body: "Whether you are a corporate organization seeking automation and analytics, or an institution wanting industry‑ready outcomes, The Strategist is ready to support your transformation journey.",
+  ctaPrimary: { label: "Schedule a Consultation", href: "/contact" },
+  ctaSecondary: { label: "Explore Solutions", href: "/solutions/corporate" }
+});
 
   // 8️⃣ Statistics Section
   await saveSupabaseSection("statistics", "Statistics", {
