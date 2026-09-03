@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   children: ReactNode;
@@ -12,14 +13,16 @@ type Props = {
   id?: string;
 };
 
-/** Scroll-triggered fade-up reveal. Respects reduced-motion. */
+/** Scroll-triggered fade-up reveal. */
 export function Reveal({ children, delay = 0, y = 24, className, as = "div", id }: Props) {
-  const reduce = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const MotionTag = motion[as];
 
-  if (reduce) {
+  if (!mounted) {
     const Tag = as;
-    return <Tag className={className} id={id}>{children}</Tag>;
+    return <Tag className={className} id={id} suppressHydrationWarning>{children}</Tag>;
   }
 
   return (
@@ -30,6 +33,7 @@ export function Reveal({ children, delay = 0, y = 24, className, as = "div", id 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      suppressHydrationWarning
     >
       {children}
     </MotionTag>
@@ -46,8 +50,13 @@ export function RevealGroup({
   className?: string;
   stagger?: number;
 }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return <div className={className} suppressHydrationWarning>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
@@ -55,6 +64,7 @@ export function RevealGroup({
       whileInView="show"
       viewport={{ once: true, margin: "-60px" }}
       variants={{ show: { transition: { staggerChildren: stagger } } }}
+      suppressHydrationWarning
     >
       {children}
     </motion.div>
@@ -62,8 +72,13 @@ export function RevealGroup({
 }
 
 export function RevealItem({ children, className, y = 24 }: { children: ReactNode; className?: string; y?: number }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return <div className={className} suppressHydrationWarning>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
@@ -71,6 +86,7 @@ export function RevealItem({ children, className, y = 24 }: { children: ReactNod
         hidden: { opacity: 0, y },
         show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
       }}
+      suppressHydrationWarning
     >
       {children}
     </motion.div>

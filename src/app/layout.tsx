@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import { getSiteSettings } from "@/lib/settings";
 
 const inter = Inter({
@@ -54,10 +55,12 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable}`} data-theme={defaultTheme} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
-      <body className="min-h-screen bg-[var(--bg)] text-[var(--fg)]">{children}</body>
+      <body className="min-h-screen bg-[var(--bg)] text-[var(--fg)]" suppressHydrationWarning>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {themeScript}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }

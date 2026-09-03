@@ -5,7 +5,12 @@ import { parseJson, splitCsv } from "./utils";
 export type SiteSettings = Awaited<ReturnType<typeof loadSiteSettings>>;
 
 async function loadSiteSettings() {
-  const s = await prisma.siteSetting.findUnique({ where: { id: "singleton" } });
+  let s = null;
+  try {
+    s = await prisma.siteSetting.findUnique({ where: { id: "singleton" } });
+  } catch {
+    // DB fallback
+  }
   const row = s ?? {
     siteName: "The Strategist",
     tagline: "Gain the competitive edge",
@@ -71,47 +76,67 @@ export type SectionMap = Record<string, { data: Record<string, unknown>; visible
 
 /** Load a page and return its sections keyed by `key` with parsed data. */
 export const getPage = cache(async (slug: string) => {
-  const page = await prisma.page.findUnique({
-    where: { slug },
-    include: { sections: { orderBy: { order: "asc" } } },
-  });
-  if (!page) return null;
-  const sections: SectionMap = {};
-  for (const sec of page.sections) {
-    sections[sec.key] = {
-      data: parseJson<Record<string, unknown>>(sec.data, {}),
-      visible: sec.visible,
-      title: sec.title,
-    };
+  try {
+    const page = await prisma.page.findUnique({
+      where: { slug },
+      include: { sections: { orderBy: { order: "asc" } } },
+    });
+    if (!page) return null;
+    const sections: SectionMap = {};
+    for (const sec of page.sections) {
+      sections[sec.key] = {
+        data: parseJson<Record<string, unknown>>(sec.data, {}),
+        visible: sec.visible,
+        title: sec.title,
+      };
+    }
+    return { page, sections };
+  } catch {
+    return null;
   }
-  return { page, sections };
 });
 
 export const getNavigation = cache(async (location: "header" | "footer" = "header") => {
-  const items = await prisma.navigationItem.findMany({
-    where: { location, visible: true, parentId: null },
-    orderBy: { order: "asc" },
-    include: {
-      children: {
-        where: { visible: true },
-        orderBy: { order: "asc" },
+  try {
+    const items = await prisma.navigationItem.findMany({
+      where: { location, visible: true, parentId: null },
+      orderBy: { order: "asc" },
+      include: {
+        children: {
+          where: { visible: true },
+          orderBy: { order: "asc" },
+        },
       },
-    },
-  });
-  return items;
+    });
+    return items;
+  } catch {
+    return [];
+  }
 });
 
 export const getFaqs = cache(async (group: string) => {
-  return prisma.faq.findMany({
-    where: { group, visible: true },
-    orderBy: { order: "asc" },
-  });
+  try {
+    return await prisma.faq.findMany({
+      where: { group, visible: true },
+      orderBy: { order: "asc" },
+    });
+  } catch {
+    return [];
+  }
 });
 
 export const getTestimonials = cache(async () => {
-  return prisma.testimonial.findMany({ where: { visible: true }, orderBy: { order: "asc" } });
+  try {
+    return await prisma.testimonial.findMany({ where: { visible: true }, orderBy: { order: "asc" } });
+  } catch {
+    return [];
+  }
 });
 
 export const getClientLogos = cache(async () => {
-  return prisma.clientLogo.findMany({ where: { visible: true }, orderBy: { order: "asc" } });
+  try {
+    return await prisma.clientLogo.findMany({ where: { visible: true }, orderBy: { order: "asc" } });
+  } catch {
+    return [];
+  }
 });

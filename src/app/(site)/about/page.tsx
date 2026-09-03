@@ -27,8 +27,8 @@ export default async function AboutPage() {
       where: { slug: "about" },
       include: { sections: true },
     });
-  } catch (error) {
-    console.error("Failed to query about page data:", error);
+  } catch {
+    // Database connection fallback — defaults handled below
   }
 
   // Fallbacks

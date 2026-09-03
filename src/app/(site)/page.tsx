@@ -39,8 +39,8 @@ export default async function HomePage() {
       where: { visible: true, group: "home" },
       orderBy: { order: "asc" },
     });
-  } catch (error) {
-    console.error("Failed to query homepage database components:", error);
+  } catch {
+    // Database connection fallback — defaults handled below
   }
 
   // Map database structures to props securely

@@ -42,8 +42,8 @@ export default async function CorporateSolutionsPage() {
       where: { status: "published", category: { slug: "corporate" } },
       orderBy: { order: "asc" },
     });
-  } catch (error) {
-    console.error("Failed to fetch corporate solutions page data:", error);
+  } catch {
+    // Database connection fallback — defaults handled below
   }
 
   // Fallbacks

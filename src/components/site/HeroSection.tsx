@@ -32,22 +32,21 @@ export async function HeroSection() {
       className="relative w-full flex items-center overflow-hidden"
       style={{ background: "#ffffff", minHeight: "clamp(550px, 60vw, 860px)" }}
     >
-      {/* Background 3D visualization image */}
+      {/* Background 3D visualization image placed on the right */}
       <Image
         src="/brand/hero-visual-final.png"
         alt="The Strategist growth visualization"
         fill
-        className="object-cover object-center md:object-[85%_center]"
+        className="object-cover object-right md:object-[85%_center]"
         priority
         quality={90}
       />
 
-      {/* Gradient overlay so left text stays legible */}
+      {/* Clean plain white background on the left where text is located, smoothly blending into the visual on the right */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0) 75%)",
-          pointerEvents: "none",
+          background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.98) 32%, rgba(255,255,255,0.55) 52%, rgba(255,255,255,0) 72%)",
         }}
       />
 

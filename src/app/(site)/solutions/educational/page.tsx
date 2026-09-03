@@ -37,8 +37,8 @@ export default async function EducationalSolutionsPage() {
       where: { slug: "solutions/educational" },
       include: { sections: true },
     });
-  } catch (error) {
-    console.error("Failed to fetch educational solutions page data:", error);
+  } catch {
+    // Database connection fallback — defaults handled below
   }
 
   // Fallbacks

@@ -58,8 +58,7 @@ export async function getSiteSettings(): Promise<SettingsData> {
       defaultSeoDescription: settings.defaultSeoDescription || SITE_CONFIG.brand.tagline,
       defaultKeywords: settings.defaultKeywords || "Business Intelligence, Analytics, Automation, Technology",
     };
-  } catch (error) {
-    console.error("Failed to fetch site settings, using fallback:", error);
+  } catch {
     return getFallbackSettings();
   }
 }

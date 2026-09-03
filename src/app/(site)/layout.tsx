@@ -13,8 +13,8 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       where: { visible: true },
       orderBy: { order: "asc" },
     });
-  } catch (error) {
-    console.error("Failed to query settings or navigation:", error);
+  } catch {
+    // Database connection fallback — defaults handled below
   }
 
   const headerNav = navItems.filter((item) => item.location === "header" && !item.parentId);
