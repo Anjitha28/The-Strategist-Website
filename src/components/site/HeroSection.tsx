@@ -34,7 +34,7 @@ export async function HeroSection() {
     >
       {/* Background 3D visualization image placed on the right */}
       <Image
-        src="/brand/hero-visual-final.png"
+        src="/brand/hero-visual-faded.png"
         alt="The Strategist growth visualization"
         fill
         className="object-cover object-right md:object-[85%_center]"
