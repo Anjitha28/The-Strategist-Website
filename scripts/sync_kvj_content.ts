@@ -1,16 +1,15 @@
 // scripts/sync_kvj_content.ts
-import { upsertSection } from "../src/lib/supabase-cms";
+import { saveSupabaseSection } from "../src/lib/supabase-cms.ts";
 
 /**
- * This script overwrites the Strategist homepage content to exactly match the
- * KVJ Analytics content order and coverage while preserving the existing visual
- * design. All sections are stored in Supabase tables with the `str_` prefix, so
- * the Admin CMS can continue to edit them.
+ * Overwrites The Strategist homepage content to exactly match KVJ Analytics
+ * order and coverage while preserving the existing visual design.
+ * Uses the existing Supabase CMS helper `saveSupabaseSection`.
  */
 
 async function main() {
   // 1️⃣ Hero Section – adapted wording
-  await upsertSection("hero", {
+  await saveSupabaseSection("hero", "Hero", {
     eyebrow: "ANALYTICS • AUTOMATION • TECHNOLOGY • TRANSFORMATION",
     heading: "Transform Data Into",
     tagline: "Business Growth.",
@@ -20,7 +19,7 @@ async function main() {
   });
 
   // 2️⃣ Solutions Section – 4 cards, exact order
-  await upsertSection("solutions", {
+  await saveSupabaseSection("solutions", "Our Solutions", {
     eyebrow: "Enterprise Solutions That Drive Business Growth",
     heading: "Enterprise Solutions That Drive Business Growth",
     description: "We help organizations transform data into strategic assets through intelligent analytics, automation and enterprise technology solutions.",
@@ -49,7 +48,7 @@ async function main() {
   });
 
   // 3️⃣ Why Section – "Why The Strategist"
-  await upsertSection("why", {
+  await saveSupabaseSection("why", "Why The Strategist", {
     heading: "Why The Strategist",
     subheading: "Turning Complex Data into Clear Decisions",
     description: "Enterprise capability across intelligence, automation and platforms — engineered around measurable business outcomes.",
@@ -64,7 +63,7 @@ async function main() {
   });
 
   // 4️⃣ Industries Section – 8 industries exact order
-  await upsertSection("industries", {
+  await saveSupabaseSection("industries", "Industries", {
     eyebrow: "Solutions Built For Every Industry",
     heading: "Solutions Built For Every Industry",
     description: "Tailored analytics frameworks and automated systems engineered to solve industry‑specific operations and workflows.",
@@ -81,7 +80,7 @@ async function main() {
   });
 
   // 5️⃣ Framework / Approach – 7 stages exact order
-  await upsertSection("framework", {
+  await saveSupabaseSection("framework", "Our Approach", {
     eyebrow: "A Proven Framework For Digital Transformation",
     heading: "A Proven Framework For Digital Transformation",
     description: "How we partner with organizations to turn complex data into clear, lasting business decisions and operational efficiency.",
@@ -96,15 +95,15 @@ async function main() {
     ]
   });
 
-  // 6️⃣ Insights Section – placeholder (adjust URL as needed)
-  await upsertSection("insights", {
+  // 6️⃣ Insights Section – placeholder
+  await saveSupabaseSection("insights", "Insights", {
     heading: "Insights That Drive Better Decisions",
     ctaLabel: "Read All Insights",
     ctaHref: "/insights"
   });
 
   // 7️⃣ Final CTA Section
-  await upsertSection("final_cta", {
+  await saveSupabaseSection("final_cta", "Final CTA", {
     heading: "Ready to Transform Your Business?",
     body: "Partner with The Strategist to build intelligent analytics platforms, automate operations and enable data‑driven decisions that create measurable business outcomes.",
     ctaPrimary: { label: "Schedule a Consultation", href: "/contact" },
@@ -112,7 +111,7 @@ async function main() {
   });
 
   // 8️⃣ Statistics Section
-  await upsertSection("statistics", {
+  await saveSupabaseSection("statistics", "Statistics", {
     stats: [
       { value: "500+", label: "Projects Delivered" },
       { value: "98%", label: "Client Retention" },
@@ -121,7 +120,7 @@ async function main() {
   });
 
   // 9️⃣ Footer – Corporate Solutions
-  await upsertSection("footer_corporate", {
+  await saveSupabaseSection("footer_corporate", "Corporate Solutions", {
     heading: "Corporate Solutions",
     links: [
       "Report Automation",
@@ -133,7 +132,7 @@ async function main() {
   });
 
   // 🔟 Footer – Educational Solutions
-  await upsertSection("footer_education", {
+  await saveSupabaseSection("footer_education", "Educational Solutions", {
     heading: "Educational Solutions",
     links: [
       "Certification Programs",
@@ -144,8 +143,8 @@ async function main() {
     ]
   });
 
-  // 📞 Footer – Contact Us (keep existing values from DB – we only ensure the section exists)
-  await upsertSection("footer_contact", { heading: "Contact Us" });
+  // 📞 Footer – Contact Us (placeholder, keep existing values)
+  await saveSupabaseSection("footer_contact", "Contact Us", {});
 
   console.log("✅ All sections synced to Supabase with KVJ‑style ordering.");
 }
