@@ -28,30 +28,30 @@ export default function ProductsPage() {
     <>
       <Breadcrumbs items={[{ name: "Products", url: "/products" }]} />
 
-      {/* Hero Banner — Exact Selected Brand Theme */}
-      <section className="relative overflow-hidden pt-24 pb-20 bg-[#071820]">
-        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-        <div className="absolute top-0 right-0 w-96 h-96 glow-teal opacity-25 pointer-events-none" />
+      {/* Hero Banner — Clean White Theme */}
+      <section className="relative overflow-hidden pt-24 pb-20 bg-white border-b border-[#dce6e7]">
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #cbd5e1 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+        <div className="absolute top-0 right-0 w-96 h-96 glow-teal opacity-20 pointer-events-none" />
 
         <div className="container-page relative z-10 text-center">
           <Reveal className="flex flex-col items-center gap-6 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#18b8ad]/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+            <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#e7f6f4] px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#159f95]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
               Proprietary Software Solutions
             </span>
-            <h1 className="font-serif text-5xl sm:text-6xl text-white leading-[1.05] tracking-tight font-medium">
+            <h1 className="font-sans text-4xl sm:text-6xl text-[#071820] leading-[1.08] tracking-tight font-extrabold">
               Technology Products<br />
-              <span className="italic text-[#18b8ad]">Built for Real Problems</span>
+              <span className="text-[#18b8ad]">Built for Real Problems</span>
             </h1>
-            <p className="text-base leading-relaxed text-[#a1b4b9] max-w-xl">
+            <p className="text-base sm:text-lg leading-relaxed text-[#56666b] max-w-2xl">
               Purpose-built platforms designed to solve practical reporting, assessment, and institutional management challenges across education and enterprise.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Products — alternating layout on warm paper background */}
-      <Section className="bg-[#f7f9f8] py-24">
+      {/* Products — alternating layout */}
+      <Section className="bg-white py-24">
         <div className="container-page flex flex-col gap-24 sm:gap-32">
           {products.map((prod, idx) => {
             const isEven = idx % 2 === 0;
@@ -71,7 +71,7 @@ export default function ProductsPage() {
 
                       {/* Top badge */}
                       <div className="flex items-start justify-between relative z-10">
-                        <span className="text-[9px] font-bold uppercase tracking-widest text-[#a1b4b9] rounded-full border border-white/10 bg-white/5 px-2.5 py-1">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#a1b4b9] rounded-full border border-white/10 bg-white/5 px-3 py-1">
                           {prod.category}
                         </span>
                         <div className="grid h-14 w-14 place-items-center rounded-2xl bg-[#18b8ad]/15 border border-[#18b8ad]/30">
@@ -81,7 +81,7 @@ export default function ProductsPage() {
 
                       {/* Product name */}
                       <div className="relative z-10">
-                        <div className="text-3xl font-black text-white font-display">{prod.name}</div>
+                        <div className="text-3xl font-black text-white font-sans">{prod.name}</div>
                         <div className="mt-2 h-1 w-16 rounded-full bg-[#18b8ad]" />
                       </div>
 
@@ -92,13 +92,13 @@ export default function ProductsPage() {
 
                   {/* Content */}
                   <div className={`lg:col-span-7 ${isEven ? "lg:order-2" : "lg:order-1"} flex flex-col gap-6`}>
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                    <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
                       {prod.category}
                     </span>
-                    <h2 className="font-serif text-3xl sm:text-4xl text-[#071820] font-medium leading-tight">
+                    <h2 className="font-sans text-3xl sm:text-4xl text-[#071820] font-extrabold tracking-tight leading-tight">
                       {prod.name}
                     </h2>
-                    <p className="text-sm text-[#68787d] leading-relaxed">
+                    <p className="text-base text-[#56666b] leading-relaxed">
                       {prod.description}
                     </p>
 
@@ -106,7 +106,7 @@ export default function ProductsPage() {
                     <RevealGroup className="grid gap-3 sm:grid-cols-2 mt-1">
                       {prod.features.map((feat) => (
                         <RevealItem key={feat}>
-                          <div className="flex items-start gap-2.5 text-xs text-[#46575c] font-bold">
+                          <div className="flex items-start gap-2.5 text-xs text-[#071820] font-bold bg-[#F1F6FA] border border-[#dce6ee] p-3.5 rounded-xl">
                             <CheckCircle2 className="h-4 w-4 text-[#18b8ad] shrink-0 mt-0.5" />
                             <span>{feat}</span>
                           </div>
@@ -117,26 +117,22 @@ export default function ProductsPage() {
                     <div className="flex flex-wrap items-center gap-3 mt-4">
                       <Link
                         href={`/products/${prod.slug}`}
-                        className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90"
+                        className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] bg-[#071820] text-white shadow-sm"
                         style={{
-                          background: "#071820",
-                          color: "#fff",
-                          padding: "12px 20px",
-                          fontSize: 11,
-                          fontWeight: 850
+                          padding: "13px 24px",
+                          fontSize: 13,
+                          fontWeight: 800
                         }}
                       >
                         Request Demo & Details <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                       <Link
                         href={`/contact?service=Products&product=${prod.name}#form`}
-                        className="inline-flex items-center gap-2 rounded-full font-bold border transition-colors hover:bg-black/5"
+                        className="inline-flex items-center gap-2 rounded-full font-bold border border-[#dce6ee] bg-[#F1F6FA] text-[#071820] hover:border-[#18b8ad] hover:text-[#18b8ad] transition-all"
                         style={{
-                          borderColor: "#dce6e7",
-                          color: "#071820",
-                          padding: "12px 20px",
-                          fontSize: 11,
-                          fontWeight: 850
+                          padding: "13px 24px",
+                          fontSize: 13,
+                          fontWeight: 800
                         }}
                       >
                         Enquire About {prod.name}
@@ -150,31 +146,27 @@ export default function ProductsPage() {
         </div>
       </Section>
 
-      {/* Products Final CTA — dark */}
-      <section className="relative overflow-hidden bg-[#071820] py-24 text-center">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-64 glow-teal opacity-25" />
+      {/* Products Final CTA — Teal gradient */}
+      <section className="relative overflow-hidden py-24 text-center" style={{ background: "linear-gradient(135deg,#ddf7f4,#a7e9e3)" }}>
         <div className="container-page relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-6">
           <Reveal>
-            <h2 className="font-serif text-3xl sm:text-4xl text-white font-medium leading-tight">
+            <h2 className="font-sans text-3xl sm:text-4xl text-[#071820] font-extrabold tracking-tight leading-tight">
               Have a Reporting or<br />Management Challenge?
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
-            <p className="text-base text-[#a1b4b9] leading-relaxed">
-              Our platforms are designed around practical organizational needs. Talk to us about your requirements.
+            <p className="text-base text-[#2d524f] leading-relaxed">
+              Our platforms are designed around practical organizational needs. Talk to us about your institutional or enterprise requirements.
             </p>
           </Reveal>
           <Reveal delay={0.16}>
             <a
               href="/contact?service=Products"
-              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 shadow-md"
+              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] shadow-sm bg-[#071820] text-white"
               style={{
-                background: "#18b8ad",
-                color: "#071820",
-                padding: "13px 22px",
-                fontSize: 11,
-                fontWeight: 850
+                padding: "13px 24px",
+                fontSize: 13,
+                fontWeight: 800
               }}
             >
               Request a Product Demo <ArrowRight className="h-4 w-4" />

@@ -36,7 +36,7 @@ export interface Product {
 export const SITE_CONFIG = {
   brand: {
     name: "THE STRATEGIST",
-    tagline: "Turning complex business and institutional challenges into smarter systems, clearer insights, and practical solutions.",
+    tagline: "Empowering Businesses and Institutions Through Analytics, Automation & Practical Learning.",
     email: "info@kvjanalytics.in",
     phones: ["9961813730", "0484-4059310", "7902661012"],
     whatsapp: "9961813730",
@@ -69,49 +69,51 @@ Ernakulam, Kerala, India`,
 
   home: {
     hero: {
-      eyebrow: "STRATEGY • ANALYTICS • AUTOMATION • TECHNOLOGY",
-      title: "Smarter Strategies. Better Systems. Stronger Decisions.",
-      text: "The Strategist helps businesses and institutions turn complex challenges into smarter systems, actionable insights, and practical technology solutions.",
+      eyebrow: "ANALYTICS • AUTOMATION • TECHNOLOGY • TRANSFORMATION",
+      title: "Transform Data Into Business Growth",
+      text: "The Strategist partners with businesses and enterprises to build intelligent analytics platforms, automate reporting workflows, modernize operations, and enable data-driven decision making.",
     },
     intro: {
-      title: "Turning Complexity Into Clarity",
-      text1: "Modern organizations generate more data, processes, and operational challenges than ever before. The Strategist helps simplify that complexity through analytics, automation, technology, and practical transformation solutions.",
-      text2: "We combine strategic thinking with practical implementation to help organizations improve visibility, reduce manual effort, and make better decisions."
+      title: "Turning Complex Data into Clear Decisions",
+      text1: "Modern organizations generate vast volumes of data, fragmented processes, and operational friction. The Strategist bridges that gap through intelligent analytics, report automation, technology platforms, and practical transformation frameworks.",
+      text2: "We combine strategic thinking with deep technical execution to help organizations improve visibility, eliminate manual overhead, and achieve measurable business outcomes."
     },
     whyUs: {
       title: "Why The Strategist?",
       items: [
         {
           num: "01",
-          title: "Practical Thinking",
-          desc: "We focus on solutions that address real operational and organizational challenges."
+          title: "Business Intelligence",
+          desc: "End-to-end BI architectures and interactive dashboards engineered around measurable business outcomes."
         },
         {
           num: "02",
-          title: "Data-Driven Decisions",
-          desc: "We transform information into insights that support better decisions."
+          title: "Process & Report Automation",
+          desc: "Automate repetitive reporting and operational workflows with greater speed, accuracy, and consistency."
         },
         {
           num: "03",
-          title: "Automation First",
-          desc: "We identify opportunities to eliminate repetitive manual processes."
+          title: "Enterprise Platforms",
+          desc: "Custom business portals and analytics infrastructure tailored to your exact organizational requirements."
         },
         {
           num: "04",
-          title: "Built Around Your Needs",
-          desc: "Every solution is designed around the organization's objectives, workflows, and requirements."
+          title: "Outcome-Driven Consulting",
+          desc: "Practical frameworks, continuous refinement, and capability enablement built around real-world results."
         }
       ]
     },
     industries: {
-      title: "Solutions Across Organizations",
+      title: "Solutions Built For Every Industry",
       tags: [
-        "Businesses",
-        "Corporate Teams",
-        "Educational Institutions",
-        "Colleges & Universities",
-        "Training Organizations",
-        "Management Teams"
+        "Education",
+        "Healthcare",
+        "Manufacturing",
+        "Retail",
+        "Financial Services",
+        "Startups",
+        "SMEs",
+        "Large Enterprises"
       ]
     }
   },

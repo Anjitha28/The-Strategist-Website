@@ -1,7 +1,8 @@
-// Server Component — fetches hero data and dynamic marketing collections from DB
+// Server Component — fetches hero data and dynamic marketing collections & sections from DB
 import { HeroSection } from "@/components/site/HeroSection";
 import HomePageClient from "@/components/site/HomePageClient";
 import { prisma } from "@/lib/prisma";
+import { getAllSupabaseSections } from "@/lib/supabase-cms";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +12,31 @@ export default async function HomePage() {
   let testimonials: any[] = [];
   let blogPosts: any[] = [];
   let faqs: any[] = [];
+  let sectionMap: Record<string, any> = {};
 
   try {
+    // 1. Fetch from Supabase (str_website_sections)
+    const sbSections = await getAllSupabaseSections();
+    sectionMap = { ...sbSections };
+
+    // 2. Fetch from Prisma if available
+    const page = await prisma.page.findUnique({
+      where: { slug: "home" },
+      include: { sections: true },
+    }).catch(() => null);
+
+    if (page?.sections) {
+      for (const sec of page.sections) {
+        try {
+          if (!sectionMap[sec.key]) {
+            sectionMap[sec.key] = JSON.parse(sec.data || "{}");
+          }
+        } catch {
+          // ignore
+        }
+      }
+    }
+
     clientLogos = await prisma.clientLogo.findMany({
       where: { visible: true },
       orderBy: { order: "asc" },
@@ -73,6 +97,10 @@ export default async function HomePage() {
         testimonials={testimonials.length > 0 ? testimonials : undefined}
         blogPosts={mappedBlogPosts}
         faqs={faqs.length > 0 ? faqs : undefined}
+        solutionsData={sectionMap["solutions"]}
+        frameworkData={sectionMap["framework"]}
+        industriesData={sectionMap["industries"]}
+        splitPanelsData={sectionMap["split-panels"]}
       />
     </>
   );

@@ -1,18 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { getSupabaseSection } from "@/lib/supabase-cms";
 
 const DEFAULT_HERO = {
-  eyebrow: "STRATEGY. DATA. TRANSFORMATION.",
-  heading: "From Insights to Impact.",
-  tagline: "We help you scale.",
-  body: "We transform your data into actionable intelligence, automate operations and empower you to make better decisions that fuel sustainable growth.",
-  ctaLabel: "Explore Solutions",
-  ctaHref: "/solutions/corporate",
+  eyebrow: "ANALYTICS • AUTOMATION • TECHNOLOGY • TRANSFORMATION",
+  heading: "Transform Data Into",
+  tagline: "Business Growth.",
+  body: "We partner with businesses and enterprises to build intelligent analytics platforms, automate reporting workflows, modernize operations, and enable data-driven decision making.",
+  ctaLabel: "Schedule a Consultation",
+  ctaHref: "/contact",
 };
 
 async function getHero() {
   try {
+    // 1. Try Supabase str_website_sections
+    const sbHero = await getSupabaseSection("hero");
+    if (sbHero) {
+      return { ...DEFAULT_HERO, ...sbHero };
+    }
+
+    // 2. Try Prisma
     const page = await prisma.page.findUnique({
       where: { slug: "home" },
       include: { sections: { where: { key: "hero" } } },
@@ -61,44 +69,32 @@ export async function HeroSection() {
 
           {/* Eyebrow */}
           <p
-            style={{
-              fontSize: 10,
-              fontWeight: 900,
-              letterSpacing: "0.22em",
-              color: "#18b8ad",
-              textTransform: "uppercase",
-              marginBottom: 20,
-            }}
+            className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad] mb-5"
           >
             {hero.eyebrow}
           </p>
 
           {/* Main heading */}
           <h1
-            className="font-serif"
+            className="font-sans text-[#071820] font-extrabold tracking-tight"
             style={{
-              margin: "0 0 6px",
-              fontSize: "clamp(42px, 5.2vw, 76px)",
-              fontWeight: 700,
-              color: "#071820",
-              lineHeight: 1.0,
-              letterSpacing: "-0.03em",
+              fontSize: "clamp(40px, 5vw, 68px)",
+              lineHeight: 1.05,
+              letterSpacing: "-0.035em",
+              marginBottom: 8,
             }}
           >
             {hero.heading}
           </h1>
 
-          {/* Italic tagline */}
+          {/* Tagline */}
           <div
-            className="font-serif"
+            className="font-sans font-extrabold text-[#18b8ad] tracking-tight"
             style={{
-              fontSize: "clamp(38px, 4.6vw, 70px)",
-              fontStyle: "italic",
-              fontWeight: 500,
-              color: "#18b8ad",
-              lineHeight: 1.1,
-              letterSpacing: "-0.02em",
-              marginBottom: 22,
+              fontSize: "clamp(36px, 4.5vw, 62px)",
+              lineHeight: 1.05,
+              letterSpacing: "-0.03em",
+              marginBottom: 24,
             }}
           >
             {hero.tagline}

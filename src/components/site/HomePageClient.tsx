@@ -24,6 +24,30 @@ interface HomePageClientProps {
   testimonials?: { id: string; name: string; company?: string | null; designation?: string | null; quote: string; rating: number }[];
   blogPosts?: { title: string; slug: string; excerpt: string; category: string }[];
   faqs?: { id: string; question: string; answer: string }[];
+  solutionsData?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    buttonLabel?: string;
+    buttonLink?: string;
+    cards?: { title: string; desc: string; icon?: string; link?: string }[];
+  };
+  frameworkData?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    stages?: { num: string; title: string; desc: string }[];
+  };
+  industriesData?: {
+    eyebrow?: string;
+    heading?: string;
+    description?: string;
+    industries?: { name: string; desc: string; icon: string }[];
+  };
+  splitPanelsData?: {
+    products?: { eyebrow: string; title: string; desc: string; linkText: string; linkHref: string; items?: { name: string; desc: string }[] };
+    education?: { eyebrow: string; title: string; desc: string; linkText: string; linkHref: string; tags?: string[] };
+  };
 }
 
 export default function HomePageClient({
@@ -32,6 +56,10 @@ export default function HomePageClient({
   testimonials,
   blogPosts,
   faqs,
+  solutionsData,
+  frameworkData,
+  industriesData,
+  splitPanelsData,
 }: HomePageClientProps) {
   const homeData = SITE_CONFIG.home;
 
@@ -45,7 +73,63 @@ export default function HomePageClient({
     { name: "TATA" },
   ];
 
-  const displayServices = services || SITE_CONFIG.corporate.solutions.slice(0, 6);
+  // Dynamic solutions fallback
+  const solEyebrow = solutionsData?.eyebrow || "Our Solutions";
+  const solHeading = solutionsData?.heading || "Enterprise Solutions That Drive Business Growth";
+  const solDescription = solutionsData?.description || "We help organizations transform data into strategic assets through intelligent analytics, report automation, and enterprise technology solutions.";
+  const solBtnLabel = solutionsData?.buttonLabel || "Explore All Solutions";
+  const solBtnLink = solutionsData?.buttonLink || "/solutions/corporate";
+  const displayServices = solutionsData?.cards || services || SITE_CONFIG.corporate.solutions.slice(0, 6);
+
+  // Dynamic framework fallback
+  const frameEyebrow = frameworkData?.eyebrow || "Our Approach";
+  const frameHeading = frameworkData?.heading || "A Proven Framework For Digital Transformation";
+  const frameDescription = frameworkData?.description || "How we partner with organizations to turn complex data into clear, lasting business decisions and operational efficiency.";
+  const displayStages = frameworkData?.stages || [
+    { num: "01", title: "Discover", desc: "Identify key challenges, gather stakeholder requirements, and audit existing data assets to establish a clear digital roadmap." },
+    { num: "02", title: "Design", desc: "Co-create tailored analytics and automation blueprints aligned with your operational workflows and KPIs." },
+    { num: "03", title: "Build & Deploy", desc: "Develop and deploy high-performance dashboards, report automation pipelines, and platforms with precision." },
+    { num: "04", title: "Optimize & Enable", desc: "Provide continuous refinement, performance tuning, and hands-on team enablement for sustainable outcomes." },
+  ];
+
+  // Dynamic industries fallback
+  const indEyebrow = industriesData?.eyebrow || "Industries";
+  const indHeading = industriesData?.heading || "Solutions Built For Every Industry";
+  const indDescription = industriesData?.description || "Tailored analytics frameworks and automated systems engineered to solve industry-specific operations and workflows.";
+  const displayIndustries = industriesData?.industries || [
+    { name: "Education", desc: "K-12 & Higher Ed Analytics", icon: "🎓" },
+    { name: "Healthcare", desc: "Clinical & Operations Intelligence", icon: "🏥" },
+    { name: "Manufacturing", desc: "Supply Chain & IoT Tracking", icon: "⚙️" },
+    { name: "Retail & E-Com", desc: "Omnichannel & Customer Analytics", icon: "🛍️" },
+    { name: "Financial Services", desc: "Banking, Risk & Portfolio Analytics", icon: "💳" },
+    { name: "Startups & Scaleups", desc: "Seed to Series Growth Metrics", icon: "🚀" },
+    { name: "SMEs & Mid-Market", desc: "Operational Efficiency & Modernization", icon: "📈" },
+    { name: "Large Enterprises", desc: "Scalable Enterprise Automation", icon: "🏢" }
+  ];
+
+  // Dynamic split panels fallback
+  const productsPanel = splitPanelsData?.products || {
+    eyebrow: "Technology Products",
+    title: "Proprietary Technology Platforms",
+    desc: "Purpose-built platforms — GradeScope, Proctrix, BeInTrack — designed to solve practical reporting, assessment, and institutional operations.",
+    linkText: "Explore Products",
+    linkHref: "/products",
+    items: [
+      { name: "GradeScope", desc: "Academic reporting" },
+      { name: "Proctrix", desc: "Exam assessment" },
+      { name: "BeInTrack", desc: "Process analytics" },
+    ],
+  };
+
+  const educationPanel = splitPanelsData?.education || {
+    eyebrow: "Education & Enablement",
+    title: "Educational Solutions",
+    desc: "We bridge the gap between academic learning and industry requirements through practical analytics curriculum, certifications, and institutional platforms.",
+    linkText: "View Educational Solutions",
+    linkHref: "/solutions/educational",
+    tags: ["Academic Analytics", "Curriculum Dev", "Assessment Tools", "Industry Programs"],
+  };
+
   const displayArticles = blogPosts || SITE_CONFIG.blog.articles.slice(0, 3);
 
   return (
@@ -92,58 +176,60 @@ export default function HomePageClient({
       </div>
 
       {/* ================================================================
-          SOLUTIONS — Dark ink section
+          SOLUTIONS — Clean white section (Group 1: 6 cards)
           ================================================================ */}
-      <section id="solutions" className="py-24 bg-[#071820] text-[#effffd]">
+      <section id="solutions" className="py-24 bg-white border-t border-[#dce6e7]">
         <div className="container-page">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-11">
-            <div>
-              <p style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "0.2em", color: "#7ce3da" }} className="uppercase">
-                Corporate Solutions
-              </p>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
+            <div className="max-w-2xl">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                {solEyebrow}
+              </span>
               <h2
-                className="mt-3 font-serif"
-                style={{ fontSize: "clamp(40px, 4.8vw, 61px)", lineHeight: 0.98, letterSpacing: "-0.05em", fontWeight: 500, maxWidth: 640 }}
+                className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
               >
-                Enterprise-Grade<br />Business Solutions
+                {solHeading}
               </h2>
-              <p className="mt-4 max-w-md" style={{ color: "#a1b4b9", fontSize: "14px" }}>
-                Technology and analytics solutions designed around real organizational challenges — from automating reporting to building enterprise analytics ecosystems.
+              <p className="mt-4 text-base text-[#56666b] leading-relaxed">
+                {solDescription}
               </p>
             </div>
             <Link
-              href="/solutions/corporate"
-              className="shrink-0 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold border"
-              style={{ color: "#7ce3da", borderColor: "rgba(124,227,218,0.3)" }}
+              href={solBtnLink}
+              className="shrink-0 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-bold border border-[#dce6ee] bg-[#F1F6FA] text-[#071820] hover:border-[#18b8ad] hover:text-[#18b8ad] hover:shadow-sm transition-all"
             >
-              View All Solutions <ArrowRight className="h-3.5 w-3.5" />
+              {solBtnLabel} <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
 
-          <RevealGroup className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {displayServices.map((sol) => (
+          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {displayServices.map((sol: any) => (
               <RevealItem key={sol.title}>
-                <div
-                  className="relative overflow-hidden flex flex-col gap-7 p-6 h-full"
-                  style={{
-                    minHeight: 280,
-                    borderRadius: 17,
-                    background: "linear-gradient(145deg,#0d252c,#112e35)",
-                    border: "1px solid rgba(124,227,218,0.15)",
-                  }}
-                >
-                  <div className="absolute pointer-events-none" style={{ width: 180, height: 180, border: "1px solid rgba(25,184,173,0.15)", borderRadius: "50%", right: -90, bottom: -90 }} />
-                  <div className="grid place-items-center shrink-0" style={{ width: 34, height: 34, border: "1px solid rgba(124,227,218,0.3)", borderRadius: 10, color: "#18b8ad" }}>
-                    {SOL_ICONS[sol.title] || <Settings className="h-4 w-4" />}
+                <Link href={sol.link || "/solutions/corporate"} className="block h-full group">
+                  <div
+                    className="relative overflow-hidden flex flex-col justify-between p-7 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300"
+                    style={{ minHeight: 280 }}
+                  >
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center mb-5 text-[#18b8ad] shadow-xs group-hover:border-[#18b8ad]/40 group-hover:scale-105 transition-all">
+                        {typeof sol.icon === "string" && SOL_ICONS[sol.icon] ? (
+                          SOL_ICONS[sol.icon]
+                        ) : sol.icon && typeof sol.icon !== "string" ? (
+                          sol.icon
+                        ) : (
+                          SOL_ICONS[sol.title] || <Settings className="h-5 w-5" />
+                        )}
+                      </div>
+                      <h3 className="text-xl font-bold text-[#071820] leading-snug group-hover:text-[#18b8ad] transition-colors">{sol.title}</h3>
+                      <p className="text-sm text-[#56666b] mt-2.5 leading-relaxed">{sol.desc}</p>
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-[#dce6ee]/60">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#18b8ad] group-hover:gap-2.5 transition-all">
+                        Learn more <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 style={{ fontSize: 17 }} className="font-bold text-white">{sol.title}</h3>
-                    <p style={{ fontSize: 11, color: "#9db1b6", marginTop: 11, lineHeight: 1.6 }}>{sol.desc}</p>
-                  </div>
-                  <Link href="/solutions/corporate" style={{ color: "#18b8ad", fontSize: 10, fontWeight: 850 }} className="inline-flex items-center gap-1">
-                    Learn more →
-                  </Link>
-                </div>
+                </Link>
               </RevealItem>
             ))}
           </RevealGroup>
@@ -151,39 +237,48 @@ export default function HomePageClient({
       </section>
 
       {/* ================================================================
-          APPROACH / PROCESS — White section
+          APPROACH / PROCESS — Framework section (Group 2: 4 cards)
           ================================================================ */}
-      <section id="approach" className="py-24 bg-white">
+      <section id="approach" className="py-24 bg-white border-t border-[#dce6e7]">
         <div className="container-page">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
-            <div>
-              <p style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "0.2em", color: "#18b8ad" }} className="uppercase">
-                Methodology
-              </p>
-              <h2 className="font-serif mt-3" style={{ fontSize: "clamp(40px, 4.8vw, 61px)", lineHeight: 0.98, letterSpacing: "-0.05em", fontWeight: 500, maxWidth: 640 }}>
-                Our Approach
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
+            <div className="max-w-2xl">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                {frameEyebrow}
+              </span>
+              <h2
+                className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
+              >
+                {frameHeading}
               </h2>
+              <p className="mt-4 text-base text-[#56666b] leading-relaxed">
+                {frameDescription}
+              </p>
             </div>
-            <p className="max-w-[380px]" style={{ color: "#68787d", fontSize: 14 }}>
-              How we partner with organizations to build lasting, practical systems.
-            </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-[#dce6e7]">
-            {[
-              { num: "01", title: "Discover", desc: "Map existing systems, pain points, and strategic objectives before proposing solutions." },
-              { num: "02", title: "Design", desc: "Co-create tailored analytics and automation blueprints aligned with your workflows." },
-              { num: "03", title: "Build", desc: "Develop and deploy dashboards, automations, and platforms with precision." },
-              { num: "04", title: "Improve", desc: "Iterate post-launch, respond to feedback, and ensure lasting organizational adoption." },
-            ].map((step) => (
-              <div key={step.num} className="flex flex-col gap-3 p-6 border-b sm:border-b-0 sm:border-r border-[#dce6e7] last:border-r-0 last:border-b-0" style={{ minHeight: 205 }}>
-                <div className="grid place-items-center" style={{ width: 42, height: 42, borderRadius: "50%", background: "#e7f6f4", color: "#159f95" }}>
-                  <span style={{ fontSize: 11, fontWeight: 900 }}>{step.num}</span>
-                </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {displayStages.map((step: any) => (
+              <div
+                key={step.num}
+                className="group relative flex flex-col justify-between p-7 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300"
+                style={{ minHeight: 280 }}
+              >
                 <div>
-                  <span style={{ fontSize: 9, color: "#159f95", letterSpacing: "0.13em", fontWeight: 850, display: "block", marginTop: 17 }}>STEP {step.num}</span>
-                  <h3 style={{ fontSize: 14, marginTop: 3 }} className="font-bold text-[#071820]">{step.title}</h3>
-                  <p style={{ fontSize: 10, color: "#68787d", marginTop: 7 }}>{step.desc}</p>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-xs font-black text-[#071820] shadow-xs group-hover:border-[#18b8ad]/40 transition-all">
+                      {step.num}
+                    </div>
+                    <span className="text-[10px] font-black tracking-[0.18em] uppercase text-[#18b8ad]">
+                      STAGE {step.num}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold text-[#071820] leading-snug">{step.title}</h3>
+                  <p className="text-sm text-[#56666b] mt-2.5 leading-relaxed">{step.desc}</p>
+                </div>
+                <div className="mt-6 pt-3 border-t border-[#dce6ee]/60 flex items-center justify-between text-xs text-[#8a979b] font-medium">
+                  <span>Phase {step.num}</span>
+                  <span className="text-[#18b8ad] font-bold">✓</span>
                 </div>
               </div>
             ))}
@@ -192,25 +287,38 @@ export default function HomePageClient({
       </section>
 
       {/* ================================================================
-          INDUSTRIES — Light teal-green bg
+          INDUSTRIES — Solutions Built For Every Industry (Group 3: 8 cards)
           ================================================================ */}
-      <section id="industries" className="py-24 bg-[#f0f5f4]">
+      <section id="industries" className="py-24 bg-white border-t border-[#dce6e7]">
         <div className="container-page">
-          <Reveal>
-            <p style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "0.2em", color: "#18b8ad" }} className="uppercase">
-              Who We Serve
-            </p>
-            <h2 className="font-serif mt-3" style={{ fontSize: "clamp(40px, 4.8vw, 61px)", lineHeight: 0.98, letterSpacing: "-0.05em", fontWeight: 500, maxWidth: 640 }}>
-              Solutions Across<br />Organizations
+          <Reveal className="max-w-2xl mb-12">
+            <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+              {indEyebrow}
+            </span>
+            <h2
+              className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
+            >
+              {indHeading}
             </h2>
+            <p className="mt-4 text-base text-[#56666b] leading-relaxed">
+              {indDescription}
+            </p>
           </Reveal>
 
-          <RevealGroup className="mt-10 grid gap-2.5 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-            {homeData.industries.tags.map((tag) => (
-              <RevealItem key={tag}>
-                <div className="flex flex-col gap-2 p-5 bg-white border border-[#dce6e7] rounded-xl">
-                  <span style={{ color: "#18b8ad", fontSize: 19 }}>◈</span>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "#46575c" }}>{tag}</span>
+          <RevealGroup className="grid gap-4 grid-cols-2 md:grid-cols-4">
+            {displayIndustries.map((ind: any) => (
+              <RevealItem key={ind.name}>
+                <div className="group flex flex-col justify-between p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/50 hover:-translate-y-1 transition-all duration-300 h-full">
+                  <div>
+                    <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-lg mb-4 shadow-xs group-hover:scale-105 transition-all">
+                      {ind.icon}
+                    </div>
+                    <h3 className="text-base font-bold text-[#071820] leading-snug">{ind.name}</h3>
+                    <p className="text-xs text-[#56666b] mt-1.5 leading-relaxed">{ind.desc}</p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-[#dce6ee]/60 flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-[#18b8ad] group-hover:translate-x-0.5 transition-transform">Explore →</span>
+                  </div>
                 </div>
               </RevealItem>
             ))}
@@ -221,48 +329,58 @@ export default function HomePageClient({
       {/* ================================================================
           SPLIT PANELS — Products + Educational (2-col)
           ================================================================ */}
-      <section className="py-24 bg-[#f0f5f4] border-t border-[#dce6e7]">
+      <section className="py-24 bg-[#F1F6FA] border-t border-[#dce6e7]">
         <div className="container-page">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             <Reveal>
-              <div className="flex flex-col gap-5 p-9" style={{ minHeight: 300, borderRadius: 23, background: "#071820", color: "#fff" }}>
-                <h3 className="font-serif" style={{ fontSize: 31, fontWeight: 500, lineHeight: 1.06, maxWidth: 320 }}>
-                  Proprietary Technology Products
-                </h3>
-                <p style={{ fontSize: 13, color: "#a5b7bb", marginTop: 4 }}>
-                  Purpose-built platforms — GradeScope, Proctrix, BeInTrack — designed to solve practical reporting, assessment, and institutional challenges.
-                </p>
-                <div className="mt-auto grid grid-cols-2 gap-2">
-                  {[["GradeScope", "Academic reporting"], ["Proctrix", "Exam integrity"], ["BeInTrack", "Attendance analytics"]].map(([name, desc]) => (
-                    <div key={name} className="p-3 rounded-lg bg-white/5 border border-white/10">
-                      <p className="text-xs font-bold text-white">{name}</p>
-                      <p style={{ fontSize: 10, color: "#a5b7bb" }}>{desc}</p>
-                    </div>
-                  ))}
+              <div className="flex flex-col justify-between gap-5 p-9 bg-white border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md transition-all duration-300" style={{ minHeight: 340 }}>
+                <div>
+                  <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad] block mb-2">{productsPanel.eyebrow}</span>
+                  <h3 className="font-sans text-[#071820] font-extrabold text-2xl sm:text-3xl leading-snug">
+                    {productsPanel.title}
+                  </h3>
+                  <p className="text-sm text-[#56666b] mt-3 leading-relaxed">
+                    {productsPanel.desc}
+                  </p>
                 </div>
-                <Link href="/products" className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-[#18b8ad]">
-                  Explore Products <ArrowRight className="h-4 w-4" />
+                <div className="grid grid-cols-3 gap-2.5 my-2">
+                  {(productsPanel.items || [["GradeScope", "Academic reporting"], ["Proctrix", "Exam assessment"], ["BeInTrack", "Process analytics"]]).map((item: any) => {
+                    const name = Array.isArray(item) ? item[0] : item.name;
+                    const desc = Array.isArray(item) ? item[1] : item.desc;
+                    return (
+                      <div key={name} className="p-3.5 rounded-xl bg-[#F1F6FA] border border-[#dce6ee]">
+                        <p className="text-xs font-bold text-[#071820]">{name}</p>
+                        <p className="text-[10px] text-[#68787d] mt-1 leading-snug">{desc}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+                <Link href={productsPanel.linkHref || "/products"} className="inline-flex items-center gap-1.5 text-xs font-bold text-[#18b8ad] hover:gap-2.5 transition-all">
+                  {productsPanel.linkText || "Explore Products"} <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
             </Reveal>
 
-            <Reveal delay={0.1}>
-              <div className="flex flex-col gap-5 p-9 bg-white border border-[#dce6e7]" style={{ minHeight: 300, borderRadius: 23 }}>
-                <h3 className="font-serif text-[#071820]" style={{ fontSize: 31, fontWeight: 500, lineHeight: 1.06, maxWidth: 320 }}>
-                  Educational Solutions
-                </h3>
-                <p style={{ fontSize: 13, color: "#68787d" }}>
-                  We bridge the gap between academic learning and industry requirements through analytics, technology platforms, and practical programs.
-                </p>
-                <div className="mt-auto grid grid-cols-2 gap-2">
-                  {["Academic Analytics", "Curriculum Dev", "Assessment Tools", "Industry Programs"].map((t) => (
-                    <div key={t} className="p-3 rounded-lg text-xs font-bold bg-[#edf5f4] text-[#46575c]">
-                      {t}
-                    </div>
+            <Reveal>
+              <div className="flex flex-col justify-between gap-5 p-9 bg-white border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md transition-all duration-300" style={{ minHeight: 340 }}>
+                <div>
+                  <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad] block mb-2">{educationPanel.eyebrow}</span>
+                  <h3 className="font-sans text-[#071820] font-extrabold text-2xl sm:text-3xl leading-snug">
+                    {educationPanel.title}
+                  </h3>
+                  <p className="text-sm text-[#56666b] mt-3 leading-relaxed">
+                    {educationPanel.desc}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2 my-2">
+                  {(educationPanel.tags || ["Academic Analytics", "Curriculum Dev", "Assessment Tools", "Industry Programs"]).map((tag: string) => (
+                    <span key={tag} className="text-xs font-bold px-3.5 py-2 rounded-xl bg-[#F1F6FA] text-[#071820] border border-[#dce6ee]">
+                      {tag}
+                    </span>
                   ))}
                 </div>
-                <Link href="/solutions/educational" className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-[#18b8ad]">
-                  View Educational Solutions <ArrowRight className="h-4 w-4" />
+                <Link href={educationPanel.linkHref || "/solutions/educational"} className="inline-flex items-center gap-1.5 text-xs font-bold text-[#18b8ad] hover:gap-2.5 transition-all">
+                  {educationPanel.linkText || "View Educational Solutions"} <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
             </Reveal>
@@ -271,16 +389,18 @@ export default function HomePageClient({
       </section>
 
       {/* ================================================================
-          TESTIMONIALS — Dynamic premium customer quotes
+          TESTIMONIALS — Dynamic customer quotes
           ================================================================ */}
       {testimonials && testimonials.length > 0 && (
-        <section id="testimonials" className="py-24 bg-[#f7f9f8] border-t border-[#dce6e7]">
+        <section id="testimonials" className="py-24 bg-white border-t border-[#dce6e7]">
           <div className="container-page">
-            <div className="text-center mb-16">
-              <p style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "0.2em", color: "#18b8ad" }} className="uppercase">
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
                 Testimonials
-              </p>
-              <h2 className="font-serif mt-3" style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.04em", fontWeight: 500, color: "#071820" }}>
+              </span>
+              <h2
+                className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
+              >
                 Loved by Forward-Thinking Leaders
               </h2>
             </div>
@@ -289,8 +409,7 @@ export default function HomePageClient({
               {testimonials.map((t) => (
                 <div
                   key={t.id}
-                  className="flex flex-col justify-between bg-white p-8 transition-all hover:shadow-md border border-[#dce6e7]"
-                  style={{ borderRadius: 20 }}
+                  className="flex flex-col justify-between bg-[#F1F6FA] p-8 transition-all hover:shadow-md border border-[#dce6ee] rounded-2xl shadow-xs"
                 >
                   <div>
                     <div className="flex gap-1 mb-4 text-[#18b8ad]">
@@ -298,14 +417,14 @@ export default function HomePageClient({
                         <span key={i}>★</span>
                       ))}
                     </div>
-                    <p style={{ fontSize: 13, color: "#46575c", lineHeight: 1.6 }} className="italic">
+                    <p className="text-sm text-[#46575c] leading-relaxed italic">
                       &ldquo;{t.quote}&rdquo;
                     </p>
                   </div>
-                  <div className="mt-6 pt-4 border-t border-[#dce6e7] flex items-center gap-3">
+                  <div className="mt-6 pt-4 border-t border-[#dce6ee] flex items-center gap-3">
                     <div>
                       <h4 className="text-sm font-bold text-[#071820]">{t.name}</h4>
-                      <p style={{ fontSize: 11, color: "#8a979b" }}>
+                      <p className="text-xs text-[#8a979b] mt-0.5">
                         {t.designation}{t.company ? `, ${t.company}` : ""}
                       </p>
                     </div>
@@ -323,11 +442,13 @@ export default function HomePageClient({
       {faqs && faqs.length > 0 && (
         <section id="faqs" className="py-24 bg-white border-t border-[#dce6e7]">
           <div className="container-page">
-            <div className="text-center mb-14">
-              <p style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "0.2em", color: "#18b8ad" }} className="uppercase">
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
                 Support
-              </p>
-              <h2 className="font-serif mt-3" style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.04em", fontWeight: 500, color: "#071820" }}>
+              </span>
+              <h2
+                className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
+              >
                 Frequently Asked Questions
               </h2>
             </div>
@@ -341,34 +462,43 @@ export default function HomePageClient({
           ================================================================ */}
       <section id="insights" className="py-24 bg-white border-t border-[#dce6e7]">
         <div className="container-page">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-11">
-            <div>
-              <p style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "0.2em", color: "#18b8ad" }} className="uppercase">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
+            <div className="max-w-2xl">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
                 Insights
-              </p>
-              <h2 className="font-serif mt-3" style={{ fontSize: "clamp(40px, 4.8vw, 61px)", lineHeight: 0.98, letterSpacing: "-0.05em", fontWeight: 500 }}>
-                From Our<br />Knowledge Base
+              </span>
+              <h2
+                className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
+              >
+                From Our Knowledge Base
               </h2>
             </div>
-            <Link href="/blog" className="text-sm font-bold text-[#18b8ad]">
-              View All Articles →
+            <Link href="/blog" className="text-xs font-bold text-[#18b8ad] inline-flex items-center gap-1 hover:gap-2 transition-all">
+              View All Articles <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
 
-          <RevealGroup className="grid gap-4 sm:grid-cols-3">
+          <RevealGroup className="grid gap-5 sm:grid-cols-3">
             {displayArticles.map((post) => (
               <RevealItem key={post.slug}>
-                <Link href={`/blog/${post.slug}`} className="block group">
-                  <div className="p-5 pt-6 border-t-2 border-[#18b8ad]">
-                    <p style={{ fontSize: 9, color: "#159b91", letterSpacing: "0.12em", fontWeight: 850 }} className="uppercase">
-                      {post.category}
-                    </p>
-                    <h3 className="font-serif mt-4 group-hover:text-[#18b8ad] transition-colors text-[#071820]" style={{ fontSize: 23, lineHeight: 1.1, fontWeight: 500 }}>
-                      {post.title}
-                    </h3>
-                    <p style={{ fontSize: 11, color: "#68787d", marginTop: 10 }} className="line-clamp-2">
-                      {post.excerpt}
-                    </p>
+                <Link href={`/blog/${post.slug}`} className="block group h-full">
+                  <div className="flex flex-col justify-between p-7 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300">
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-[0.16em] text-[#159f95] block mb-3">
+                        {post.category}
+                      </span>
+                      <h3 className="font-sans font-bold text-lg text-[#071820] group-hover:text-[#18b8ad] transition-colors leading-snug">
+                        {post.title}
+                      </h3>
+                      <p className="text-xs text-[#56666b] mt-3 line-clamp-3 leading-relaxed">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-[#dce6ee]/60">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#18b8ad] group-hover:gap-2.5 transition-all">
+                        Read article <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
                   </div>
                 </Link>
               </RevealItem>
@@ -382,34 +512,29 @@ export default function HomePageClient({
           ================================================================ */}
       <section className="py-20" style={{ background: "linear-gradient(135deg,#ddf7f4,#a7e9e3)" }}>
         <div className="container-page">
-          <Reveal>
+          <Reveal className="max-w-3xl">
             <h2
-              className="font-serif text-[#071820]"
-              style={{ fontSize: "clamp(44px, 5.3vw, 72px)", lineHeight: 0.94, fontWeight: 500, letterSpacing: "-0.055em", maxWidth: 850 }}
+              className="font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
             >
-              Have a Challenge Worth<br />Solving?
+              Let&apos;s Build Smarter Systems Together
             </h2>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <p style={{ maxWidth: 650, color: "#3d6461", fontSize: 14, margin: "19px 0 26px" }}>
-              Let&apos;s explore how analytics, automation, and technology can help your organization work smarter and grow faster.
+            <p className="text-base sm:text-lg text-[#2d524f] leading-relaxed mt-4 mb-8">
+              Whether you are a corporate organization seeking automation and analytics, or an institution wanting industry-ready outcomes, The Strategist is ready to support your transformation journey.
             </p>
-          </Reveal>
-          <Reveal delay={0.16} className="flex flex-wrap gap-3">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full font-bold bg-[#071820] text-white"
-              style={{ padding: "13px 22px", fontSize: 11 }}
-            >
-              Start a Conversation <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-            <Link
-              href="/contact?service=Products#form"
-              className="inline-flex items-center gap-2 rounded-full font-bold border bg-transparent text-[#071820]"
-              style={{ padding: "13px 22px", fontSize: 11, borderColor: "rgba(7,24,32,0.25)" }}
-            >
-              Request a Demo
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full font-bold bg-[#071820] text-white transition-all hover:bg-[#0d2f3a] shadow-sm hover:shadow-md px-6 py-3.5 text-xs sm:text-sm"
+              >
+                Schedule a Consultation <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link
+                href="/solutions/corporate"
+                className="inline-flex items-center gap-2 rounded-full font-bold border border-[#071820]/15 bg-white/80 text-[#071820] hover:bg-white transition-all shadow-xs px-6 py-3.5 text-xs sm:text-sm"
+              >
+                Explore Solutions
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>

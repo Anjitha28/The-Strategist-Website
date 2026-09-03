@@ -8,7 +8,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
-import { ThemeToggle } from "./ThemeToggle";
 import { SITE_CONFIG } from "@/config/site";
 
 interface HeaderProps {
@@ -119,14 +118,13 @@ export function Header({ navItems: propNavItems, phoneNum: propPhoneNum, logoUrl
               style={{
                 background: isTransparent ? "rgba(7,24,32,0.9)" : "#071820",
                 color: "#fff",
-                padding: "13px 19px",
+                padding: "13px 20px",
                 fontSize: 11,
                 fontWeight: 850,
               }}
             >
               Let&apos;s Talk →
             </Link>
-            <ThemeToggle className="hidden sm:grid" />
             <button
               className="grid h-10 w-10 place-items-center rounded-full border lg:hidden transition-all duration-300"
               style={{
@@ -204,10 +202,6 @@ export function Header({ navItems: propNavItems, phoneNum: propPhoneNum, logoUrl
                 >
                   Request Demo &rarr;
                 </Button>
-                <div className="flex items-center justify-between mt-2 pt-4 border-t border-[var(--border-color)]">
-                  <span className="text-xs text-[var(--muted)]">Toggle Theme</span>
-                  <ThemeToggle />
-                </div>
               </div>
             </motion.div>
           </>

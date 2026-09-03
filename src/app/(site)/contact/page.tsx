@@ -52,64 +52,65 @@ function ContactContent() {
     <>
       <Breadcrumbs items={[{ name: "Contact", url: "/contact" }]} />
 
-      {/* Hero Banner — Exact Selected Brand Theme */}
-      <section className="relative overflow-hidden pt-24 pb-20 bg-[#071820]">
-        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-        <div className="absolute top-0 right-0 w-96 h-96 glow-teal opacity-25 pointer-events-none" />
+      {/* Hero Banner — Clean White Theme */}
+      <section className="relative overflow-hidden pt-24 pb-20 bg-white border-b border-[#dce6e7]">
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #cbd5e1 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+        <div className="absolute top-0 right-0 w-96 h-96 glow-teal opacity-20 pointer-events-none" />
 
         <div className="container-page relative z-10 text-center">
           <Reveal className="flex flex-col items-center gap-6 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#18b8ad]/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+            <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#e7f6f4] px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#159f95]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
               Get In Touch
             </span>
-            <h1 className="font-serif text-5xl sm:text-6xl text-white leading-[1.05] tracking-tight font-medium">
+            <h1 className="font-sans text-4xl sm:text-6xl text-[#071820] leading-[1.08] tracking-tight font-extrabold">
               Let&apos;s Build Smarter<br />
-              <span className="italic text-[#18b8ad]">Systems Together</span>
+              <span className="text-[#18b8ad]">Systems Together</span>
             </h1>
-            <p className="text-base leading-relaxed text-[#a1b4b9] max-w-xl">
+            <p className="text-base sm:text-lg leading-relaxed text-[#56666b] max-w-2xl">
               Whether you are a business looking for automation and analytics solutions or an educational institution seeking industry-oriented learning and technology solutions, The Strategist is ready to support your transformation journey.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Info & Form Split on warm paper background */}
-      <Section id="form" className="bg-[#f7f9f8] py-24">
+      {/* Info & Form Split */}
+      <Section id="form" className="bg-[#F1F6FA] py-24">
         <div className="container-page grid gap-12 lg:grid-cols-12">
           
           {/* Contact Details */}
           <div className="lg:col-span-5 flex flex-col gap-8">
             <Reveal>
-              <h2 className="font-serif text-3xl text-[#071820] font-medium leading-tight">Office Details</h2>
-              <p className="text-xs text-[#68787d] mt-1.5 leading-relaxed">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">Direct Channels</span>
+              <h2 className="font-sans text-3xl text-[#071820] font-extrabold tracking-tight leading-tight mt-2">Office Details</h2>
+              <p className="text-sm text-[#56666b] mt-2 leading-relaxed">
                 Connect with our team directly via email, phone, or stop by our office.
               </p>
             </Reveal>
 
             <RevealGroup className="flex flex-col gap-6">
               {/* Address */}
-              <RevealItem className="flex items-start gap-4">
+              <RevealItem className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-[#dce6ee] shadow-xs">
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#e7f6f4] shrink-0 text-[#18b8ad]">
                   <MapPin className="h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-[#071820]">Address</h3>
-                  <p className="text-xs text-[#68787d] mt-1.5 leading-relaxed whitespace-pre-line">
+                  <p className="text-xs text-[#56666b] mt-1.5 leading-relaxed whitespace-pre-line">
                     {address}
                   </p>
                 </div>
               </RevealItem>
 
               {/* Email */}
-              <RevealItem className="flex items-start gap-4">
+              <RevealItem className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-[#dce6ee] shadow-xs">
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#e7f6f4] shrink-0 text-[#18b8ad]">
                   <Mail className="h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-[#071820]">Email</h3>
-                  <p className="text-xs text-[#68787d] mt-1.5">
-                    <a href={`mailto:${email}`} className="hover:text-[#18b8ad] font-semibold transition-colors">
+                  <p className="text-xs text-[#56666b] mt-1.5">
+                    <a href={`mailto:${email}`} className="hover:text-[#18b8ad] font-bold transition-colors">
                       {email}
                     </a>
                   </p>
@@ -117,15 +118,15 @@ function ContactContent() {
               </RevealItem>
 
               {/* Phone */}
-              <RevealItem className="flex items-start gap-4">
+              <RevealItem className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-[#dce6ee] shadow-xs">
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#e7f6f4] shrink-0 text-[#18b8ad]">
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-[#071820]">Phone Numbers</h3>
-                  <div className="flex flex-col gap-1 mt-1.5 text-xs text-[#68787d]">
+                  <div className="flex flex-col gap-1 mt-1.5 text-xs text-[#56666b]">
                     {phones.map((phone) => (
-                      <a key={phone} href={`tel:${phone}`} className="hover:text-[#18b8ad] font-semibold transition-colors">
+                      <a key={phone} href={`tel:${phone}`} className="hover:text-[#18b8ad] font-bold transition-colors">
                         {phone}
                       </a>
                     ))}
@@ -136,11 +137,11 @@ function ContactContent() {
           </div>
 
           {/* Form Box */}
-          <div className="lg:col-span-7 rounded-3xl bg-white p-6 sm:p-10 shadow-sm relative" style={{ border: "1px solid #dce6e7" }}>
+          <div className="lg:col-span-7 rounded-3xl bg-white p-7 sm:p-10 shadow-xs border border-[#dce6ee] relative">
             <Reveal className="mb-6">
-              <h2 className="text-xl font-bold text-[#071820]">Send Us a Message</h2>
-              <p className="text-xs text-[#68787d] mt-1">
-                Fill out the form and our team will get back to you.
+              <h2 className="text-2xl font-bold text-[#071820] tracking-tight">Send Us a Message</h2>
+              <p className="text-sm text-[#56666b] mt-1.5">
+                Fill out the form and our team will get back to you within 24 business hours.
               </p>
             </Reveal>
 
@@ -155,13 +156,13 @@ function ContactContent() {
             </Reveal>
 
             {/* WhatsApp CTA */}
-            <div className="mt-8 pt-6 border-t border-[#dce6e7] flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="text-xs text-[#68787d] font-semibold">Prefer instant messaging?</span>
+            <div className="mt-8 pt-6 border-t border-[#dce6ee] flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-xs text-[#56666b] font-semibold">Prefer instant messaging?</span>
               <a
                 href={`https://wa.me/${whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-transform hover:scale-103 duration-300"
+                className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-transform hover:scale-105 duration-300"
               >
                 <MessageCircle className="h-4.5 w-4.5 fill-current" /> Chat with us on WhatsApp
               </a>
@@ -175,12 +176,12 @@ function ContactContent() {
       <Section className="bg-white py-20 text-center border-t border-[#dce6e7]">
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-4">
           <Reveal>
-            <h2 className="font-serif text-3xl text-[#071820] font-medium leading-tight">
+            <h2 className="font-sans text-3xl text-[#071820] font-extrabold tracking-tight leading-tight">
               Let&apos;s Start a Conversation
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
-            <p className="text-xs text-[#68787d] leading-relaxed">
+            <p className="text-sm text-[#56666b] leading-relaxed">
               Tell us what you are trying to improve, automate, build, or solve. Our team will help identify the right next step.
             </p>
           </Reveal>

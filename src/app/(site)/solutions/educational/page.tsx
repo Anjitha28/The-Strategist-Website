@@ -83,40 +83,40 @@ export default async function EducationalSolutionsPage() {
     <>
       <Breadcrumbs items={[{ name: "Solutions", url: "/solutions" }, { name: "Educational", url: "/solutions/educational" }]} />
 
-      {/* Hero Banner — Match Brand Color Scheme */}
-      <section className="relative overflow-hidden pt-24 pb-20 bg-[#071820]">
-        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-        <div className="absolute top-0 right-0 w-96 h-96 glow-teal opacity-25 pointer-events-none" />
+      {/* Hero Banner — Clean White Theme */}
+      <section className="relative overflow-hidden pt-24 pb-20 bg-white border-b border-[#dce6e7]">
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #cbd5e1 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+        <div className="absolute top-0 right-0 w-96 h-96 glow-teal opacity-20 pointer-events-none" />
 
         <div className="container-page relative z-10">
           <Reveal className="flex flex-col gap-6 max-w-2xl">
-            <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#18b8ad]/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+            <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#e7f6f4] px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#159f95]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
               {heroData.badge || "Educational Solutions"}
             </span>
-            <h1 className="font-serif text-5xl sm:text-6xl text-white leading-[1.05] tracking-tight font-medium">
+            <h1 className="font-sans text-4xl sm:text-6xl text-[#071820] leading-[1.08] tracking-tight font-extrabold">
               {heroData.title.split("Learning Systems")[0]}
-              <span className="italic text-[#18b8ad]">Learning Systems</span>
+              <span className="text-[#18b8ad]">Learning Systems</span>
               {heroData.title.split("Learning Systems")[1] || ""}
             </h1>
-            <p className="text-base leading-relaxed text-[#a1b4b9] max-w-xl">
-              {heroData.description}
+            <p className="text-base sm:text-lg leading-relaxed text-[#56666b] max-w-xl">
+              {heroData.description || "We help educational institutions transform how they collect, analyze, and act on student and institutional data — bridging the gap between academic learning and industry requirements."}
             </p>
             <div className="flex flex-wrap gap-4 mt-2">
               <a
                 href="/contact?service=Educational Solutions"
-                className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 bg-[#18b8ad] text-[#071820]"
+                className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] bg-[#071820] text-white shadow-sm"
                 style={{
-                  padding: "13px 22px",
-                  fontSize: 11,
-                  fontWeight: 850
+                  padding: "13px 24px",
+                  fontSize: 13,
+                  fontWeight: 800
                 }}
               >
                 Explore Partnership <ArrowRight className="h-3.5 w-3.5" />
               </a>
               <a
                 href="/training"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-all"
+                className="inline-flex items-center gap-2 rounded-full border border-[#dce6ee] bg-[#F1F6FA] px-6 py-3 text-xs font-bold text-[#071820] hover:border-[#18b8ad] hover:text-[#18b8ad] transition-all"
               >
                 View Training Programs
               </a>
@@ -125,48 +125,47 @@ export default async function EducationalSolutionsPage() {
         </div>
       </section>
 
-      {/* Solutions Grid — Warm paper background */}
-      <Section className="bg-[#f7f9f8] py-24">
+      {/* Solutions Grid */}
+      <Section className="bg-white py-24 border-b border-[#dce6e7]">
         <div className="container-page">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
             <div>
-              <p style={{ fontSize: "10px", fontWeight: 900, letterSpacing: "0.2em", color: "#18b8ad" }} className="uppercase">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
                 Our Educational Services
-              </p>
+              </span>
               <h2
-                className="font-serif mt-3"
-                style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.05, letterSpacing: "-0.04em", fontWeight: 500, color: "#071820" }}
+                className="font-sans mt-3 text-[#071820] font-extrabold tracking-tight"
+                style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, letterSpacing: "-0.035em" }}
               >
                 Institutional Transformation
               </h2>
             </div>
-            <p className="max-w-[420px]" style={{ color: "#68787d", fontSize: 14 }}>
+            <p className="max-w-[420px] text-[#56666b] text-base leading-relaxed">
               From academic analytics to curriculum development — practical solutions for forward-thinking educational institutions.
             </p>
           </div>
 
-          <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {solutions.map((sol: any, i: number) => (
               <RevealItem key={sol.title}>
                 <div
-                  className="group flex flex-col gap-6 bg-white p-6 h-full transition-all duration-300 hover:shadow-md border border-[#dce6e7]"
-                  style={{ borderRadius: 18 }}
+                  className="group flex flex-col justify-between p-7 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 h-full"
                 >
-                  <div
-                    className="grid h-12 w-12 place-items-center rounded-xl bg-[#e7f6f4] text-[#18b8ad] transition-colors"
-                  >
-                    {SOL_ICONS[sol.title] || <GraduationCap className="h-6 w-6 text-[#18b8ad]" />}
-                  </div>
                   <div>
-                    <h3 className="text-base font-bold text-[#071820]">{sol.title}</h3>
-                    <p className="text-xs text-[#68787d] leading-relaxed mt-2">{sol.desc}</p>
+                    <div
+                      className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-5 shadow-xs group-hover:scale-105 transition-all"
+                    >
+                      {SOL_ICONS[sol.title] || <GraduationCap className="h-5 w-5 text-[#18b8ad]" />}
+                    </div>
+                    <h3 className="text-xl font-bold text-[#071820] leading-snug">{sol.title}</h3>
+                    <p className="text-sm text-[#56666b] leading-relaxed mt-2.5">{sol.desc}</p>
                   </div>
-                  <div className="mt-auto pt-3 flex items-center justify-between border-t border-[#dce6e7]">
-                    <span className="text-[9px] font-black text-[#8a979b] uppercase tracking-wider">
+                  <div className="mt-6 pt-4 flex items-center justify-between border-t border-[#dce6ee]/60">
+                    <span className="text-[10px] font-black text-[#8a979b] uppercase tracking-wider">
                       Service {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="h-6 w-6 rounded-full bg-[#e7f6f4] group-hover:bg-[#18b8ad]/20 transition-colors grid place-items-center">
-                      <ArrowRight className="h-3 w-3 text-[#18b8ad]" />
+                    <span className="h-7 w-7 rounded-full bg-white border border-[#dce6ee] group-hover:bg-[#18b8ad] group-hover:text-white transition-colors grid place-items-center shadow-xs">
+                      <ArrowRight className="h-3.5 w-3.5 text-[#18b8ad] group-hover:text-white" />
                     </span>
                   </div>
                 </div>
@@ -177,27 +176,27 @@ export default async function EducationalSolutionsPage() {
       </Section>
 
       {/* Approach section */}
-      <Section className="bg-white py-24">
+      <Section className="bg-[#F1F6FA] py-24">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
             <div className="lg:col-span-5 flex flex-col gap-6">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
                 Methodology
               </span>
-              <h2 className="font-serif text-4xl text-[#071820] leading-[1.1] font-medium">
+              <h2 className="font-sans text-3xl sm:text-4xl text-[#071820] leading-tight font-extrabold tracking-tight">
                 Our Approach to<br />Educational Transformation
               </h2>
-              <p className="text-sm text-[#68787d] leading-relaxed max-w-sm">
+              <p className="text-sm text-[#56666b] leading-relaxed max-w-sm">
                 We work alongside educators, administrators, and institutional leaders to understand specific needs before designing any solution — ensuring practical outcomes over theoretical frameworks.
               </p>
               <div className="mt-2">
                 <a
                   href="/contact?service=Educational Solutions"
-                  className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 bg-[#071820] text-white"
+                  className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] bg-[#071820] text-white shadow-sm"
                   style={{
-                    padding: "13px 22px",
-                    fontSize: 11,
-                    fontWeight: 850
+                    padding: "13px 24px",
+                    fontSize: 13,
+                    fontWeight: 800
                   }}
                 >
                   Start a Partnership <ArrowRight className="h-3.5 w-3.5" />
@@ -210,13 +209,12 @@ export default async function EducationalSolutionsPage() {
                 {approachSteps.map((s: any) => (
                   <RevealItem key={s.step}>
                     <div
-                      className="flex items-start gap-5 p-5 transition-all duration-300 hover:shadow-sm bg-[#f7f9f8] border border-[#dce6e7]"
-                      style={{ borderRadius: 16 }}
+                      className="flex items-start gap-5 p-6 transition-all duration-300 hover:shadow-sm bg-white border border-[#dce6ee] rounded-2xl shadow-xs"
                     >
-                      <span className="text-3xl font-black text-[#18b8ad]/30 font-display leading-none shrink-0">{s.step}</span>
+                      <span className="text-2xl font-black text-[#18b8ad] font-sans leading-none shrink-0">{s.step}</span>
                       <div>
-                        <h3 className="font-bold text-[#071820] text-sm">{s.title}</h3>
-                        <p className="text-xs text-[#68787d] mt-1.5 leading-relaxed">{s.desc}</p>
+                        <h3 className="font-bold text-[#071820] text-base">{s.title}</h3>
+                        <p className="text-xs text-[#56666b] mt-1.5 leading-relaxed">{s.desc}</p>
                       </div>
                     </div>
                   </RevealItem>
@@ -234,26 +232,26 @@ export default async function EducationalSolutionsPage() {
       >
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
           <Reveal>
-            <h2 className="font-serif text-3xl text-[#071820] sm:text-4xl font-medium">
+            <h2 className="font-sans text-3xl text-[#071820] sm:text-4xl font-extrabold tracking-tight">
               Partner With The Strategist
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
-            <p className="text-base text-[#3d6461] leading-relaxed">
+            <p className="text-base text-[#2d524f] leading-relaxed">
               Whether you&apos;re building analytics capabilities from scratch or scaling existing programs — we&apos;re ready to support your institution&apos;s growth.
             </p>
           </Reveal>
           <Reveal delay={0.16}>
             <a
               href="/contact?service=Educational Solutions"
-              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:opacity-90 shadow-md bg-[#071820] text-white"
+              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] shadow-sm bg-[#071820] text-white"
               style={{
-                padding: "13px 22px",
-                fontSize: 11,
-                fontWeight: 850
+                padding: "13px 24px",
+                fontSize: 13,
+                fontWeight: 800
               }}
             >
-              Start a Conversation <ArrowRight className="h-3.5 w-3.5" />
+              Request a Consultation <ArrowRight className="h-3.5 w-3.5" />
             </a>
           </Reveal>
         </div>
