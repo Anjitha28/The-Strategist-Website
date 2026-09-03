@@ -32,21 +32,26 @@ export async function HeroSection() {
       className="relative w-full flex items-center overflow-hidden"
       style={{ background: "#ffffff", minHeight: "clamp(550px, 60vw, 860px)" }}
     >
-      {/* Background 3D visualization image placed on the right */}
-      <Image
-        src="/brand/hero-visual-faded.png"
-        alt="The Strategist growth visualization"
-        fill
-        className="object-cover object-right md:object-[85%_center]"
-        priority
-        quality={90}
-      />
+      {/* Right-aligned visual container preserving the entire image without any cropping, zooming, or distortion */}
+      <div className="absolute top-0 right-0 bottom-0 w-full md:w-[60%] lg:w-[55%] h-full flex items-center justify-end pointer-events-none">
+        <div className="relative w-full h-full">
+          <Image
+            src="/brand/hero-visual-faded.png"
+            alt="The Strategist growth visualization"
+            fill
+            sizes="(max-width: 768px) 100vw, 55vw"
+            className="object-contain object-right"
+            priority
+            quality={100}
+          />
+        </div>
+      </div>
 
-      {/* Clean plain white background on the left where text is located, smoothly blending into the visual on the right */}
+      {/* Subtle overlay on mobile only for crisp text contrast */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 block md:hidden pointer-events-none"
         style={{
-          background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.98) 32%, rgba(255,255,255,0.55) 52%, rgba(255,255,255,0) 72%)",
+          background: "linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0.2) 100%)",
         }}
       />
 
