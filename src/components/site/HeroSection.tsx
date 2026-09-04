@@ -41,27 +41,19 @@ export async function HeroSection() {
       style={{ background: "#ffffff", minHeight: "clamp(550px, 60vw, 860px)" }}
     >
       {/* Right-aligned visual container preserving the entire image without any cropping, zooming, or distortion */}
-      <div className="absolute top-0 right-0 bottom-0 w-full md:w-[60%] lg:w-[55%] h-full flex items-center justify-end pointer-events-none">
+      <div className="absolute top-0 right-0 bottom-0 w-full h-full flex items-center justify-end pointer-events-none">
         <div className="relative w-full h-full">
           <Image
             src="/brand/hero-visual-final.png"
             alt="The Strategist growth visualization"
             fill
-            sizes="(max-width: 768px) 100vw, 55vw"
+            sizes="100vw"
             className="object-contain object-right"
             priority
             quality={100}
           />
         </div>
       </div>
-
-      {/* Subtle overlay on mobile only for crisp text contrast */}
-      <div
-        className="absolute inset-0 block md:hidden pointer-events-none"
-        style={{
-          background: "linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0.2) 100%)",
-        }}
-      />
 
       {/* Text content — overlaid on left */}
       <div className="relative container-page w-full flex items-center">
