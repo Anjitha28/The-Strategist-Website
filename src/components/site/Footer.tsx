@@ -67,40 +67,52 @@ export function Footer({
     // Standard static fallback columns
     columns.push(
       {
+        title: "Company",
+        links: [
+          { label: "Home", url: "/" },
+          { label: "About Us", url: "/about" },
+          { label: "Contact", url: "/contact" },
+        ],
+      },
+      {
         title: "Corporate Solutions",
         links: [
           { label: "Report Automation", url: "/solutions/corporate" },
           { label: "Dashboard Development", url: "/solutions/corporate" },
           { label: "Data Visualization", url: "/solutions/corporate" },
           { label: "Process Automation", url: "/solutions/corporate" },
-          { label: "Application Development", url: "/solutions/corporate" },
           { label: "Corporate Training", url: "/solutions/corporate" },
         ],
       },
       {
         title: "Educational Solutions",
         links: [
-          { label: "Training Programs", url: "/solutions/educational" },
           { label: "Certification Programs", url: "/solutions/educational" },
           { label: "Curriculum Development", url: "/solutions/educational" },
-          { label: "Academic Analytics", url: "/solutions/educational" },
+          { label: "Grade Scope", url: "/products" },
+          { label: "Protrix", url: "/products" },
           { label: "Skill Development Programs", url: "/solutions/educational" },
         ],
       },
       {
         title: "Products",
         links: [
-          { label: "Grade Scope", url: "/products" },
-          { label: "Proctrix", url: "/products" },
-          { label: "BeInTrack", url: "/products" },
+          { label: "Products", url: "/products" },
         ],
       },
       {
-        title: "Company",
+        title: "Training",
         links: [
-          { label: "About Us", url: "/about" },
+          { label: "Training Programs", url: "/training" },
+          { label: "Corporate Training", url: "/training" },
+          { label: "Skill Development", url: "/training" },
+        ],
+      },
+      {
+        title: "Insights",
+        links: [
           { label: "Blog", url: "/blog" },
-          { label: "Contact", url: "/contact" },
+          { label: "Insights", url: "/blog" },
         ],
       }
     );
