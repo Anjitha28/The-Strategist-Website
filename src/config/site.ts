@@ -37,7 +37,7 @@ export const SITE_CONFIG = {
   brand: {
     name: "THE STRATEGIST",
     tagline: "Empowering Businesses and Institutions Through Analytics, Automation & Practical Learning.",
-    email: "info@kvjanalytics.in",
+    email: "info@thestrategist.co.in",
     phones: ["9961813730", "0484-4059310", "7902661012"],
     whatsapp: "9961813730",
     address: `3rd Floor, Lalan Towers,
