@@ -59,7 +59,7 @@ export default function CookiePolicyPage() {
               4. Contact Us
             </h2>
             <p>
-              For any questions regarding our cookie practices, please contact us at **info@kvjanalytics.in**.
+              For any questions regarding our cookie practices, please contact us at **info@thestrategist.co.in**.
             </p>
           </Reveal>
         </div>

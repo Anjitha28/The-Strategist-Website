@@ -72,7 +72,7 @@ export default function PrivacyPolicyPage() {
               5. Contact Us
             </h2>
             <p>
-              If you have any questions about this Privacy Policy or our practices regarding your information, please email our security desk at **info@kvjanalytics.in**.
+              If you have any questions about this Privacy Policy or our practices regarding your information, please email our security desk at **info@thestrategist.co.in**.
             </p>
           </Reveal>
         </div>

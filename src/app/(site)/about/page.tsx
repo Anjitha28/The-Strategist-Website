@@ -65,6 +65,8 @@ export default async function AboutPage() {
 
   const beliefs = SITE_CONFIG.about.beliefs;
   const capabilities = SITE_CONFIG.about.capabilities;
+  const whyUs = SITE_CONFIG.home.whyUs;
+  const industries = SITE_CONFIG.home.industries;
 
   return (
     <>
@@ -248,6 +250,60 @@ export default async function AboutPage() {
                   className="inline-block bg-white px-5 py-3 text-xs font-bold tracking-wide text-[#071820] rounded-xl border border-[#dce6ee] shadow-xs"
                 >
                   {cap}
+                </span>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </Section>
+
+      {/* Why Choose The Strategist */}
+      <Section className="bg-white py-24 border-t border-[#dce6e7]">
+        <div className="container-page">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
+            <div>
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                Advantage
+              </span>
+              <h2
+                className="font-sans mt-3 text-[#071820] font-extrabold tracking-tight"
+                style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, letterSpacing: "-0.035em" }}
+              >
+                {whyUs.title}
+              </h2>
+            </div>
+          </div>
+
+          <RevealGroup className="grid gap-6 sm:grid-cols-2">
+            {whyUs.items.map((item, idx) => (
+              <RevealItem key={idx}>
+                <div className="p-8 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl h-full shadow-xs">
+                  <span className="text-3xl font-black text-[#18b8ad]/20 block mb-4">{item.num}</span>
+                  <h3 className="text-xl font-bold text-[#071820] mb-3">{item.title}</h3>
+                  <p className="text-sm text-[#56666b] leading-relaxed">{item.desc}</p>
+                </div>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </Section>
+
+      {/* Industries We Serve */}
+      <Section className="bg-[#F1F6FA] py-24 border-t border-[#dce6e7]">
+        <div className="container-page">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+              Sectors
+            </span>
+            <h2 className="font-sans mt-3 text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl">
+              Industries We Serve
+            </h2>
+          </div>
+          <RevealGroup className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {industries.tags.map((tag) => (
+              <RevealItem key={tag}>
+                <span className="inline-block bg-white px-5 py-3 text-xs font-bold tracking-wide text-[#071820] rounded-xl border border-[#dce6ee] shadow-xs">
+                  {tag}
                 </span>
               </RevealItem>
             ))}

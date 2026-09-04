@@ -128,33 +128,99 @@ export default async function CorporateSolutionsPage() {
             </p>
           </div>
 
-          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((sol, i) => (
-              <RevealItem key={sol.title}>
-                <div
-                  className="group relative flex flex-col justify-between p-7 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 h-full"
-                >
-                  <div>
-                    <div
-                      className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-5 shadow-xs group-hover:scale-105 transition-all"
-                    >
-                      {SOL_ICONS[sol.title] || <Settings className="h-5 w-5 text-[#18b8ad]" />}
-                    </div>
-                    <h3 className="text-xl font-bold text-[#071820] leading-snug">{sol.title}</h3>
-                    <p className="text-sm text-[#56666b] leading-relaxed mt-2.5">{sol.desc}</p>
-                  </div>
-                  <div className="mt-6 pt-4 flex items-center justify-between border-t border-[#dce6ee]/60">
-                    <span className="text-[10px] font-black text-[#8a979b] uppercase tracking-wider">
-                      Service {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="h-7 w-7 rounded-full bg-white border border-[#dce6ee] group-hover:bg-[#18b8ad] group-hover:text-white transition-colors grid place-items-center shadow-xs">
-                      <ArrowRight className="h-3.5 w-3.5 text-[#18b8ad] group-hover:text-white" />
-                    </span>
-                  </div>
+          <div className="flex flex-col gap-16">
+            {/* Corporate Analytics */}
+            <div className="bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl p-8 lg:p-12 shadow-xs">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] shadow-xs">
+                  <PieChart className="h-6 w-6 text-[#18b8ad]" />
                 </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+                <h3 className="text-2xl font-bold text-[#071820]">Corporate Analytics</h3>
+              </div>
+              <p className="text-base text-[#56666b] leading-relaxed mb-8">
+                Transform raw data into strategic assets. Our corporate analytics solutions provide clear, actionable intelligence for executive decision-making.
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                {["Business Intelligence", "Executive Dashboards", "Data Visualization", "Performance Analytics", "Decision Support"].map(item => (
+                  <div key={item} className="bg-white p-4 rounded-xl border border-[#dce6ee] text-sm font-bold text-[#071820]">
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <a href="/contact?service=Corporate Analytics" className="inline-flex items-center gap-2 text-sm font-bold text-[#18b8ad] hover:gap-3 transition-all">
+                Learn More <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+
+            {/* Digital Transformation */}
+            <div className="bg-white border border-[#dce6ee] rounded-2xl p-8 lg:p-12 shadow-xs">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-[#F1F6FA] border border-[#dce6ee] grid place-items-center text-[#18b8ad] shadow-xs">
+                  <Workflow className="h-6 w-6 text-[#18b8ad]" />
+                </div>
+                <h3 className="text-2xl font-bold text-[#071820]">Digital Transformation</h3>
+              </div>
+              <p className="text-base text-[#56666b] leading-relaxed mb-8">
+                Modernize operations and eliminate friction. We help organizations streamline workflows and adopt digital strategies that create real efficiency.
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                {["Business Process Automation", "Workflow Optimization", "Cloud Transformation", "Digital Strategy", "Technology Modernization"].map(item => (
+                  <div key={item} className="bg-[#F1F6FA] p-4 rounded-xl border border-[#dce6ee] text-sm font-bold text-[#071820]">
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <a href="/contact?service=Digital Transformation" className="inline-flex items-center gap-2 text-sm font-bold text-[#18b8ad] hover:gap-3 transition-all">
+                Learn More <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+
+            {/* Enterprise Technology */}
+            <div className="bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl p-8 lg:p-12 shadow-xs">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] shadow-xs">
+                  <Cpu className="h-6 w-6 text-[#18b8ad]" />
+                </div>
+                <h3 className="text-2xl font-bold text-[#071820]">Enterprise Technology</h3>
+              </div>
+              <p className="text-base text-[#56666b] leading-relaxed mb-8">
+                Scalable technical foundations built for growth. From custom applications to integrated data platforms, we engineer systems that work for you.
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                {["Custom Business Applications", "Enterprise Portals", "Analytics Platforms", "Data Platforms", "System Integration"].map(item => (
+                  <div key={item} className="bg-white p-4 rounded-xl border border-[#dce6ee] text-sm font-bold text-[#071820]">
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <a href="/contact?service=Enterprise Technology" className="inline-flex items-center gap-2 text-sm font-bold text-[#18b8ad] hover:gap-3 transition-all">
+                Learn More <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+
+            {/* Consulting Services */}
+            <div className="bg-white border border-[#dce6ee] rounded-2xl p-8 lg:p-12 shadow-xs">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-[#F1F6FA] border border-[#dce6ee] grid place-items-center text-[#18b8ad] shadow-xs">
+                  <Compass className="h-6 w-6 text-[#18b8ad]" />
+                </div>
+                <h3 className="text-2xl font-bold text-[#071820]">Consulting Services</h3>
+              </div>
+              <p className="text-base text-[#56666b] leading-relaxed mb-8">
+                Expert advisory to navigate complex business challenges. We provide clear roadmaps and strategies to optimize your operational performance.
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                {["Analytics Consulting", "Technology Advisory", "Digital Strategy", "Business Process Analysis", "Implementation Roadmaps"].map(item => (
+                  <div key={item} className="bg-[#F1F6FA] p-4 rounded-xl border border-[#dce6ee] text-sm font-bold text-[#071820]">
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <a href="/contact?service=Consulting Services" className="inline-flex items-center gap-2 text-sm font-bold text-[#18b8ad] hover:gap-3 transition-all">
+                Learn More <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
         </div>
       </Section>
 

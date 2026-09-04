@@ -68,7 +68,7 @@ export default function TermsConditionsPage() {
               6. Contact
             </h2>
             <p>
-              For legal inquiries or request permissions, please contact our administration desk at **info@kvjanalytics.in**.
+              For legal inquiries or request permissions, please contact our administration desk at **info@thestrategist.co.in**.
             </p>
           </Reveal>
         </div>

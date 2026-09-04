@@ -146,7 +146,33 @@ export default async function EducationalSolutionsPage() {
           </div>
 
           <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {solutions.map((sol: any, i: number) => (
+            {[
+              {
+                title: "Certification Programs",
+                desc: "Industry-oriented certification programs focused on employability, practical knowledge, and workplace-ready skills.",
+                icon: "Certification Programs"
+              },
+              {
+                title: "Curriculum Development",
+                desc: "Modern, analytics-driven curriculum development aligned with industry expectations and practical application.",
+                icon: "Curriculum Development"
+              },
+              {
+                title: "Grade Scope",
+                desc: "Educational reporting & analytics platform to automate student progress reports and institutional analytics.",
+                icon: "Grade Scope"
+              },
+              {
+                title: "Protrix",
+                desc: "Assignment & assessment automation platform to help teachers evaluate practical assignments efficiently.",
+                icon: "Protrix"
+              },
+              {
+                title: "Skill Development Programs",
+                desc: "Structured practical learning programs designed to build relevant technical and analytical capabilities for students.",
+                icon: "Skill Development"
+              }
+            ].map((sol, i) => (
               <RevealItem key={sol.title}>
                 <div
                   className="group flex flex-col justify-between p-7 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 h-full"
@@ -155,14 +181,14 @@ export default async function EducationalSolutionsPage() {
                     <div
                       className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-5 shadow-xs group-hover:scale-105 transition-all"
                     >
-                      {SOL_ICONS[sol.title] || <GraduationCap className="h-5 w-5 text-[#18b8ad]" />}
+                      {SOL_ICONS[sol.icon] || <GraduationCap className="h-5 w-5 text-[#18b8ad]" />}
                     </div>
                     <h3 className="text-xl font-bold text-[#071820] leading-snug">{sol.title}</h3>
                     <p className="text-sm text-[#56666b] leading-relaxed mt-2.5">{sol.desc}</p>
                   </div>
                   <div className="mt-6 pt-4 flex items-center justify-between border-t border-[#dce6ee]/60">
                     <span className="text-[10px] font-black text-[#8a979b] uppercase tracking-wider">
-                      Service {String(i + 1).padStart(2, "0")}
+                      Solution {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="h-7 w-7 rounded-full bg-white border border-[#dce6ee] group-hover:bg-[#18b8ad] group-hover:text-white transition-colors grid place-items-center shadow-xs">
                       <ArrowRight className="h-3.5 w-3.5 text-[#18b8ad] group-hover:text-white" />

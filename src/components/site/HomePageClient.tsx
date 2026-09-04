@@ -120,8 +120,11 @@ export default function HomePageClient({
   const displayStages = frameworkData?.stages || [
     { num: "01", title: "Discover", desc: "Identify key challenges, gather stakeholder requirements, and audit existing data assets to establish a clear digital roadmap." },
     { num: "02", title: "Design", desc: "Co-create tailored analytics and automation blueprints aligned with your operational workflows and KPIs." },
-    { num: "03", title: "Build & Deploy", desc: "Develop and deploy high-performance dashboards, report automation pipelines, and platforms with precision." },
-    { num: "04", title: "Optimize & Enable", desc: "Provide continuous refinement, performance tuning, and hands-on team enablement for sustainable outcomes." },
+    { num: "03", title: "Build", desc: "Develop high-performance dashboards, report automation pipelines, and platforms with precision." },
+    { num: "04", title: "Deploy", desc: "Roll out the solution securely, integrating it with your existing enterprise systems and infrastructure." },
+    { num: "05", title: "Optimize", desc: "Provide continuous refinement, performance tuning, and hands-on team enablement for sustainable outcomes." },
+    { num: "06", title: "Report Automation", desc: "Automate repetitive reporting workflows to ensure timely and accurate information delivery." },
+    { num: "07", title: "Business Decisions", desc: "Empower leadership with actionable insights and clear data to drive strategic business growth." },
   ];
 
   // Dynamic industries fallback
