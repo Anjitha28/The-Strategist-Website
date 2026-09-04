@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Award, BookOpen, Target, GraduationCap, ArrowRight, ShieldCheck, ClipboardCheck } from "lucide-react";
+import { Award, BookOpen, GraduationCap, ShieldCheck, ArrowRight, BarChart3 } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
@@ -13,43 +13,36 @@ export const metadata: Metadata = {
 };
 
 const SOL_ICONS: Record<string, React.ReactNode> = {
+  "Training Programs": <GraduationCap className="h-6 w-6 text-[#18b8ad]" />,
   "Certification Programs": <Award className="h-6 w-6 text-[#18b8ad]" />,
   "Curriculum Development": <BookOpen className="h-6 w-6 text-[#18b8ad]" />,
-  "Grade Scope": <ShieldCheck className="h-6 w-6 text-[#18b8ad]" />,
-  "Protrix": <ClipboardCheck className="h-6 w-6 text-[#18b8ad]" />,
-  "Skill Development Programs": <Target className="h-6 w-6 text-[#18b8ad]" />,
+  "Academic Analytics Solutions": <BarChart3 className="h-6 w-6 text-[#18b8ad]" />,
 };
 
 const SERVICES = [
   {
+    title: "Training Programs",
+    desc: "Practical programs in Excel, Power BI, Data Analytics, Financial Analytics, and Business Intelligence.",
+    icon: "Training Programs",
+    link: "/education/training-programs"
+  },
+  {
     title: "Certification Programs",
-    desc: "Industry-oriented certification programs focused on employability, practical knowledge, and workplace-ready skills.",
+    desc: "Industry-oriented certifications focused on employability and practical skills.",
     icon: "Certification Programs",
     link: "/education/certification-programs"
   },
   {
     title: "Curriculum Development",
-    desc: "Modern, analytics-driven curriculum development aligned with industry expectations and practical application.",
+    desc: "Modern, analytics-driven curriculum aligned with industry expectations.",
     icon: "Curriculum Development",
     link: "/education/curriculum-development"
   },
   {
-    title: "Grade Scope",
-    desc: "Educational reporting & analytics platform to automate student progress reports and institutional analytics.",
-    icon: "Grade Scope",
-    link: "/products/grade-scope"
-  },
-  {
-    title: "Protrix",
-    desc: "Assignment & assessment automation platform to help teachers evaluate practical assignments efficiently.",
-    icon: "Protrix",
-    link: "/products/protrix"
-  },
-  {
-    title: "Skill Development Programs",
-    desc: "Structured practical learning programs designed to build relevant technical and analytical capabilities for students.",
-    icon: "Skill Development Programs",
-    link: "/training"
+    title: "Academic Analytics Solutions",
+    desc: "Technology platforms for reporting, evaluation, analytics, and performance tracking.",
+    icon: "Academic Analytics Solutions",
+    link: "/education/academic-analytics-solutions"
   }
 ];
 
@@ -88,7 +81,7 @@ export default function EducationalSolutionsPage() {
       {/* SOLUTIONS CARDS */}
       <Section className="bg-[#F1F6FA] py-24 border-b border-[#dce6e7]">
         <div className="container-page">
-          <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((sol) => (
               <RevealItem key={sol.title}>
                 <Link href={sol.link} className="block group h-full">
@@ -98,7 +91,7 @@ export default function EducationalSolutionsPage() {
                         Academic Solution
                       </span>
                       <div className="w-16 h-16 rounded-xl bg-[#F1F6FA] border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-6 shadow-xs group-hover:scale-105 transition-all">
-                        {SOL_ICONS[sol.icon] || <GraduationCap className="h-6 w-6 text-[#18b8ad]" />}
+                        {SOL_ICONS[sol.icon]}
                       </div>
                       <h3 className="text-xl font-bold text-[#071820] leading-snug">{sol.title}</h3>
                       <p className="text-sm text-[#56666b] leading-relaxed mt-3">{sol.desc}</p>
