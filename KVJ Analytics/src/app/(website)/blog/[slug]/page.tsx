@@ -17,7 +17,7 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   let title = "Article";
-  let description = "Insights from KVJ Analytics.";
+  let description = "Insights from The Strategist.";
   let image: string | undefined;
   try {
     const { data } = await supabase.from("blog_posts").select("title, description, cover_url").eq("slug", slug).maybeSingle();
@@ -216,12 +216,12 @@ export default async function BlogPostDetailPage({
     ? post.authors_json
     : [
         {
-          name: post?.author_name || fallback?.author || "KVJ Analytics",
-          slug: post?.author_slug || fallback?.authorSlug || "k-v-jacob",
-          bio: post?.author_bio || "Director & Lead Consultant at KVJ Analytics.",
+          name: post?.author_name || fallback?.author || "The Strategist",
+          slug: post?.author_slug || fallback?.authorSlug || "the-strategist",
+          bio: post?.author_bio || "Director & Lead Consultant at The Strategist.",
           avatar_url: "",
           designation: "Principal Consultant",
-          company: "KVJ Analytics"
+          company: "The Strategist"
         }
       ];
 
@@ -243,7 +243,7 @@ export default async function BlogPostDetailPage({
           headline: title,
           datePublished: dateStr,
           author: authors.map((a: any) => ({ "@type": "Person", name: a.name, jobTitle: a.designation, affiliation: { "@type": "Organization", name: a.company } })),
-          publisher: { "@type": "Organization", name: "KVJ Analytics", logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` } },
+          publisher: { "@type": "Organization", name: "The Strategist", logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` } },
           image: coverUrl ? [coverUrl] : undefined,
           articleSection: categoryTitle,
           mainEntityOfPage: shareUrl,

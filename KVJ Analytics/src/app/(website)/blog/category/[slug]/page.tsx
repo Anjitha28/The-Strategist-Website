@@ -70,7 +70,7 @@ export default async function CategoryFilterPage({
         title: r.title,
         slug: r.slug,
         publishedAt: r.published_at,
-        author: { name: r.author_name || "KVJ Analytics", slug: r.author_slug },
+        author: { name: r.author_name || "The Strategist", slug: r.author_slug },
         category: { title: r.category_title, slug: r.category_slug },
         description: r.description || "",
       }));
@@ -88,7 +88,7 @@ export default async function CategoryFilterPage({
 
   const posts = postsData && postsData.length > 0 ? postsData : fallbackFiltered;
   const categoryTitle = posts[0]?.category?.title || fallbackCat?.title || "Insights";
-  const categoryDesc = fallbackCat?.desc || "Articles and insights from KVJ Analytics.";
+  const categoryDesc = fallbackCat?.desc || "Articles and insights from The Strategist.";
 
   return (
     <div className="relative min-h-screen bg-[#050608] text-white pt-32 pb-16 overflow-hidden">

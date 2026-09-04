@@ -13,7 +13,7 @@ export const revalidate = 3600;
 export const metadata = pageMeta({
   title: "Blog — Excel, Power BI, Automation & Analytics Insights",
   description:
-    "Practical guides on Excel automation, Power BI dashboards, report automation, and data analytics for businesses and institutions — from the KVJ Analytics team.",
+    "Practical guides on Excel automation, Power BI dashboards, report automation, and data analytics for businesses and institutions — from The Strategist team.",
   path: "/blog",
   keywords: ["Excel tips", "Power BI blog", "report automation guide", "data analytics articles", "business intelligence blog"],
 });
@@ -89,7 +89,7 @@ export default async function BlogPage() {
         cover_url: r.cover_url || undefined,
         category_title: r.category_title || "Insights",
         category_slug: r.category_slug || "insights",
-        author_name: r.author_name || "KVJ Analytics",
+        author_name: r.author_name || "The Strategist",
         author_slug: r.author_slug || "kvj-analytics",
         published_at: r.published_at,
         featured: !!r.featured,

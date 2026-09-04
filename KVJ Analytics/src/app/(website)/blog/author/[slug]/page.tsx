@@ -10,7 +10,7 @@ export const revalidate = 3600;
 const FALLBACK_AUTHORS: Record<string, { name: string; bio: string }> = {
   "k-v-jacob": {
     name: "K. V. Jacob",
-    bio: "Founder & Director of KVJ Analytics. Leads corporate reporting automation consultancies and university practical analytics certifications across Cochin, UAE, Oman, and USA.",
+    bio: "Founder & Director of The Strategist. Leads corporate reporting automation consultancies and data analytics certifications.",
   },
 };
 
@@ -63,7 +63,7 @@ export default async function AuthorFilterPage({
         title: r.title,
         slug: r.slug,
         publishedAt: r.published_at,
-        author: { name: r.author_name || "KVJ Analytics", slug: r.author_slug },
+        author: { name: r.author_name || "The Strategist", slug: r.author_slug },
         category: { title: r.category_title, slug: r.category_slug },
         description: r.description || "",
       }));
@@ -81,8 +81,8 @@ export default async function AuthorFilterPage({
   }
 
   const posts = postsData && postsData.length > 0 ? postsData : fallbackFiltered;
-  const name = dbAuthor?.name || fallbackAuthor?.name || posts[0]?.author?.name || "KVJ Analytics";
-  const bio = dbAuthor?.bio || fallbackAuthor?.bio || "Contributor at KVJ Analytics.";
+  const name = dbAuthor?.name || fallbackAuthor?.name || posts[0]?.author?.name || "The Strategist";
+  const bio = dbAuthor?.bio || fallbackAuthor?.bio || "Contributor at The Strategist.";
 
   return (
     <div className="relative min-h-screen bg-[#050608] text-white pt-32 pb-16 overflow-hidden">
