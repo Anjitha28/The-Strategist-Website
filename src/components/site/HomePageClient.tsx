@@ -377,19 +377,16 @@ export default function HomePageClient({
           style={{ minHeight: 280 }}
         >
           <div>
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center mb-5">
               <div className="w-11 h-11 rounded-full bg-white border border-[#dce6ee] grid place-items-center shadow-xs group-hover:border-[#18b8ad]/40 transition-all">
                 {getStageIcon(step.title)}
               </div>
-              <span className="text-[10px] font-black tracking-[0.18em] uppercase text-[#18b8ad]">
-                STAGE {step.num}
-              </span>
             </div>
             <h3 className="text-xl font-bold text-[#071820] leading-snug">{step.title}</h3>
             <p className="text-sm text-[#56666b] mt-2.5 leading-relaxed">{step.desc}</p>
           </div>
           <div className="mt-6 pt-3 border-t border-[#dce6ee]/60 flex items-center justify-between text-xs text-[#8a979b] font-medium">
-            <span>Phase {step.num}</span>
+            <span>Phase {step.num || `0${i + 1}`}</span>
             <span className="text-[#18b8ad] font-bold">✓</span>
           </div>
         </div>
