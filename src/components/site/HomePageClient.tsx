@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, BarChart3, Workflow, Gauge, PieChart, Zap, Cpu, Settings, GraduationCap, HeartPulse, Factory, ShoppingBag, Landmark, Rocket, Network, Building2, TriangleAlert, Database, BarChart2, FileText, TrendingUp } from "lucide-react";
 import { Section } from "@/components/ui/Section";
-import { Footer } from "@/components/site/Footer";
+
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { SITE_CONFIG } from "@/config/site";
 import { Accordion } from "@/components/ui/Accordion";
@@ -447,8 +447,6 @@ export default function HomePageClient({
         </div>
       </section>
 
-      {/* Footer */}
-      <Footer />
     </>
   );
 }
