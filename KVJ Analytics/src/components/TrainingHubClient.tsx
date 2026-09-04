@@ -427,6 +427,40 @@ export function TrainingHubClient({ categories, hub }: TrainingHubClientProps) {
           </div>
         </Container>
       </section>
+        {/* Academies Section */}
+        <section className="py-24 bg-[#07130E]/30 border-b border-line overflow-hidden">
+          <Container className="max-w-4xl text-center mx-auto mb-12">
+            <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#10B981]">Academies</span>
+            <h2 className="font-display font-bold text-3xl md:text-5xl text-white mt-3 tracking-tight leading-tight">
+              Academies
+            </h2>
+            <p className="text-zinc-400 font-light mt-4 text-base leading-relaxed">
+              Explore our Academies designed to provide industry‑ready training in partnership with educational institutions.
+            </p>
+          </Container>
+          <Container>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {categories.filter(c => c.slug === "colleges").map((c, i) => (
+                <BentoCard
+                  key={c.id}
+                  category={c}
+                  variant="medium"
+                  icon={CATEGORY_ICONS["colleges"]}
+                  className="lg:col-span-1 lg:row-span-1 lg:min-h-[220px]"
+                />
+              ))}
+            </div>
+            <div className="mt-8 text-center">
+              <Button
+                variant="accent"
+                onClick={() => router.push("/training/colleges")}
+                className="py-3.5 px-8 text-[15px] rounded-full shadow-[0_8px_28px_rgba(16,185,129,0.28)] hover:scale-[1.03] transition-transform duration-300 font-semibold"
+              >
+                View All Academies
+              </Button>
+            </div>
+          </Container>
+        </section>
  
       {/* 3. LEARNING JOURNEY (SCROLL-ANIMATED STORYTELLING TIMELINE) */}
       <section ref={journeySectionRef} className="py-24 md:py-32 relative bg-base overflow-hidden border-b border-line">
