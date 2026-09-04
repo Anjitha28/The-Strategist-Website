@@ -331,17 +331,12 @@ export default function HomePageClient({
           <RevealGroup className="grid gap-4 grid-cols-2 md:grid-cols-4">
             {displayIndustries.map((ind: any, i: number) => (
               <RevealItem key={ind.name + "-" + i}>
-                <div className="group relative flex flex-col justify-between p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 h-full">
-                  <div>
-                    <div className="w-10 h-10 rounded-lg bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-4 shadow-sm group-hover:scale-105 transition-all">
-                      {getIndIcon(ind.name)}
-                    </div>
-                    <h3 className="text-base font-bold text-[#071820] leading-snug">{ind.name}</h3>
-                    {ind.desc && <p className="text-xs text-[#56666b] mt-1.5 leading-relaxed">{ind.desc}</p>}
+                <div className="group relative flex flex-col p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 h-full">
+                  <div className="w-10 h-10 rounded-lg bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-4 shadow-sm group-hover:scale-105 transition-all">
+                    {getIndIcon(ind.name)}
                   </div>
-                  <div className="mt-4 pt-3 border-t border-[#dce6ee]/60 flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-[#18b8ad] group-hover:translate-x-0.5 transition-transform">Explore →</span>
-                  </div>
+                  <h3 className="text-base font-bold text-[#071820] leading-snug">{ind.name}</h3>
+                  {ind.desc && <p className="text-xs text-[#56666b] mt-1.5 leading-relaxed">{ind.desc}</p>}
                 </div>
               </RevealItem>
             ))}
