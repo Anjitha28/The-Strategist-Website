@@ -235,7 +235,7 @@ export default function HomePageClient({
             </Link>
           </div>
 
-          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
             {displayServices.map((sol: any, i) => (
               <RevealItem key={`${sol.title}-${i}`}>
                 <Link href={sol.link || "/solutions/corporate"} className="block h-full group">
