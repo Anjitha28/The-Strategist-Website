@@ -51,6 +51,11 @@ export default function AboutPage() {
             <h1 className="font-sans text-4xl sm:text-6xl text-[#071820] leading-[1.08] tracking-tight font-extrabold">
               About <span className="text-[#18b8ad]">The Strategist</span>
             </h1>
+            <div className="max-w-xl mx-auto mt-4 py-6 border-l-4 border-[#18b8ad]/30 pl-6 text-left">
+              <p className="font-sans font-medium text-lg sm:text-xl md:text-2xl text-[#56666b]">
+                The Strategist is an analytics, automation, and training company with 16+ years of experience supporting corporates
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
