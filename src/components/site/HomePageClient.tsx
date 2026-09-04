@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, BarChart3, Workflow, Gauge, PieChart, Zap, Cpu, Settings } from "lucide-react";
+import { ArrowRight, BarChart3, Workflow, Gauge, PieChart, Zap, Cpu, Settings, GraduationCap, HeartPulse, Factory, ShoppingBag, Landmark, Rocket, Network, Building2 } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { SITE_CONFIG } from "@/config/site";
@@ -22,6 +22,18 @@ const SOL_ICONS: Record<string, React.ReactNode> = {
   "Enterprise Platforms": <Gauge className="h-6 w-6 text-[#18b8ad]" />,
   "Custom Solutions": <Settings className="h-6 w-6 text-[#18b8ad]" />,
   "Innovation": <Settings className="h-6 w-6 text-[#18b8ad]" />,
+};
+
+const getIndIcon = (name: string) => {
+  const n = name.toLowerCase();
+  if (n.includes("education")) return <GraduationCap className="h-5 w-5" />;
+  if (n.includes("health")) return <HeartPulse className="h-5 w-5" />;
+  if (n.includes("manufactur")) return <Factory className="h-5 w-5" />;
+  if (n.includes("retail")) return <ShoppingBag className="h-5 w-5" />;
+  if (n.includes("financ") || n.includes("bank")) return <Landmark className="h-5 w-5" />;
+  if (n.includes("startup")) return <Rocket className="h-5 w-5" />;
+  if (n.includes("sme") || n.includes("mid-market") || n.includes("block") || n.includes("connect")) return <Network className="h-5 w-5" />;
+  return <Building2 className="h-5 w-5" />;
 };
 
 interface HomePageClientProps {
@@ -261,7 +273,7 @@ export default function HomePageClient({
               </p>
             </div>
           </div>
-          <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
             {[{num: "01", title: "Business Intelligence"},
               {num: "02", title: "Automation"},
               {num: "03", title: "Artificial Intelligence"},
@@ -269,15 +281,13 @@ export default function HomePageClient({
               {num: "05", title: "Custom Solutions"},
               {num: "06", title: "Innovation"}].map((item, i) => (
               <RevealItem key={item.num + "-" + i}>
-                <div className="relative overflow-hidden flex flex-col justify-between p-5 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300" style={{ minHeight: 160 }}>
-                  <div className="flex items-center mb-4">
-                    <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-xs font-black text-[#071820] shadow-xs">
-                      {item.num}
-                    </div>
-                    <h3 className="ml-3 text-xl font-bold text-[#071820] leading-snug flex items-center">
-                      {SOL_ICONS[item.title] || <Settings className="h-5 w-5 mr-2" />}{item.title}
-                    </h3>
+                <div className="relative flex flex-col p-6 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300">
+                  <div className="w-10 h-10 rounded-lg bg-white border border-[#dce6ee] grid place-items-center mb-4 text-[#18b8ad] shadow-sm">
+                    {SOL_ICONS[item.title] || <Settings className="h-5 w-5" />}
                   </div>
+                  <h3 className="text-lg font-bold text-[#071820] leading-snug">
+                    {item.title}
+                  </h3>
                 </div>
               </RevealItem>
             ))}
@@ -309,13 +319,13 @@ export default function HomePageClient({
           <RevealGroup className="grid gap-4 grid-cols-2 md:grid-cols-4">
             {displayIndustries.map((ind: any, i: number) => (
               <RevealItem key={ind.name + "-" + i}>
-                <div className="group flex flex-col justify-between p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/50 hover:-translate-y-1 transition-all duration-300 h-full">
+                <div className="group relative flex flex-col justify-between p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 h-full">
                   <div>
-                    <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-lg mb-4 shadow-xs group-hover:scale-105 transition-all">
-                      {ind.icon}
+                    <div className="w-10 h-10 rounded-lg bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-4 shadow-sm group-hover:scale-105 transition-all">
+                      {getIndIcon(ind.name)}
                     </div>
                     <h3 className="text-base font-bold text-[#071820] leading-snug">{ind.name}</h3>
-                    <p className="text-xs text-[#56666b] mt-1.5 leading-relaxed">{ind.desc}</p>
+                    {ind.desc && <p className="text-xs text-[#56666b] mt-1.5 leading-relaxed">{ind.desc}</p>}
                   </div>
                   <div className="mt-4 pt-3 border-t border-[#dce6ee]/60 flex items-center justify-between">
                     <span className="text-[11px] font-bold text-[#18b8ad] group-hover:translate-x-0.5 transition-transform">Explore →</span>
