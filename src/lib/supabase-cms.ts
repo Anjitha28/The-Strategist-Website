@@ -93,6 +93,16 @@ export async function saveSupabaseSection(
 }
 
 /**
+ * Wrapper to upsert a website section.
+ * Accepts a section key and a data object. The data object should include a `title` field; if missing, a generic title is used.
+ */
+export async function upsertSection(sectionKey: string, data: any): Promise<{ success: boolean; error?: string }> {
+  const title = data.title || "";
+  return await saveSupabaseSection(sectionKey, title, data);
+}
+
+
+/**
  * Fetch all sections for the public website
  */
 export async function getAllSupabaseSections(): Promise<Record<string, any>> {

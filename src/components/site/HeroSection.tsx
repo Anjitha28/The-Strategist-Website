@@ -44,7 +44,7 @@ export async function HeroSection() {
       <div className="absolute top-0 right-0 bottom-0 w-full md:w-[60%] lg:w-[55%] h-full flex items-center justify-end pointer-events-none">
         <div className="relative w-full h-full">
           <Image
-            src="/brand/hero-visual-faded.png"
+            src="/brand/hero-visual-final.png"
             alt="The Strategist growth visualization"
             fill
             sizes="(max-width: 768px) 100vw, 55vw"

@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 const MEDIA_ASSETS = [
   {
     name: "Hero Visual Artwork",
-    path: "/brand/hero-visual-faded.png",
+    path: "/brand/hero-visual-final.png",
     usage: "Homepage Hero section background",
     resolution: "High Resolution Transparent PNG",
     status: "Active on Live Website",

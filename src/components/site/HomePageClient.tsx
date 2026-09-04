@@ -16,6 +16,12 @@ const SOL_ICONS: Record<string, React.ReactNode> = {
   "Data Visualization": <PieChart className="h-6 w-6 text-[#18b8ad]" />,
   "Process Automation": <Zap className="h-6 w-6 text-[#18b8ad]" />,
   "Application Development": <Cpu className="h-6 w-6 text-[#18b8ad]" />,
+  "Business Intelligence": <BarChart3 className="h-6 w-6 text-[#18b8ad]" />,
+  "Automation": <Zap className="h-6 w-6 text-[#18b8ad]" />,
+  "Artificial Intelligence": <Cpu className="h-6 w-6 text-[#18b8ad]" />,
+  "Enterprise Platforms": <Gauge className="h-6 w-6 text-[#18b8ad]" />,
+  "Custom Solutions": <Settings className="h-6 w-6 text-[#18b8ad]" />,
+  "Innovation": <Settings className="h-6 w-6 text-[#18b8ad]" />,
 };
 
 interface HomePageClientProps {
@@ -83,7 +89,8 @@ export default function HomePageClient({
 
   // Dynamic framework fallback
   const frameEyebrow = frameworkData?.eyebrow || "Our Approach";
-  const frameHeading = frameworkData?.heading || "A Proven Framework For Digital Transformation";
+  const rawFrameHeading = frameworkData?.heading || "A Proven Framework For Digital Transformation";
+  const frameHeading = rawFrameHeading.split("\n")[0];
   const frameDescription = frameworkData?.description || "How we partner with organizations to turn complex data into clear, lasting business decisions and operational efficiency.";
   const displayStages = frameworkData?.stages || [
     { num: "01", title: "Discover", desc: "Identify key challenges, gather stakeholder requirements, and audit existing data assets to establish a clear digital roadmap." },
@@ -147,9 +154,9 @@ export default function HomePageClient({
           TRUSTED BY FORWARD-THINKING ORGANIZATIONS
         </p>
         <div className="container-page flex justify-around items-center gap-8 flex-wrap">
-          {trustLogos.map((logo) => (
+          {trustLogos.map((logo, i) => (
             <div
-              key={logo.name}
+              key={logo.name + "-" + i}
               className="text-center font-bold text-[#687478] text-base opacity-80"
               style={{ fontWeight: 850, lineHeight: 1.05 }}
             >
@@ -182,9 +189,11 @@ export default function HomePageClient({
         <div className="container-page">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
             <div className="max-w-2xl">
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                {solEyebrow}
-              </span>
+              {solEyebrow !== solHeading && (
+                <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                  {solEyebrow}
+                </span>
+              )}
               <h2
                 className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
               >
@@ -203,8 +212,8 @@ export default function HomePageClient({
           </div>
 
           <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {displayServices.map((sol: any) => (
-              <RevealItem key={sol.title}>
+            {displayServices.map((sol: any, i) => (
+              <RevealItem key={`${sol.title}-${i}`}>
                 <Link href={sol.link || "/solutions/corporate"} className="block h-full group">
                   <div
                     className="relative overflow-hidden flex flex-col justify-between p-7 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300"
@@ -237,52 +246,42 @@ export default function HomePageClient({
       </section>
 
       {/* ================================================================
-          APPROACH / PROCESS — Framework section (Group 2: 4 cards)
+          NEW SECTION – Turning Complex Data into Clear Decisions
           ================================================================ */}
-      <section id="approach" className="py-24 bg-white border-t border-[#dce6e7]">
+      <section id="turning-complex-data" className="py-24 bg-white border-t border-[#dce6e7]">
         <div className="container-page">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
             <div className="max-w-2xl">
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                {frameEyebrow}
-              </span>
-              <h2
-                className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
-              >
-                {frameHeading}
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">Why The Strategist</span>
+              <h2 className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight">
+                Turning Complex Data into Clear Decisions
               </h2>
               <p className="mt-4 text-base text-[#56666b] leading-relaxed">
-                {frameDescription}
+                Enterprise capability across intelligence, automation and platforms — engineered around measurable business outcomes.
               </p>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {displayStages.map((step: any) => (
-              <div
-                key={step.num}
-                className="group relative flex flex-col justify-between p-7 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300"
-                style={{ minHeight: 280 }}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-xs font-black text-[#071820] shadow-xs group-hover:border-[#18b8ad]/40 transition-all">
-                      {step.num}
+          <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[{num: "01", title: "Business Intelligence"},
+              {num: "02", title: "Automation"},
+              {num: "03", title: "Artificial Intelligence"},
+              {num: "04", title: "Enterprise Platforms"},
+              {num: "05", title: "Custom Solutions"},
+              {num: "06", title: "Innovation"}].map((item, i) => (
+              <RevealItem key={item.num + "-" + i}>
+                <div className="relative overflow-hidden flex flex-col justify-between p-5 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300" style={{ minHeight: 160 }}>
+                  <div className="flex items-center mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-xs font-black text-[#071820] shadow-xs">
+                      {item.num}
                     </div>
-                    <span className="text-[10px] font-black tracking-[0.18em] uppercase text-[#18b8ad]">
-                      STAGE {step.num}
-                    </span>
+                    <h3 className="ml-3 text-xl font-bold text-[#071820] leading-snug flex items-center">
+                      {SOL_ICONS[item.title] || <Settings className="h-5 w-5 mr-2" />}{item.title}
+                    </h3>
                   </div>
-                  <h3 className="text-xl font-bold text-[#071820] leading-snug">{step.title}</h3>
-                  <p className="text-sm text-[#56666b] mt-2.5 leading-relaxed">{step.desc}</p>
                 </div>
-                <div className="mt-6 pt-3 border-t border-[#dce6ee]/60 flex items-center justify-between text-xs text-[#8a979b] font-medium">
-                  <span>Phase {step.num}</span>
-                  <span className="text-[#18b8ad] font-bold">✓</span>
-                </div>
-              </div>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
@@ -292,9 +291,11 @@ export default function HomePageClient({
       <section id="industries" className="py-24 bg-white border-t border-[#dce6e7]">
         <div className="container-page">
           <Reveal className="max-w-2xl mb-12">
-            <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-              {indEyebrow}
-            </span>
+            {indEyebrow !== indHeading && (
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                {indEyebrow}
+              </span>
+            )}
             <h2
               className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight"
             >
@@ -306,8 +307,8 @@ export default function HomePageClient({
           </Reveal>
 
           <RevealGroup className="grid gap-4 grid-cols-2 md:grid-cols-4">
-            {displayIndustries.map((ind: any) => (
-              <RevealItem key={ind.name}>
+            {displayIndustries.map((ind: any, i: number) => (
+              <RevealItem key={ind.name + "-" + i}>
                 <div className="group flex flex-col justify-between p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/50 hover:-translate-y-1 transition-all duration-300 h-full">
                   <div>
                     <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-lg mb-4 shadow-xs group-hover:scale-105 transition-all">
@@ -325,6 +326,55 @@ export default function HomePageClient({
           </RevealGroup>
         </div>
       </section>
+
+{/* ================================================================
+   APPROACH / PROCESS — Framework section (Group 2: 4 cards)
+   ================================================================ */}
+<section id="framework" className="py-24 bg-white border-t border-[#dce6e7]">
+  <div className="container-page">
+    <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
+      <div className="max-w-2xl">
+        {frameEyebrow !== frameHeading && (
+          <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+            {frameEyebrow}
+          </span>
+        )}
+        <h2 className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl leading-tight">
+          {frameHeading}
+        </h2>
+        <p className="mt-4 text-base text-[#56666b] leading-relaxed">
+          {frameDescription}
+        </p>
+      </div>
+    </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {displayStages.map((step: any, i: number) => (
+        <div
+          key={step.num + "-" + i}
+          className="group relative flex flex-col justify-between p-7 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300"
+          style={{ minHeight: 280 }}
+        >
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-xs font-black text-[#071820] shadow-xs group-hover:border-[#18b8ad]/40 transition-all">
+                {step.num}
+              </div>
+              <span className="text-[10px] font-black tracking-[0.18em] uppercase text-[#18b8ad]">
+                STAGE {step.num}
+              </span>
+            </div>
+            <h3 className="text-xl font-bold text-[#071820] leading-snug">{step.title}</h3>
+            <p className="text-sm text-[#56666b] mt-2.5 leading-relaxed">{step.desc}</p>
+          </div>
+          <div className="mt-6 pt-3 border-t border-[#dce6ee]/60 flex items-center justify-between text-xs text-[#8a979b] font-medium">
+            <span>Phase {step.num}</span>
+            <span className="text-[#18b8ad] font-bold">✓</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* ================================================================
           SPLIT PANELS — Products + Educational (2-col)
@@ -344,11 +394,11 @@ export default function HomePageClient({
                   </p>
                 </div>
                 <div className="grid grid-cols-3 gap-2.5 my-2">
-                  {(productsPanel.items || [["GradeScope", "Academic reporting"], ["Proctrix", "Exam assessment"], ["BeInTrack", "Process analytics"]]).map((item: any) => {
+                  {(productsPanel.items || [["GradeScope", "Academic reporting"], ["Proctrix", "Exam assessment"], ["BeInTrack", "Process analytics"]]).map((item: any, i: number) => {
                     const name = Array.isArray(item) ? item[0] : item.name;
                     const desc = Array.isArray(item) ? item[1] : item.desc;
                     return (
-                      <div key={name} className="p-3.5 rounded-xl bg-[#F1F6FA] border border-[#dce6ee]">
+                      <div key={name + "-" + i} className="p-3.5 rounded-xl bg-[#F1F6FA] border border-[#dce6ee]">
                         <p className="text-xs font-bold text-[#071820]">{name}</p>
                         <p className="text-[10px] text-[#68787d] mt-1 leading-snug">{desc}</p>
                       </div>
@@ -373,8 +423,8 @@ export default function HomePageClient({
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2 my-2">
-                  {(educationPanel.tags || ["Academic Analytics", "Curriculum Dev", "Assessment Tools", "Industry Programs"]).map((tag: string) => (
-                    <span key={tag} className="text-xs font-bold px-3.5 py-2 rounded-xl bg-[#F1F6FA] text-[#071820] border border-[#dce6ee]">
+                  {(educationPanel.tags || ["Academic Analytics", "Curriculum Dev", "Assessment Tools", "Industry Programs"]).map((tag: string, i: number) => (
+                    <span key={tag + "-" + i} className="text-xs font-bold px-3.5 py-2 rounded-xl bg-[#F1F6FA] text-[#071820] border border-[#dce6ee]">
                       {tag}
                     </span>
                   ))}
@@ -479,8 +529,8 @@ export default function HomePageClient({
           </div>
 
           <RevealGroup className="grid gap-5 sm:grid-cols-3">
-            {displayArticles.map((post) => (
-              <RevealItem key={post.slug}>
+            {displayArticles.map((post, i) => (
+              <RevealItem key={post.slug + "-" + i}>
                 <Link href={`/blog/${post.slug}`} className="block group h-full">
                   <div className="flex flex-col justify-between p-7 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300">
                     <div>

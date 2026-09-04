@@ -314,7 +314,7 @@ export default function HeroSectionEditor() {
               <div className="relative aspect-video w-full rounded-xl bg-[#071820] overflow-hidden border border-[#18b8ad]/20 flex items-center justify-center p-4">
                 <div className="relative w-full h-full">
                   <Image
-                    src="/brand/hero-visual-faded.png"
+                    src="/brand/hero-visual-final.png"
                     alt="Hero Visual Asset"
                     fill
                     className="object-contain object-right"
@@ -322,7 +322,7 @@ export default function HeroSectionEditor() {
                 </div>
               </div>
               <p className="text-[11px] text-[#8a979b] mt-3">
-                Hero background illustration is locked to the high-resolution brand asset (/brand/hero-visual-faded.png).
+                Hero background illustration is locked to the high-resolution brand asset (/brand/hero-visual-final.png).
               </p>
             </div>
           </div>
