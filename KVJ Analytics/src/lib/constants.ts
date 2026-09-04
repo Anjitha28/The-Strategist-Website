@@ -197,7 +197,7 @@ export const FALLBACK_TRAINING_HUB = {
   cta: {
     title: "Start Your Learning Journey",
     description:
-      "Practical, placement-focused training in Advanced Excel, Power BI, Data Analytics, dashboards and automation. Explore a program and begin building career-ready skills with KVJ Analytics.",
+      "Practical, placement-focused training in Advanced Excel, Power BI, Data Analytics, dashboards and automation. Explore a program and begin building career-ready skills with The Strategist.",
     primaryCtaText: "Explore Courses",
     primaryCtaHref: "/training/online-courses",
     secondaryCtaText: "Contact a Training Advisor",

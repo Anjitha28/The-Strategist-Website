@@ -7,11 +7,11 @@ import { TrainingHubClient } from "@/components/TrainingHubClient";
 
 export const revalidate = 3600;
 export const metadata = pageMeta({
-  title: "Training — Power BI, Excel, Data Analytics Courses & Programs",
+  title: "Training — The Strategist",
   description:
     "Practical, placement-focused training in Advanced Excel, Power BI, Data Analytics, dashboards and automation. Online courses, corporate & college programs, one-to-one mentoring and internships.",
   path: "/training",
-  keywords: ["Power BI training", "Excel training", "data analytics course", "corporate training", "college training", "online analytics courses", "internships"],
+  keywords: ["Power BI training", "Excel training", "data analytics course", "corporate training", "college training", "online analytics courses", "internships", "The Strategist training"],
 });
 
 interface Category {
