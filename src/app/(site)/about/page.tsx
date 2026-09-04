@@ -1,78 +1,49 @@
 import type { Metadata } from "next";
-import { CheckCircle2, Award, Zap, Compass, Users, ArrowRight } from "lucide-react";
+import { CheckCircle2, Workflow, Gauge, PieChart, Table, Zap, LineChart, Network, Cpu, Presentation, GraduationCap, ArrowRight, MapPin, Building, Users, Briefcase } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
-import { SITE_CONFIG } from "@/config/site";
-import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "About Us | The Strategist",
-  description: "Learn about The Strategist, our methodology, core values, beliefs, and capabilities.",
+  description: "The Strategist is an analytics, automation, technology and learning organization focused on helping businesses and institutions make smarter decisions.",
 };
 
-const defaultIcons: Record<string, React.ReactNode> = {
-  "Discover": <Compass className="h-6 w-6 text-[#18b8ad]" />,
-  "Design": <Users className="h-6 w-6 text-[#18b8ad]" />,
-  "Build": <Zap className="h-6 w-6 text-[#18b8ad]" />,
-  "Improve": <Award className="h-6 w-6 text-[#18b8ad]" />,
+const SPEC_ICONS: Record<string, React.ReactNode> = {
+  "Report Automation": <Workflow className="h-6 w-6 text-[#18b8ad]" />,
+  "Dashboard Development": <Gauge className="h-6 w-6 text-[#18b8ad]" />,
+  "Data Visualization": <PieChart className="h-6 w-6 text-[#18b8ad]" />,
+  "Spreadsheet / Excel Consulting": <Table className="h-6 w-6 text-[#18b8ad]" />,
+  "Process Automation": <Zap className="h-6 w-6 text-[#18b8ad]" />,
+  "Business Intelligence": <LineChart className="h-6 w-6 text-[#18b8ad]" />,
+  "Digital Transformation": <Network className="h-6 w-6 text-[#18b8ad]" />,
+  "Enterprise Technology": <Cpu className="h-6 w-6 text-[#18b8ad]" />,
+  "Corporate Training": <Presentation className="h-6 w-6 text-[#18b8ad]" />,
+  "Educational Technology Solutions": <GraduationCap className="h-6 w-6 text-[#18b8ad]" />,
 };
 
-export default async function AboutPage() {
-  let dbPage = null;
-  try {
-    dbPage = await prisma.page.findUnique({
-      where: { slug: "about" },
-      include: { sections: true },
-    });
-  } catch {
-    // Database connection fallback — defaults handled below
-  }
+const specializations = [
+  { name: "Report Automation", desc: "Streamline manual reporting processes to save time and reduce errors." },
+  { name: "Dashboard Development", desc: "Interactive dashboards that provide real-time visibility into business performance." },
+  { name: "Data Visualization", desc: "Transform complex datasets into clear, actionable visual insights." },
+  { name: "Spreadsheet / Excel Consulting", desc: "Advanced spreadsheet modeling and optimization for complex workflows." },
+  { name: "Process Automation", desc: "Eliminate repetitive tasks by automating core business processes." },
+  { name: "Business Intelligence", desc: "Comprehensive BI strategies to build a data-driven culture." },
+  { name: "Digital Transformation", desc: "End-to-end modernization of legacy systems and operational workflows." },
+  { name: "Enterprise Technology", desc: "Custom platforms and technology architecture for scalable growth." },
+  { name: "Corporate Training", desc: "Capability building programs to upskill teams in analytics and automation." },
+  { name: "Educational Technology Solutions", desc: "Systems and training to bridge the gap between academia and industry." },
+];
 
-  // Fallbacks
-  const heroData = dbPage?.sections.find(s => s.key === "hero")?.data 
-    ? JSON.parse(dbPage.sections.find(s => s.key === "hero")!.data)
-    : {
-        badge: "Who We Are",
-        title: "About The Strategist",
-        description: "Strategy. Technology. Analytics. Practical Transformation.",
-      };
-
-  const overviewData = dbPage?.sections.find(s => s.key === "overview")?.data
-    ? JSON.parse(dbPage.sections.find(s => s.key === "overview")!.data)
-    : {
-        heading: "Who We Are",
-        paragraphs: [
-          "The Strategist is an analytics, automation, and technology company with 16+ years of experience supporting corporates and educational institutions.",
-          "We combine analytical thinking, automation, technology development, and practical industry knowledge to create solutions that are useful, scalable, and aligned with real-world requirements.",
-          "Our services and training programs have reached clients across Kerala, India, UAE, Oman, USA, and Europe."
-        ]
-      };
-
-  const journeyData = dbPage?.sections.find(s => s.key === "journey")?.data
-    ? JSON.parse(dbPage.sections.find(s => s.key === "journey")!.data)
-    : null;
-
-  const approachSteps = journeyData?.items 
-    ? journeyData.items.map((item: any) => ({
-        num: String(item.step).padStart(2, "0"),
-        title: item.title,
-        desc: item.description,
-      }))
-    : SITE_CONFIG.about.approach.steps;
-
-  const beliefs = SITE_CONFIG.about.beliefs;
-  const capabilities = SITE_CONFIG.about.capabilities;
-  const whyUs = SITE_CONFIG.home.whyUs;
-  const industries = SITE_CONFIG.home.industries;
-
+export default function AboutPage() {
   return (
     <>
       <Breadcrumbs items={[{ name: "About Us", url: "/about" }]} />
 
-      {/* Hero Banner — Clean White Theme */}
+      {/* SECTION 01: About / Page Hero */}
       <section className="relative overflow-hidden pt-24 pb-20 bg-white border-b border-[#dce6e7]">
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #cbd5e1 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="absolute top-0 right-0 w-96 h-96 glow-teal opacity-20 pointer-events-none" />
@@ -81,306 +52,245 @@ export default async function AboutPage() {
           <Reveal className="flex flex-col items-center gap-6 max-w-3xl mx-auto">
             <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#e7f6f4] px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#159f95]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
-              {heroData.badge || "Who We Are"}
+              About
             </span>
             <h1 className="font-sans text-4xl sm:text-6xl text-[#071820] leading-[1.08] tracking-tight font-extrabold">
-              {heroData.title.split("The Strategist")[0]}
-              <span className="text-[#18b8ad]">The Strategist</span>
-              {heroData.title.split("The Strategist")[1] || ""}
+              About <span className="text-[#18b8ad]">The Strategist</span>
             </h1>
             <p className="text-base sm:text-lg leading-relaxed text-[#56666b] max-w-2xl">
-              {heroData.description || "An analytics, automation, and training company with 16+ years of experience supporting corporates and educational institutions worldwide."}
+              The Strategist is an analytics, automation, technology and learning organization focused on helping businesses and institutions make smarter decisions, improve operations and build future-ready capabilities.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Introduction */}
-      <Section className="bg-white py-20">
-        <div className="max-w-3xl mx-auto">
-          <Reveal className="flex flex-col gap-6 text-center">
-            {overviewData.paragraphs.map((p: string, idx: number) => (
-              <p 
-                key={idx} 
-                className={idx === 0 ? "text-lg sm:text-xl leading-relaxed text-[#071820] font-bold" : "text-base leading-relaxed text-[#56666b]"}
-              >
-                {p}
-              </p>
-            ))}
-          </Reveal>
-        </div>
-      </Section>
-
-      {/* Vision & Mission */}
-      <Section className="bg-[#F1F6FA] py-20 border-t border-[#dce6e7]">
+      {/* SECTION 02: Company Introduction */}
+      <Section className="bg-white py-24">
         <div className="container-page">
-          <div className="grid gap-8 lg:grid-cols-2">
-            <Reveal className="flex flex-col gap-4 p-8 bg-white border border-[#dce6ee] rounded-2xl shadow-xs">
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                Our Vision
-              </span>
-              <h2 className="font-sans text-2xl text-[#071820] font-bold leading-tight">
-                To build smarter organizations and industry-ready professionals.
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            <Reveal>
+              <h2 className="font-sans text-3xl sm:text-4xl text-[#071820] font-extrabold tracking-tight leading-tight mb-6">
+                Bridging the Gap Between Data and Actionable Strategy
               </h2>
-              <p className="text-sm text-[#56666b] leading-relaxed">
-                To build smarter organizations and industry-ready professionals through analytics, automation, and practical learning.
-              </p>
+              <div className="flex flex-col gap-6 text-base text-[#56666b] leading-relaxed">
+                <p>
+                  <strong className="text-[#071820]">Who We Are:</strong> We are a team of data specialists, automation engineers, and strategic consultants dedicated to simplifying complexity.
+                </p>
+                <p>
+                  <strong className="text-[#071820]">What We Do:</strong> We design intelligent systems that eliminate operational bottlenecks, along with practical learning programs that empower professionals to maintain them.
+                </p>
+                <p>
+                  <strong className="text-[#071820]">Who We Serve:</strong> From forward-thinking enterprises aiming to optimize their reporting workflows to educational institutions building industry-ready talent.
+                </p>
+                <p>
+                  <strong className="text-[#071820]">How We Create Value:</strong> By integrating Business Intelligence, Data Analytics, and Digital Transformation, we turn raw data into strategic assets that drive real-world outcomes.
+                </p>
+              </div>
             </Reveal>
-            <Reveal className="flex flex-col gap-4 p-8 bg-white border border-[#dce6ee] rounded-2xl shadow-xs">
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                Our Mission
-              </span>
-              <h2 className="font-sans text-2xl text-[#071820] font-bold leading-tight">
-                To help organizations unlock their full potential.
-              </h2>
-              <p className="text-sm text-[#56666b] leading-relaxed">
-                To help organizations unlock their full potential by combining Business Intelligence, Artificial Intelligence, Data Analytics, Digital Transformation, Professional Training, and innovative technology solutions that create measurable value.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </Section>
-
-      {/* Our Approach */}
-      <Section className="bg-white py-24 border-t border-[#dce6e7]">
-        <div className="container-page">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
-            <div>
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                Methodology
-              </span>
-              <h2
-                className="font-sans mt-3 text-[#071820] font-extrabold tracking-tight"
-                style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, letterSpacing: "-0.035em" }}
-              >
-                Our Approach
-              </h2>
-            </div>
-            <p className="max-w-[420px] text-[#56666b] text-base leading-relaxed">
-              How we partner with organizations to build lasting, practical systems.
-            </p>
-          </div>
-
-          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {approachSteps.map((step: any, idx: number) => (
-              <RevealItem key={step.title}>
-                <div
-                  className="flex flex-col gap-4 bg-[#F1F6FA] p-6 h-full transition-all duration-300 hover:shadow-md border border-[#dce6ee] rounded-2xl shadow-xs"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-white border border-[#dce6ee] text-[#18b8ad] shadow-xs">
-                      {defaultIcons[step.title] || <Compass className="h-5 w-5 text-[#18b8ad]" />}
-                    </span>
-                    <span
-                      className="text-xs font-black px-2.5 py-1 rounded-full bg-white border border-[#dce6ee] text-[#071820]"
-                    >
-                      {step.num || `0${idx + 1}`}
-                    </span>
+            <Reveal delay={0.2}>
+              <div className="relative aspect-square max-w-md mx-auto">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#18b8ad]/20 to-[#071820]/5 rounded-3xl transform rotate-3 scale-105"></div>
+                <div className="absolute inset-0 bg-[#F1F6FA] border border-[#dce6ee] rounded-3xl flex items-center justify-center p-8 shadow-sm">
+                  <div className="grid grid-cols-2 gap-4 w-full h-full">
+                    <div className="bg-white rounded-2xl border border-[#dce6ee] flex items-center justify-center shadow-xs text-[#18b8ad]"><LineChart className="h-10 w-10" /></div>
+                    <div className="bg-white rounded-2xl border border-[#dce6ee] flex items-center justify-center shadow-xs text-[#18b8ad]"><Zap className="h-10 w-10" /></div>
+                    <div className="bg-white rounded-2xl border border-[#dce6ee] flex items-center justify-center shadow-xs text-[#18b8ad]"><Network className="h-10 w-10" /></div>
+                    <div className="bg-white rounded-2xl border border-[#dce6ee] flex items-center justify-center shadow-xs text-[#18b8ad]"><Presentation className="h-10 w-10" /></div>
                   </div>
-                  <h3 className="text-lg font-bold text-[#071820] leading-snug">{step.title}</h3>
-                  <p className="text-xs text-[#56666b] leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </Section>
+
+      {/* SECTION 03: Key Experience / Impact Metrics */}
+      <section className="py-24 bg-[#071820] text-white border-y border-[#0d2f3a]">
+        <div className="container-page">
+          <RevealGroup className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center divide-x divide-white/10">
+            {[
+              { label: "Years of Experience", value: "16+" },
+              { label: "Client Organizations", value: "20+" },
+              { label: "Projects Delivered", value: "500+" },
+              { label: "Professionals Trained", value: "50k+" },
+              { label: "Regions Served", value: "6+" },
+            ].map((metric) => (
+              <RevealItem key={metric.label}>
+                <div className="flex flex-col gap-2">
+                  <span className="text-4xl sm:text-5xl font-black text-[#18b8ad] font-sans">{metric.value}</span>
+                  <span className="text-xs sm:text-sm font-bold text-[#a1b4b9] uppercase tracking-wider">{metric.label}</span>
                 </div>
               </RevealItem>
             ))}
           </RevealGroup>
         </div>
-      </Section>
+      </section>
 
-      {/* What We Believe */}
-      <Section className="bg-white py-24 border-t border-[#dce6e7]">
-        <div className="container-page">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
-            <div>
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                Philosophy
-              </span>
-              <h2
-                className="font-sans mt-3 text-[#071820] font-extrabold tracking-tight"
-                style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, letterSpacing: "-0.035em" }}
-              >
-                What We Believe
-              </h2>
-            </div>
-            <p className="max-w-[420px] text-[#56666b] text-base leading-relaxed">
-              Core values that guide our solution designs and advisory work.
-            </p>
-          </div>
-
-          <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {beliefs.map((belief, idx) => (
-              <RevealItem key={idx}>
-                <div
-                  className="flex items-start gap-4 p-6 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs"
-                >
-                  <CheckCircle2 className="h-5 w-5 text-[#18b8ad] shrink-0 mt-0.5" />
-                  <p className="text-sm font-semibold text-[#071820] leading-relaxed">
-                    {belief}
-                  </p>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </Section>
-
-      {/* Capabilities */}
-      <Section className="bg-[#F1F6FA] py-24 border-t border-[#dce6e7]">
-        <div className="container-page">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
-            <div>
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                Expertise
-              </span>
-              <h2
-                className="font-sans mt-3 text-[#071820] font-extrabold tracking-tight"
-                style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, letterSpacing: "-0.035em" }}
-              >
-                Our Capabilities
-              </h2>
-            </div>
-            <p className="max-w-[420px] text-[#56666b] text-base leading-relaxed">
-              A comprehensive suite of transformation and technical services.
-            </p>
-          </div>
-
-          <RevealGroup className="flex flex-wrap justify-center gap-3 mt-1 max-w-4xl mx-auto">
-            {capabilities.map((cap) => (
-              <RevealItem key={cap}>
-                <span
-                  className="inline-block bg-white px-5 py-3 text-xs font-bold tracking-wide text-[#071820] rounded-xl border border-[#dce6ee] shadow-xs"
-                >
-                  {cap}
-                </span>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </Section>
-
-      {/* Why Choose The Strategist */}
-      <Section className="bg-white py-24 border-t border-[#dce6e7]">
-        <div className="container-page">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
-            <div>
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                Advantage
-              </span>
-              <h2
-                className="font-sans mt-3 text-[#071820] font-extrabold tracking-tight"
-                style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.1, letterSpacing: "-0.035em" }}
-              >
-                {whyUs.title}
-              </h2>
-            </div>
-          </div>
-
-          <RevealGroup className="grid gap-6 sm:grid-cols-2">
-            {whyUs.items.map((item, idx) => (
-              <RevealItem key={idx}>
-                <div className="p-8 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl h-full shadow-xs">
-                  <span className="text-3xl font-black text-[#18b8ad]/20 block mb-4">{item.num}</span>
-                  <h3 className="text-xl font-bold text-[#071820] mb-3">{item.title}</h3>
-                  <p className="text-sm text-[#56666b] leading-relaxed">{item.desc}</p>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </Section>
-
-      {/* Industries We Serve */}
-      <Section className="bg-[#F1F6FA] py-24 border-t border-[#dce6e7]">
+      {/* SECTION 04: We Specialize In */}
+      <Section className="bg-[#F1F6FA] py-24 border-b border-[#dce6e7]">
         <div className="container-page">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-              Sectors
+              Expertise
             </span>
             <h2 className="font-sans mt-3 text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl">
-              Industries We Serve
+              We Specialize In
             </h2>
           </div>
-          <RevealGroup className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-            {industries.tags.map((tag) => (
-              <RevealItem key={tag}>
-                <span className="inline-block bg-white px-5 py-3 text-xs font-bold tracking-wide text-[#071820] rounded-xl border border-[#dce6ee] shadow-xs">
-                  {tag}
-                </span>
+          
+          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {specializations.map((spec, i) => (
+              <RevealItem key={spec.name}>
+                <div className="group relative flex flex-col justify-between p-7 bg-white border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 h-full">
+                  <div>
+                    <div className="w-11 h-11 rounded-xl bg-[#F1F6FA] border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-5 shadow-xs group-hover:scale-105 transition-all">
+                      {SPEC_ICONS[spec.name] || <CheckCircle2 className="h-5 w-5 text-[#18b8ad]" />}
+                    </div>
+                    <h3 className="text-lg font-bold text-[#071820] leading-snug">{spec.name}</h3>
+                    <p className="text-sm text-[#56666b] leading-relaxed mt-2.5">{spec.desc}</p>
+                  </div>
+                  <div className="mt-6 pt-4 flex items-center justify-between border-t border-[#dce6ee]/60">
+                    <span className="text-[10px] font-black text-[#8a979b] uppercase tracking-wider">
+                      Area {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="h-7 w-7 rounded-full bg-[#F1F6FA] border border-[#dce6ee] group-hover:bg-[#18b8ad] group-hover:text-white transition-colors grid place-items-center shadow-xs">
+                      <ArrowRight className="h-3.5 w-3.5 text-[#18b8ad] group-hover:text-white" />
+                    </span>
+                  </div>
+                </div>
               </RevealItem>
             ))}
           </RevealGroup>
         </div>
       </Section>
 
-      {/* Our Impact */}
-      <Section className="bg-white py-24 border-t border-[#dce6e7]">
+      {/* SECTION 05: Our Impact */}
+      <Section className="bg-white py-24 border-b border-[#dce6e7]">
         <div className="container-page">
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-5 flex flex-col gap-6">
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-                Our Impact
-              </span>
-              <h2 className="font-sans text-3xl sm:text-4xl text-[#071820] leading-tight font-extrabold tracking-tight">
-                Helping Organizations Create Measurable Outcomes
-              </h2>
-              <p className="text-sm text-[#56666b] leading-relaxed">
-                For over 16 years, our analytics, automation, and training solutions have enabled organizations and institutions to streamline operations, optimize reporting, and build data-driven cultures.
-              </p>
+              <Reveal>
+                <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                  Our Impact
+                </span>
+                <h2 className="font-sans mt-3 text-3xl sm:text-4xl text-[#071820] font-extrabold tracking-tight leading-tight">
+                  Driving Results Across Geographies and Sectors
+                </h2>
+                <p className="text-base text-[#56666b] leading-relaxed mt-4">
+                  The Strategist actively works with businesses, enterprises, educational institutions, professionals, and students to create lasting systemic improvements and robust analytical foundations.
+                </p>
+              </Reveal>
             </div>
+            
             <div className="lg:col-span-7">
               <RevealGroup className="grid gap-4 sm:grid-cols-2">
-                {[
-                  { stat: "5+", label: "Regions Served", desc: "Kerala, India, UAE, Oman, USA, Europe" },
-                  { stat: "20+", label: "Corporate Clients", desc: "Enterprise solutions & business analytics" },
-                  { stat: "50,000+", label: "Professionals Trained", desc: "Young professionals and students" },
-                  { stat: "5,000+", label: "Senior Leaders Trained", desc: "Executive capability programs" },
-                ].map((item) => (
-                  <RevealItem key={item.label}>
-                    <div
-                      className="rounded-2xl p-6 bg-[#F1F6FA] border border-[#dce6ee] flex flex-col justify-between shadow-xs"
-                      style={{ minHeight: 140 }}
-                    >
-                      <p className="text-3xl font-black text-[#18b8ad] font-sans">{item.stat}</p>
-                      <div>
-                        <p className="text-sm font-bold text-[#071820] mt-2">{item.label}</p>
-                        <p className="text-xs text-[#56666b] mt-1 leading-snug">{item.desc}</p>
-                      </div>
+                <RevealItem>
+                  <div className="flex items-start gap-4 p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs">
+                    <Building className="h-6 w-6 text-[#18b8ad] shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-bold text-[#071820]">Enterprises & Corporates</h3>
+                      <p className="text-sm text-[#56666b] mt-1.5 leading-relaxed">Modernizing legacy workflows and building resilient data architectures.</p>
                     </div>
-                  </RevealItem>
-                ))}
+                  </div>
+                </RevealItem>
+                <RevealItem>
+                  <div className="flex items-start gap-4 p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs">
+                    <GraduationCap className="h-6 w-6 text-[#18b8ad] shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-bold text-[#071820]">Educational Institutions</h3>
+                      <p className="text-sm text-[#56666b] mt-1.5 leading-relaxed">Developing industry-aligned curricula and automated academic reporting.</p>
+                    </div>
+                  </div>
+                </RevealItem>
+                <RevealItem>
+                  <div className="flex items-start gap-4 p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs">
+                    <Briefcase className="h-6 w-6 text-[#18b8ad] shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-bold text-[#071820]">Professionals</h3>
+                      <p className="text-sm text-[#56666b] mt-1.5 leading-relaxed">Upskilling workforces with practical automation and BI capabilities.</p>
+                    </div>
+                  </div>
+                </RevealItem>
+                <RevealItem>
+                  <div className="flex items-start gap-4 p-6 bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs">
+                    <MapPin className="h-6 w-6 text-[#18b8ad] shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-bold text-[#071820]">Global Reach</h3>
+                      <p className="text-sm text-[#56666b] mt-1.5 leading-relaxed">Delivering solutions across India, UAE, Oman, USA, and Europe.</p>
+                    </div>
+                  </div>
+                </RevealItem>
               </RevealGroup>
             </div>
           </div>
         </div>
       </Section>
 
-      {/* Final CTA — Teal gradient */}
+      {/* SECTION 06: Our Vision (& Mission) */}
+      <section className="relative overflow-hidden py-24 bg-[#071820] text-center border-b border-[#0d2f3a]">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle, #18b8ad 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+        <div className="container-page relative z-10">
+          <Reveal className="max-w-4xl mx-auto flex flex-col gap-10">
+            <div className="flex flex-col gap-4 bg-white/5 border border-white/10 p-8 sm:p-12 rounded-3xl backdrop-blur-sm">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
+                Our Vision
+              </span>
+              <p className="font-sans text-2xl sm:text-4xl text-white font-extrabold leading-tight tracking-tight">
+                "To help organizations become smarter, more efficient and future-ready through analytics, automation, technology and practical learning."
+              </p>
+            </div>
+            
+            <div className="flex flex-col gap-3 max-w-2xl mx-auto">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#a1b4b9]">
+                Our Mission
+              </span>
+              <p className="text-sm sm:text-base text-[#97aba2] leading-relaxed">
+                To transform complex business and institutional challenges into practical, technology-driven solutions that improve decision-making, operational efficiency and long-term growth.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* SECTION 07: Final CTA */}
       <section
-        className="py-20 text-center"
+        className="py-24 text-center"
         style={{ background: "linear-gradient(135deg,#ddf7f4,#a7e9e3)" }}
       >
-        <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
+        <div className="max-w-3xl mx-auto flex flex-col items-center gap-6 px-4">
           <Reveal>
-            <h2 className="font-sans text-3xl text-[#071820] sm:text-4xl font-extrabold tracking-tight">
-              Let&apos;s Build Smarter Systems Together
+            <h2 className="font-sans text-3xl sm:text-5xl text-[#071820] font-extrabold tracking-tight leading-tight">
+              Let's Build Smarter Systems Together
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
-            <p className="text-base text-[#2d524f] leading-relaxed">
-              Whether you are a corporate organization seeking automation and analytics, or an institution wanting industry-ready outcomes, The Strategist is ready to support your transformation journey.
+            <p className="text-base sm:text-lg text-[#2d524f] leading-relaxed">
+              Whether you are a business looking to improve analytics, automate operations and modernize your technology, or an institution seeking practical and industry-ready learning solutions, The Strategist is ready to support your transformation journey.
             </p>
           </Reveal>
-          <Reveal delay={0.16}>
-            <a
+          <Reveal delay={0.16} className="mt-4 flex flex-wrap justify-center gap-4">
+            <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] bg-[#071820] text-white shadow-sm"
               style={{
-                padding: "13px 24px",
-                fontSize: 13,
+                padding: "14px 28px",
+                fontSize: 14,
                 fontWeight: 800
               }}
             >
-              Get In Touch <ArrowRight className="h-3.5 w-3.5" />
-            </a>
+              Contact Our Team <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/solutions/corporate"
+              className="inline-flex items-center gap-2 rounded-full border border-[#18b8ad] bg-white/50 text-[#071820] hover:bg-white transition-all font-bold shadow-sm"
+              style={{
+                padding: "14px 28px",
+                fontSize: 14,
+                fontWeight: 800
+              }}
+            >
+              View Solutions
+            </Link>
           </Reveal>
         </div>
       </section>
