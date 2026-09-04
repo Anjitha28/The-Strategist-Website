@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, BarChart3, Workflow, Gauge, PieChart, Zap, Cpu, Settings, GraduationCap, HeartPulse, Factory, ShoppingBag, Landmark, Rocket, Network, Building2, TriangleAlert, Database, BarChart2, FileText, TrendingUp } from "lucide-react";
 import { Section } from "@/components/ui/Section";
+import Footer from "@/components/footer/Footer";
+import Image from "next/image";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { SITE_CONFIG } from "@/config/site";
 import { Accordion } from "@/components/ui/Accordion";
@@ -389,6 +391,62 @@ export default function HomePageClient({
     </div>
   </div>
 </section>
+
+      {/* ================================================================
+          INSIGHTS SECTION – after Framework
+      ================================================================ */}
+      <section id="insights" className="py-24 bg-white border-t border-[#dce6e7]">
+        <div className="container-page">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
+            <div className="max-w-2xl">
+              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">Insights</span>
+              <h2 className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl">Insights That Drive Better Decisions</h2>
+            </div>
+            <Link href="/insights" className="shrink-0 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-bold border border-[#dce6ee] bg-[#F1F6FA] text-[#071820] hover:border-[#18b8ad] hover:text-[#18b8ad] hover:shadow-sm transition-all">
+              Read All Insights →
+            </Link>
+          </div>
+          {/* Placeholder for insights list – replace with actual component if exists */}
+          <p className="text-base text-[#56666b]">No insights available yet.</p>
+        </div>
+      </section>
+
+      {/* ================================================================
+          FINAL CTA SECTION WITH STATISTICS
+      ================================================================ */}
+      <section id="final-cta" className="py-24 bg-[#F1F6FA] border-t border-[#dce6e7]">
+        <div className="container-page text-center">
+          <h2 className="text-3xl font-extrabold text-[#071820]">Ready to Transform Your Business?</h2>
+          <p className="mt-4 max-w-2xl mx-auto text-base text-[#56666b]">
+            Partner with The Strategist to build intelligent analytics platforms, automate operations and enable data‑driven decisions that create measurable business outcomes.
+          </p>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+            <div>
+              <p className="text-4xl font-bold text-[#071820]">500+</p>
+              <p className="mt-2 text-sm text-[#56666b]">Projects Delivered</p>
+            </div>
+            <div>
+              <p className="text-4xl font-bold text-[#071820]">98%</p>
+              <p className="mt-2 text-sm text-[#56666b]">Client Retention</p>
+            </div>
+            <div>
+              <p className="text-4xl font-bold text-[#071820]">12+</p>
+              <p className="mt-2 text-sm text-[#56666b]">Years of Expertise</p>
+            </div>
+          </div>
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/schedule-consultation" className="inline-flex items-center justify-center rounded-full bg-[#18b8ad] px-6 py-3 text-sm font-bold text-white hover:bg-[#13a09a]">
+              Schedule a Consultation →
+            </Link>
+            <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#18b8ad] px-6 py-3 text-sm font-bold text-[#18b8ad] hover:bg-[#18b8ad]/10">
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <Footer />
 
       {/* ================================================================
           SPLIT PANELS — Products + Educational (2-col)
