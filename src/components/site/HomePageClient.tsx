@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, BarChart3, Workflow, Gauge, PieChart, Zap, Cpu, Settings, GraduationCap, HeartPulse, Factory, ShoppingBag, Landmark, Rocket, Network, Building2 } from "lucide-react";
+import { ArrowRight, BarChart3, Workflow, Gauge, PieChart, Zap, Cpu, Settings, GraduationCap, HeartPulse, Factory, ShoppingBag, Landmark, Rocket, Network, Building2, TriangleAlert, Database, BarChart2, FileText, TrendingUp } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { SITE_CONFIG } from "@/config/site";
@@ -34,6 +34,18 @@ const getIndIcon = (name: string) => {
   if (n.includes("startup")) return <Rocket className="h-5 w-5" />;
   if (n.includes("sme") || n.includes("mid-market") || n.includes("block") || n.includes("connect")) return <Network className="h-5 w-5" />;
   return <Building2 className="h-5 w-5" />;
+};
+
+const getStageIcon = (title: string) => {
+  const t = title.toLowerCase();
+  if (t.includes("discover")) return <TriangleAlert className="h-5 w-5 text-[#18b8ad]" />;
+  if (t.includes("design")) return <Database className="h-5 w-5 text-[#18b8ad]" />;
+  if (t.includes("build")) return <Settings className="h-5 w-5 text-[#18b8ad]" />;
+  if (t.includes("deploy")) return <BarChart2 className="h-5 w-5 text-[#18b8ad]" />;
+  if (t.includes("optimize")) return <Gauge className="h-5 w-5 text-[#18b8ad]" />;
+  if (t.includes("report")) return <FileText className="h-5 w-5 text-[#18b8ad]" />;
+  if (t.includes("decision")) return <TrendingUp className="h-5 w-5 text-[#18b8ad]" />;
+  return <Settings className="h-5 w-5 text-[#18b8ad]" />;
 };
 
 interface HomePageClientProps {
@@ -366,8 +378,8 @@ export default function HomePageClient({
         >
           <div>
             <div className="flex items-center justify-between mb-5">
-              <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-xs font-black text-[#071820] shadow-xs group-hover:border-[#18b8ad]/40 transition-all">
-                {step.num}
+              <div className="w-11 h-11 rounded-full bg-white border border-[#dce6ee] grid place-items-center shadow-xs group-hover:border-[#18b8ad]/40 transition-all">
+                {getStageIcon(step.title)}
               </div>
               <span className="text-[10px] font-black tracking-[0.18em] uppercase text-[#18b8ad]">
                 STAGE {step.num}
