@@ -212,18 +212,25 @@ function BentoCard({ category, className = "", icon: Icon, delay = 0, variant = 
 }
  
 // ────────────────────────────────────────────────────────
-// Floating Feature Outline Card
+// Ecosystem Tool Card — matches reference design:
+// dark bg, numbered badge top-right, icon left, text right
 // ────────────────────────────────────────────────────────
-function FloatingFeatureCard({ icon: Icon, label, desc, delay = 0, floatClass = "float-a" }: any) {
+function FloatingFeatureCard({ icon: Icon, label, desc, delay = 0, index = 0 }: any) {
+  const num = String(index + 1).padStart(2, "0");
   return (
     <Reveal delay={delay} variant="scale" className="h-full">
-      <div className={`bg-[#0B2A22]/65 border border-line hover:border-[#10B981]/30 p-6 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft text-left group h-full relative overflow-hidden ${floatClass}`}>
-        <div className="absolute inset-0 bg-gradient-to-tr from-brand/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="w-10 h-10 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center text-brand shrink-0 group-hover:scale-110 transition-transform duration-300">
-          <Icon className="w-5 h-5 text-[#10B981] group-hover:rotate-12 duration-300" />
+      <div className="relative bg-[#07221A] border border-[#10B981]/15 hover:border-[#10B981]/40 p-5 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(16,185,129,0.08)] text-left group h-full overflow-hidden">
+        {/* Subtle hover glow */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#10B981]/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+        {/* Number badge — top right */}
+        <span className="absolute top-4 right-4 text-[11px] font-mono font-bold text-[#10B981]/50 group-hover:text-[#10B981]/80 transition-colors duration-300 select-none">{num}</span>
+        {/* Icon */}
+        <div className="w-11 h-11 rounded-xl bg-[#10B981]/10 border border-[#10B981]/20 flex items-center justify-center shrink-0 group-hover:bg-[#10B981]/20 group-hover:scale-110 transition-all duration-300 mt-0.5">
+          <Icon className="w-5 h-5 text-[#10B981]" />
         </div>
-        <div className="space-y-1">
-          <h4 className="text-white text-base font-semibold tracking-wide font-display group-hover:text-brand transition-colors">{label}</h4>
+        {/* Text */}
+        <div className="space-y-1 pr-6">
+          <h4 className="text-white text-[15px] font-semibold font-display group-hover:text-[#10B981] transition-colors duration-300 leading-snug">{label}</h4>
           <p className="text-zinc-400 text-xs leading-relaxed font-light">{desc}</p>
         </div>
       </div>
@@ -427,8 +434,6 @@ export function TrainingHubClient({ categories, hub }: TrainingHubClientProps) {
           </div>
         </Container>
       </section>
-        {/* Academies Section */}
-        
  
       {/* 3. LEARNING JOURNEY (SCROLL-ANIMATED STORYTELLING TIMELINE) */}
       <section ref={journeySectionRef} className="py-24 md:py-32 relative bg-base overflow-hidden border-b border-line">
@@ -518,15 +523,15 @@ export function TrainingHubClient({ categories, hub }: TrainingHubClientProps) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
             {(((hub?.tools?.items as { label: string; desc: string; icon: string }[]) || FALLBACK_TRAINING_HUB.tools.items)).map((t, i) => (
               <FloatingFeatureCard
                 key={i}
                 icon={iconOf(t.icon)}
                 label={t.label}
                 desc={t.desc}
-                delay={i * 50}
-                floatClass={["float-a", "float-b", "float-c"][i % 3]}
+                delay={i * 60}
+                index={i}
               />
             ))}
           </div>
