@@ -88,6 +88,10 @@ export default function TrainingPage() {
       <Section id="courses" className="bg-[#F1F6FA] py-24 border-b border-[#dce6e7]">
         <div className="container-page">
           <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#18b8ad]/30 bg-[#e7f6f4] px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#159f95] mb-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
+              Showcase
+            </span>
             <h2 className="font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl mb-4">
               Learning Pathways
             </h2>
@@ -96,25 +100,109 @@ export default function TrainingPage() {
             </p>
           </div>
           
-          <RevealGroup className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+          <RevealGroup className="grid gap-6 md:grid-cols-2 max-w-6xl mx-auto items-stretch">
             {[
-              { num: "01", title: "Self-Serve Online Courses", desc: "Self-paced video courses for professional spreadsheet modeling and analytics.", icon: <Laptop className="h-6 w-6" /> },
-              { num: "02", title: "B2B / Program Corporate", desc: "Dedicated team automation, reports, and analytical solutions training.", icon: <Briefcase className="h-6 w-6" /> },
-              { num: "03", title: "B2B / Program One-to-One", desc: "Personalized mentoring sessions tailored for custom growth plans.", icon: <UserPlus className="h-6 w-6" /> },
-              { num: "04", title: "Self-Serve Internships", desc: "Hands-on project experience with placement-focused learning paths.", icon: <Target className="h-6 w-6" /> },
-              { num: "05", title: "B2B / Program Colleges", desc: "Curriculum partnerships and evaluation systems for students and academies.", icon: <GraduationCap className="h-6 w-6" /> }
+              {
+                num: "01",
+                slug: "online-courses",
+                category: "Self-Serve",
+                title: "Online Courses",
+                desc: "Self-paced video courses for professional spreadsheet modeling and analytics.",
+                image: "/images/pathways/online-courses.jpg",
+                icon: <Laptop className="h-4 w-4" />,
+                isWide: false,
+              },
+              {
+                num: "02",
+                slug: "corporate",
+                category: "B2B / Program",
+                title: "Corporate",
+                desc: "Dedicated team automation, reports, and analytical solutions training.",
+                image: "/images/pathways/corporate.jpg",
+                icon: <Briefcase className="h-4 w-4" />,
+                isWide: false,
+              },
+              {
+                num: "03",
+                slug: "one-to-one",
+                category: "B2B / Program",
+                title: "One-to-One",
+                desc: "Personalized mentoring sessions tailored for custom growth plans.",
+                image: "/images/pathways/one-to-one.jpg",
+                icon: <UserPlus className="h-4 w-4" />,
+                isWide: false,
+              },
+              {
+                num: "04",
+                slug: "internships",
+                category: "Self-Serve",
+                title: "Internships",
+                desc: "Hands-on project experience with placement-focused learning paths.",
+                image: "/images/pathways/internships.jpg",
+                icon: <Target className="h-4 w-4" />,
+                isWide: false,
+              },
+              {
+                num: "05",
+                slug: "colleges",
+                category: "B2B / Program",
+                title: "Colleges",
+                desc: "Curriculum partnerships and evaluation systems for students and academies.",
+                image: "/images/pathways/colleges.jpg",
+                icon: <GraduationCap className="h-4 w-4" />,
+                isWide: true,
+              }
             ].map(path => (
-              <RevealItem key={path.num}>
-                <div className="bg-white border border-[#dce6ee] rounded-2xl p-8 hover:shadow-md hover:-translate-y-1 hover:border-[#18b8ad]/40 transition-all h-full flex flex-col group">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-[#F1F6FA] border border-[#dce6ee] grid place-items-center text-[#18b8ad] shadow-xs group-hover:scale-105 transition-all">
-                      {path.icon}
+              <RevealItem key={path.num} className={path.isWide ? "md:col-span-2" : ""}>
+                <Link
+                  href={`/training/${path.slug}`}
+                  className={`relative rounded-[28px] overflow-hidden border border-[#dce6ee] bg-[#071820] text-white p-7 sm:p-9 flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 hover:border-[#18b8ad] transition-all duration-500 group block ${
+                    path.isWide ? "min-h-[380px]" : "min-h-[420px]"
+                  }`}
+                >
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none"
+                    style={{ backgroundImage: `url(${path.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#071820] via-[#071820]/85 via-45% to-[#071820]/30 pointer-events-none z-10" />
+                  
+                  {/* Top Bar */}
+                  <div className="relative z-20 flex items-center justify-between gap-4 w-full">
+                    <span className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider ${
+                      path.category === "Self-Serve"
+                        ? "bg-[#18b8ad]/20 text-[#18b8ad] border border-[#18b8ad]/40"
+                        : "bg-[#0d2f3a]/80 text-[#5eead4] border border-[#18b8ad]/30"
+                    }`}>
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
+                      {path.category}
+                    </span>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-mono font-bold tracking-widest text-zinc-400 group-hover:text-[#18b8ad] transition-colors">
+                        TRACK // {path.num}
+                      </span>
+                      <div className="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-zinc-300 group-hover:text-[#18b8ad] group-hover:bg-[#18b8ad]/20 transition-all duration-300">
+                        {path.icon}
+                      </div>
                     </div>
-                    <span className="text-3xl font-black text-[#dce6ee] group-hover:text-[#18b8ad]/20 transition-colors">{path.num}</span>
                   </div>
-                  <h3 className="text-lg font-bold text-[#071820] mb-3 leading-snug">{path.title}</h3>
-                  <p className="text-sm text-[#56666b] leading-relaxed">{path.desc}</p>
-                </div>
+
+                  {/* Bottom Content */}
+                  <div className="relative z-20 mt-auto pt-10 space-y-3">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#18b8ad] transition-colors duration-300 leading-tight">
+                      {path.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-zinc-300 group-hover:text-zinc-100 transition-colors duration-300 leading-relaxed max-w-xl">
+                      {path.desc}
+                    </p>
+                    <div className="pt-3">
+                      <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-xs font-bold uppercase tracking-wider text-white group-hover:bg-[#18b8ad] group-hover:text-[#071820] group-hover:border-[#18b8ad] transition-all duration-300 shadow-md">
+                        <span>Explore Track</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               </RevealItem>
             ))}
           </RevealGroup>

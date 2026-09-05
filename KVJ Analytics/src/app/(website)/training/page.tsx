@@ -23,46 +23,54 @@ interface Category {
   type: "self_serve" | "inquiry";
 }
 
+const PATHWAY_IMAGES: Record<string, string> = {
+  "online-courses": "/images/pathways/online-courses.jpg",
+  corporate: "/images/pathways/corporate.jpg",
+  "one-to-one": "/images/pathways/one-to-one.jpg",
+  internships: "/images/pathways/internships.jpg",
+  colleges: "/images/pathways/colleges.jpg",
+};
+
 const FALLBACK_CATEGORIES: Category[] = [
   {
     id: "cat1",
-    slug: "one-to-one",
-    name: "One-to-One",
-    description: "Personalized mentoring sessions tailored for custom growth plans.",
-    image_url: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=800",
-    type: "inquiry",
+    slug: "online-courses",
+    name: "Online Courses",
+    description: "Self-paced video courses for professional spreadsheet modeling and analytics.",
+    image_url: "/images/pathways/online-courses.jpg",
+    type: "self_serve",
   },
   {
     id: "cat2",
     slug: "corporate",
     name: "Corporate",
     description: "Dedicated team automation, reports, and analytical solutions training.",
-    image_url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800",
+    image_url: "/images/pathways/corporate.jpg",
     type: "inquiry",
   },
   {
     id: "cat3",
-    slug: "colleges",
-    name: "Colleges",
-    description: "Curriculum partnerships and evaluation systems for students and academies.",
-    image_url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
+    slug: "one-to-one",
+    name: "One-to-One",
+    description: "Personalized mentoring sessions tailored for custom growth plans.",
+    image_url: "/images/pathways/one-to-one.jpg",
     type: "inquiry",
   },
   {
     id: "cat4",
-    slug: "online-courses",
-    name: "Online Courses",
-    description: "Self-paced video courses for professional spreadsheet modeling and analytics.",
-    image_url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800",
+    slug: "internships",
+    name: "Internships",
+    description: "Hands-on project experience with placement-focused learning paths.",
+    image_url: "/images/pathways/internships.jpg",
     type: "self_serve",
   },
   {
     id: "cat5",
-    slug: "internships",
-    name: "Internships",
-    description: "Hands-on project experience with placement-focused learning paths.",
-    image_url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800",
-    type: "self_serve",
+    slug: "colleges",
+    name: "Colleges",
+    description: "Curriculum partnerships and evaluation systems for students and academies.",
+    image_url: "/images/pathways/colleges.jpg",
+    type: "inquiry",
   },
 ];
 
@@ -82,7 +90,7 @@ export default async function TrainingHubPage() {
         slug: cat.slug,
         name: cat.name,
         description: cat.description || "",
-        image_url: cat.image_url || FALLBACK_CATEGORIES.find(c => c.slug === cat.slug)?.image_url || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800",
+        image_url: PATHWAY_IMAGES[cat.slug] || cat.image_url || "/images/pathways/online-courses.jpg",
         type: cat.type as any,
       }));
     }
@@ -92,6 +100,12 @@ export default async function TrainingHubPage() {
 
   if (categories.length === 0) {
     categories = FALLBACK_CATEGORIES;
+  } else {
+    // Ensure all 5 categories have high-quality local custom imagery
+    categories = categories.map((cat) => ({
+      ...cat,
+      image_url: PATHWAY_IMAGES[cat.slug] || cat.image_url,
+    }));
   }
 
   // Editable page content (admin-managed via /admin/content → "Training Hub")

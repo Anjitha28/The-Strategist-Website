@@ -85,125 +85,148 @@ interface TrainingHubClientProps {
  
 // Icon map matching slugs
 const CATEGORY_ICONS: Record<string, any> = {
-  "one-to-one": Users,
-  corporate: Cpu,
-  colleges: GraduationCap,
   "online-courses": Laptop,
-  internships: BookOpen,
+  corporate: Cpu,
+  "one-to-one": Users,
+  internships: Target,
+  colleges: GraduationCap,
 };
- 
+
 // ────────────────────────────────────────────────────────
-// Interactive Tilt Bento Card
+// Premium Visual Learning Pathway Card
 // ────────────────────────────────────────────────────────
-interface BentoCardProps {
+interface PathwayCardProps {
   category: Category;
   className?: string;
   icon: any;
-  delay?: number;
-  variant?: "large" | "medium" | "wide";
+  trackNum: string;
+  isWide?: boolean;
 }
- 
-function BentoCard({ category, className = "", icon: Icon, delay = 0, variant = "medium" }: BentoCardProps) {
+
+function PathwayCard({ category, className = "", icon: Icon, trackNum, isWide = false }: PathwayCardProps) {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
- 
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current;
     if (!card) return;
     const rect = card.getBoundingClientRect();
-    
-    // Spotlight position
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     setMousePos({ x, y });
- 
-    // Tilt calculations (-0.5 to 0.5 normalized)
+
+    // Subtle 3D tilt
     const normX = (e.clientX - rect.left) / rect.width - 0.5;
     const normY = (e.clientY - rect.top) / rect.height - 0.5;
-    setRotate({ x: -normY * 10, y: normX * 10 });
+    setRotate({ x: -normY * 6, y: normX * 6 });
   };
- 
+
   const handleMouseLeave = () => {
     setHovered(false);
     setRotate({ x: 0, y: 0 });
   };
- 
+
+  const isSelfServe = category.type === "self_serve" || category.slug === "online-courses" || category.slug === "internships";
+  const categoryLabel = isSelfServe ? "Self-Serve" : "B2B / Program";
+
   return (
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className={`perspective-container relative rounded-[32px] overflow-hidden border border-line bg-[#0B2A22]/85 backdrop-blur-xl transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        hovered ? "border-brand/40 shadow-[0_24px_60px_rgba(16,185,129,0.06)]" : "shadow-soft"
+      className={`group relative rounded-[28px] overflow-hidden border transition-all duration-500 ease-out flex flex-col justify-end ${
+        hovered
+          ? "border-[#10B981]/50 shadow-[0_24px_60px_rgba(16,185,129,0.12)] -translate-y-1.5"
+          : "border-white/10 bg-[#061813]/90 shadow-soft"
       } ${className}`}
       style={{
-        transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale(${hovered ? 1.012 : 1})`,
+        transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
         transformStyle: "preserve-3d",
       }}
     >
-      {/* Background Image with zoom & overlay */}
+      {/* Background Image with smooth zoom */}
       <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out pointer-events-none"
         style={{
           backgroundImage: `url(${category.image_url})`,
-          transform: hovered ? "scale(1.05) translateZ(10px)" : "scale(1) translateZ(0)",
+          transform: hovered ? "scale(1.06)" : "scale(1.0)",
         }}
       />
-      {/* Cinematic dark mask */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#050608] via-[#050608]/75 to-[#050608]/20 z-10 pointer-events-none" />
- 
-      {/* Custom spotlight glow */}
+
+      {/* Cinematic dark mask with multi-stop gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#040e0b] via-[#040e0b]/85 via-45% to-[#040e0b]/25 pointer-events-none z-10" />
+
+      {/* Mouse spotlight glow */}
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-500 z-15"
         style={{
-          background: `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, rgba(16, 185, 129, 0.065), transparent 80%)`,
+          background: `radial-gradient(420px circle at ${mousePos.x}px ${mousePos.y}px, rgba(16, 185, 129, 0.12), transparent 75%)`,
           opacity: hovered ? 1 : 0,
         }}
       />
- 
-      {/* Hover lighting highlight border glow */}
-      <div 
-        className="absolute inset-[-1px] rounded-[32px] border border-transparent z-25 pointer-events-none transition-colors duration-500" 
+
+      {/* Border highlight glow */}
+      <div
+        className="absolute inset-0 rounded-[28px] border pointer-events-none z-25 transition-colors duration-500"
         style={{
-          borderColor: hovered ? "rgba(16, 185, 129, 0.25)" : "transparent"
+          borderColor: hovered ? "rgba(16, 185, 129, 0.45)" : "rgba(255, 255, 255, 0.05)",
         }}
       />
- 
+
       {/* Card Content wrapper */}
       <Link
         href={`/training/${category.slug}`}
-        className="relative z-20 h-full w-full p-8 md:p-10 flex flex-col justify-end min-h-[360px] lg:min-h-full text-left"
-        style={{ transform: hovered ? "translateZ(20px)" : "translateZ(0)", transition: "transform 0.4s ease" }}
+        className={`relative z-20 h-full w-full p-7 sm:p-9 flex flex-col justify-between text-left ${
+          isWide ? "min-h-[380px] lg:min-h-[380px]" : "min-h-[410px] sm:min-h-[440px]"
+        }`}
       >
-        <div className="mt-auto space-y-4">
-          {/* Badge & Icon header */}
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all duration-300 ${
-              hovered ? "bg-brand border-brand text-black scale-110" : "bg-[#10B981]/10 border-[#10B981]/20 text-[#10B981]"
-            }`}>
-              <Icon className={`w-5 h-5 ${hovered ? "rotate-12 duration-300" : ""}`} />
-            </div>
-            <span className="text-[10px] font-bold font-mono tracking-widest text-[#10B981] uppercase px-2.5 py-1 rounded-full bg-[#10B981]/10 border border-[#10B981]/15">
-              {category.type === "inquiry" ? "B2B / Program" : "Self-Serve"}
+        {/* Top bar: Category Badge + Track Number & Icon */}
+        <div className="flex items-center justify-between gap-4 w-full">
+          <div className="flex items-center gap-2.5">
+            <span
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold font-mono tracking-wider uppercase transition-colors duration-300 ${
+                isSelfServe
+                  ? "bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30"
+                  : "bg-[#0D9488]/20 text-[#2dd4bf] border border-[#0D9488]/40"
+              }`}
+            >
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${
+                  isSelfServe ? "bg-[#10B981]" : "bg-[#2dd4bf]"
+                } animate-pulse`}
+              />
+              {categoryLabel}
             </span>
           </div>
- 
-          {/* Text content */}
-          <div className="space-y-2">
-            <h3 className="text-2xl md:text-3xl font-bold font-display text-white group-hover:text-[#10B981] transition-colors flex items-center gap-2">
-              {category.name}
-              <ArrowRight className={`w-5 h-5 transition-all duration-300 text-brand ${
-                hovered ? "opacity-100 translate-x-1" : "opacity-0 -translate-x-1"
-              }`} />
-            </h3>
-            <p className={`text-sm font-light leading-relaxed max-w-md transition-colors duration-300 ${
-              hovered ? "text-zinc-200" : "text-zinc-400"
-            }`}>
-              {category.description}
-            </p>
+
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-mono font-bold tracking-widest text-zinc-400 group-hover:text-[#10B981]/80 transition-colors">
+              TRACK // {trackNum}
+            </span>
+            <div className="w-9 h-9 rounded-xl bg-white/[0.06] backdrop-blur-md border border-white/10 flex items-center justify-center text-zinc-300 group-hover:text-[#10B981] group-hover:border-[#10B981]/40 group-hover:bg-[#10B981]/10 transition-all duration-300">
+              <Icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Content: Title, Description, and Explore Track Button */}
+        <div className="mt-auto pt-10 space-y-3">
+          <h3 className="text-2xl sm:text-3xl font-bold font-display text-white group-hover:text-[#10B981] transition-colors duration-300 flex items-center gap-2.5 leading-tight">
+            <span>{category.name}</span>
+          </h3>
+
+          <p className="text-sm sm:text-[15px] font-light text-zinc-300 group-hover:text-zinc-100 transition-colors duration-300 leading-relaxed max-w-xl">
+            {category.description}
+          </p>
+
+          <div className="pt-3">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono font-bold uppercase tracking-wider text-zinc-200 group-hover:bg-[#10B981] group-hover:text-[#04120e] group-hover:border-[#10B981] group-hover:shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-all duration-300">
+              <span>Explore Track</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
           </div>
         </div>
       </Link>
@@ -365,7 +388,7 @@ export function TrainingHubClient({ categories, hub }: TrainingHubClientProps) {
         </Container>
       </section>
  
-      {/* 2. PROGRAM SHOWCASE (BENTO GRID) */}
+      {/* 2. PROGRAM SHOWCASE (LEARNING PATHWAYS) */}
       <section className="py-24 relative bg-[#07130E]/40 border-b border-line overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.035),transparent)] pointer-events-none" />
         
@@ -379,56 +402,53 @@ export function TrainingHubClient({ categories, hub }: TrainingHubClientProps) {
               Explore custom-tailored tracks built for professionals, students, and companies.
             </p>
           </div>
- 
-          {/* Asymmetric Bento Grid layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
-            {/* Bento Card 1: Online Courses (Large 2 cols x 2 rows span) */}
+
+          {/* Responsive Pathways Grid Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
+            {/* Card 01: Online Courses */}
             {onlineCourses && (
-              <BentoCard
+              <PathwayCard
                 category={onlineCourses}
-                variant="large"
                 icon={CATEGORY_ICONS["online-courses"]}
-                className="lg:col-span-2 lg:row-span-2 lg:min-h-[460px]"
+                trackNum="01"
               />
             )}
- 
-            {/* Bento Card 2: Corporate Solutions (1 col x 1 row) */}
+
+            {/* Card 02: Corporate */}
             {corporate && (
-              <BentoCard
+              <PathwayCard
                 category={corporate}
-                variant="medium"
                 icon={CATEGORY_ICONS["corporate"]}
-                className="lg:col-span-1 lg:row-span-1 lg:min-h-[220px]"
+                trackNum="02"
               />
             )}
- 
-            {/* Bento Card 3: One-to-One (1 col x 1 row) */}
+
+            {/* Card 03: One-to-One */}
             {oneToOne && (
-              <BentoCard
+              <PathwayCard
                 category={oneToOne}
-                variant="medium"
                 icon={CATEGORY_ICONS["one-to-one"]}
-                className="lg:col-span-1 lg:row-span-1 lg:min-h-[220px]"
+                trackNum="03"
               />
             )}
- 
-            {/* Bento Card 4: Internships Placement Path (Wide 2 cols x 1 row) */}
+
+            {/* Card 04: Internships */}
             {internships && (
-              <BentoCard
+              <PathwayCard
                 category={internships}
-                variant="wide"
                 icon={CATEGORY_ICONS["internships"]}
-                className="lg:col-span-2 lg:row-span-1 lg:min-h-[220px]"
+                trackNum="04"
               />
             )}
- 
-            {/* Bento Card 5: College Partnerships (1 col x 1 row) */}
+
+            {/* Card 05: Colleges (Full-width spanning 2 cols on desktop) */}
             {colleges && (
-              <BentoCard
+              <PathwayCard
                 category={colleges}
-                variant="medium"
                 icon={CATEGORY_ICONS["colleges"]}
-                className="lg:col-span-1 lg:row-span-1 lg:min-h-[220px]"
+                trackNum="05"
+                className="md:col-span-2"
+                isWide
               />
             )}
           </div>
