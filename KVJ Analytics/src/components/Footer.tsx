@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, ShieldAlert, FileText } from "lucide-react";
+import { Mail, Phone, MapPin, ShieldAlert, FileText, MessageSquare } from "lucide-react";
 import { Container } from "./ui/Container";
 import { FALLBACK_SITE_SETTINGS } from "@/lib/constants";
 
@@ -27,7 +27,7 @@ export function Footer({ siteSettings = FALLBACK_SITE_SETTINGS }: FooterProps) {
             <Link href="/" className="flex items-center mb-6 group">
               <img
                 src="/logo-dark.png"
-                alt="KVJ Analytics"
+                alt="The Strategist"
                 className="h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
@@ -49,7 +49,7 @@ export function Footer({ siteSettings = FALLBACK_SITE_SETTINGS }: FooterProps) {
               ))}
             </div>
           </div>
- 
+
           {/* Dynamic Link Columns */}
           {columns.map((column, idx) => (
             <div key={idx} className="lg:col-span-3">
@@ -70,7 +70,7 @@ export function Footer({ siteSettings = FALLBACK_SITE_SETTINGS }: FooterProps) {
               </ul>
             </div>
           ))}
- 
+
           {/* Contact Details Column */}
           <div className="lg:col-span-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-ink mb-6 border-b border-line pb-2.5 font-display">
@@ -106,6 +106,21 @@ export function Footer({ siteSettings = FALLBACK_SITE_SETTINGS }: FooterProps) {
                   ))}
                 </div>
               </li>
+              {(contact as any).whatsapp && (
+                <li className="flex items-center">
+                  <MessageSquare className="w-4 h-4 text-[#25D366] mr-3 shrink-0" />
+                  <a
+                    href={`https://wa.me/${(contact as any).whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(
+                      "Hello The Strategist, I visited your website and would like to connect."
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-slate hover:text-brand transition-colors duration-150"
+                  >
+                    WhatsApp Chat
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -113,10 +128,12 @@ export function Footer({ siteSettings = FALLBACK_SITE_SETTINGS }: FooterProps) {
         {/* Bottom Bar: Copyright & Legal */}
         <div className="border-t border-line pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-xs text-slate">
-            <span>&copy; {new Date().getFullYear()} KVJ Analytics. All Rights Reserved.</span>
-            <span className="bg-surface border border-line px-2.5 py-1 rounded text-[10px] font-mono font-bold tracking-tight text-slate">
-              GSTIN: {contact.gstNumber}
-            </span>
+            <span>&copy; {new Date().getFullYear()} The Strategist. All Rights Reserved.</span>
+            {contact.gstNumber ? (
+              <span className="bg-surface border border-line px-2.5 py-1 rounded text-[10px] font-mono font-bold tracking-tight text-slate">
+                GSTIN: {contact.gstNumber}
+              </span>
+            ) : null}
           </div>
           <div className="flex items-center space-x-6">
             <Link

@@ -13,10 +13,10 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
-    organization: "",
     email: "",
     phone: "",
-    serviceInterest: "",
+    organization: "",
+    subject: "",
     message: "",
   });
 
@@ -27,7 +27,7 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
 
   // Pre-select interest from URL parameter
   useEffect(() => {
-    const interest = searchParams.get("interest");
+    const interest = searchParams.get("interest") || searchParams.get("subject");
     if (interest) {
       // Find matching area (case-insensitive or containing string)
       const matchedArea = inquiryAreas.find(
@@ -36,10 +36,10 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
           interest.toLowerCase().includes(area.toLowerCase())
       );
       if (matchedArea) {
-        setFormData((prev) => ({ ...prev, serviceInterest: matchedArea }));
+        setFormData((prev) => ({ ...prev, subject: matchedArea }));
       } else {
         // Fallback to custom match if not in list
-        setFormData((prev) => ({ ...prev, serviceInterest: interest }));
+        setFormData((prev) => ({ ...prev, subject: interest }));
       }
     }
   }, [searchParams, inquiryAreas]);
@@ -53,8 +53,21 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
+
+    // Field validations
+    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.organization.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      setError("Please fill out all required fields.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setError("Please enter a valid email address (e.g. yourname@company.com).");
+      return;
+    }
+
+    setLoading(true);
     setSuccess(false);
 
     try {
@@ -62,7 +75,13 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          organization: formData.organization.trim(),
+          subject: formData.subject.trim(),
+          serviceInterest: formData.subject.trim(),
+          message: formData.message.trim(),
           sourcePage: window.location.pathname,
           utmSource: localStorage.getItem("utm_source") || "",
           utmMedium: localStorage.getItem("utm_medium") || "",
@@ -79,10 +98,10 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
       setSuccess(true);
       setFormData({
         name: "",
-        organization: "",
         email: "",
         phone: "",
-        serviceInterest: "",
+        organization: "",
+        subject: "",
         message: "",
       });
     } catch (err: any) {
@@ -100,10 +119,10 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
           Message Sent Successfully!
         </h3>
         <p className="text-base text-slate font-light leading-relaxed mb-6">
-          Thank you for contacting KVJ Analytics. Our consulting team will review your interest and reach back to you within 24 hours.
+          Thank you for contacting The Strategist. Our consulting team will review your message and reach back to you within 24 hours.
         </p>
         <Button variant="secondary" onClick={() => setSuccess(false)}>
-          Submit Another Request
+          Send Another Message
         </Button>
       </div>
     );
@@ -137,6 +156,7 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
         </div>
       )}
 
+      {/* Row 1: Name and Email */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
         {/* Name input */}
         <div className="relative">
@@ -159,7 +179,60 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
                 : "transform translate-y-0 scale-100 text-slate-500"
             }`}
           >
-            Your Name *
+            Name *
+          </label>
+        </div>
+
+        {/* Email input */}
+        <div className="relative">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            onFocus={() => setFocusedField("email")}
+            onBlur={() => setFocusedField("")}
+            className={inputClasses}
+          />
+          <label
+            htmlFor="email"
+            className={`absolute left-0 top-4 text-xs font-bold uppercase tracking-wider transition-all pointer-events-none origin-left ${
+              focusedField === "email" || formData.email
+                ? "transform -translate-y-2.5 scale-75 text-[#10B981]"
+                : "transform translate-y-0 scale-100 text-slate-500"
+            }`}
+          >
+            Email *
+          </label>
+        </div>
+      </div>
+
+      {/* Row 2: Phone and Company / Organization */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {/* Phone input */}
+        <div className="relative">
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            value={formData.phone}
+            onChange={handleChange}
+            onFocus={() => setFocusedField("phone")}
+            onBlur={() => setFocusedField("")}
+            className={inputClasses}
+          />
+          <label
+            htmlFor="phone"
+            className={`absolute left-0 top-4 text-xs font-bold uppercase tracking-wider transition-all pointer-events-none origin-left ${
+              focusedField === "phone" || formData.phone
+                ? "transform -translate-y-2.5 scale-75 text-[#10B981]"
+                : "transform translate-y-0 scale-100 text-slate-500"
+            }`}
+          >
+            Phone *
           </label>
         </div>
 
@@ -184,94 +257,42 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
                 : "transform translate-y-0 scale-100 text-slate-500"
             }`}
           >
-            Organization Name *
+            Company / Organization *
           </label>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        {/* Email input */}
-        <div className="relative">
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            value={formData.email}
-            onChange={handleChange}
-            onFocus={() => setFocusedField("email")}
-            onBlur={() => setFocusedField("")}
-            className={inputClasses}
-          />
-          <label
-            htmlFor="email"
-            className={`absolute left-0 top-4 text-xs font-bold uppercase tracking-wider transition-all pointer-events-none origin-left ${
-              focusedField === "email" || formData.email
-                ? "transform -translate-y-2.5 scale-75 text-[#10B981]"
-                : "transform translate-y-0 scale-100 text-slate-500"
-            }`}
-          >
-            Email Address *
-          </label>
-        </div>
-
-        {/* Phone input */}
-        <div className="relative">
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            required
-            value={formData.phone}
-            onChange={handleChange}
-            onFocus={() => setFocusedField("phone")}
-            onBlur={() => setFocusedField("")}
-            className={inputClasses}
-          />
-          <label
-            htmlFor="phone"
-            className={`absolute left-0 top-4 text-xs font-bold uppercase tracking-wider transition-all pointer-events-none origin-left ${
-              focusedField === "phone" || formData.phone
-                ? "transform -translate-y-2.5 scale-75 text-[#10B981]"
-                : "transform translate-y-0 scale-100 text-slate-500"
-            }`}
-          >
-            Phone Number *
-          </label>
-        </div>
-      </div>
-
-      {/* Select input */}
+      {/* Row 3: Subject */}
       <div className="relative">
         <select
-          id="serviceInterest"
-          name="serviceInterest"
+          id="subject"
+          name="subject"
           required
-          value={formData.serviceInterest}
+          value={formData.subject}
           onChange={handleChange}
-          onFocus={() => setFocusedField("serviceInterest")}
+          onFocus={() => setFocusedField("subject")}
           onBlur={() => setFocusedField("")}
           className="peer w-full px-0 pt-6 pb-2 rounded-none border-0 border-b border-line bg-transparent focus:border-b-[#10B981] text-ink text-sm transition-all outline-none appearance-none cursor-pointer"
         >
-          <option value="" className="bg-white text-slate-500">-- Select Interest Category --</option>
+          <option value="" className="bg-white text-slate-500">-- Select Subject / Area of Interest --</option>
           {inquiryAreas.map((area, idx) => (
             <option key={idx} value={area} className="bg-white text-ink">
               {area}
             </option>
           ))}
-          {formData.serviceInterest && !inquiryAreas.includes(formData.serviceInterest) && (
-            <option value={formData.serviceInterest} className="bg-white text-ink">{formData.serviceInterest}</option>
+          {formData.subject && !inquiryAreas.includes(formData.subject) && (
+            <option value={formData.subject} className="bg-white text-ink">{formData.subject}</option>
           )}
         </select>
         <label
-          htmlFor="serviceInterest"
+          htmlFor="subject"
           className={`absolute left-0 top-1.5 text-xs font-bold uppercase tracking-wider transition-all pointer-events-none origin-left transform -translate-y-2.5 scale-75 ${
-            focusedField === "serviceInterest"
+            focusedField === "subject"
               ? "text-[#10B981]"
               : "text-slate-500"
           }`}
         >
-          Service Interested In *
+          Subject *
         </label>
         <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none border-l border-line pl-3">
           <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -280,7 +301,7 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
         </div>
       </div>
 
-      {/* Message textarea */}
+      {/* Row 4: Message textarea */}
       <div className="relative">
         <textarea
           id="message"
@@ -301,12 +322,12 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
               : "transform translate-y-0 scale-100 text-slate-500"
             }`}
         >
-          How can we help you? *
+          Message *
         </label>
       </div>
 
       <div className="flex justify-end pt-4">
-        {/* Request Demo submit button with breathing neon-blue glow */}
+        {/* Send Message submit button with breathing neon-blue glow */}
         <Button
           type="submit"
           variant="primary"
@@ -316,12 +337,12 @@ function ContactFormInner({ inquiryAreas }: ContactFormProps) {
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Submitting...</span>
+              <span>Sending...</span>
             </>
           ) : (
             <>
               <Send className="w-4 h-4 animate-[bounce_1.5s_infinite]" />
-              <span>Request Demo</span>
+              <span>Send Message</span>
             </>
           )}
         </Button>
@@ -341,3 +362,4 @@ export function ContactForm({ inquiryAreas }: ContactFormProps) {
     </Suspense>
   );
 }
+

@@ -4,9 +4,9 @@ import React from "react";
  * Floating WhatsApp + Call lead button (mobile-first lead capture).
  * Uses the primary business number; opens WhatsApp with a prefilled enquiry.
  */
-export function WhatsAppFloat({ phone = "919961813730" }: { phone?: string }) {
+export function WhatsAppFloat({ phone = "15550102030" }: { phone?: string }) {
   const msg = encodeURIComponent(
-    "Hi KVJ Analytics, I'd like to know more about your training / analytics services."
+    "Hi The Strategist, I'd like to know more about your training / analytics services."
   );
   return (
     <a

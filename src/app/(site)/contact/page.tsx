@@ -20,13 +20,13 @@ function ContactContent() {
   const whatsapp = SITE_CONFIG.brand.whatsapp;
 
   const contactFields: FormFieldDef[] = [
-    { name: "name", label: "Your Name", required: true },
-    { name: "organization", label: "Organization Name", required: true },
-    { name: "email", label: "Email Address", type: "email", required: true },
-    { name: "phone", label: "Phone Number", type: "tel", required: true },
+    { name: "name", label: "Name", required: true },
+    { name: "email", label: "Email", type: "email", required: true },
+    { name: "phone", label: "Phone", type: "tel", required: true },
+    { name: "organization", label: "Company / Organization", required: true },
     {
-      name: "service",
-      label: "Service Interested In",
+      name: "subject",
+      label: "Subject",
       type: "select",
       required: true,
       options: [
@@ -40,7 +40,7 @@ function ContactContent() {
     },
     { 
       name: "message", 
-      label: "How Can We Help You?", 
+      label: "Message", 
       type: "textarea", 
       full: true, 
       required: true,
@@ -68,7 +68,7 @@ function ContactContent() {
               <span className="text-[#18b8ad]">Systems Together</span>
             </h1>
             <p className="text-base sm:text-lg leading-relaxed text-[#56666b] max-w-2xl">
-              Whether you are a business looking for automation and analytics solutions or an educational institution seeking industry-oriented learning and technology solutions, The Strategist is ready to support your transformation journey.
+              Whether you are a corporate organization looking for automation and analytics solutions or an educational institution seeking industry-oriented learning platforms, The Strategist is ready to support your transformation journey.
             </p>
           </Reveal>
         </div>
@@ -149,7 +149,7 @@ function ContactContent() {
               <LeadForm
                 formType="contact"
                 fields={contactFields}
-                submitLabel="Request a Demo"
+                submitLabel="Send Message"
                 successTitle="Message Sent"
                 successMessage="Your details have been successfully received. A coordinator from The Strategist will reach out to you shortly."
               />

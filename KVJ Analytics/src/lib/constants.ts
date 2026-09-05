@@ -5,15 +5,16 @@ export const FOUNDING_YEAR = 2010;
 export const CURRENT_EXP_YEARS = new Date().getFullYear() - FOUNDING_YEAR;
 
 export const FALLBACK_SITE_SETTINGS = {
-  companyName: "KVJ Analytics",
+  companyName: "The Strategist",
   tagline: "Analytics • Automation • Training • Educational Technology",
   regionsServed: ["Kerala", "India", "UAE", "Oman", "USA", "Europe"],
   contactInfo: {
-    email: "info@kvjanalytics.in",
-    phones: ["9961813730", "0484-4059310", "7902661012"],
+    email: "mail@thestrategist.co.in",
+    phones: ["+1 (555) 010-2030"],
+    whatsapp: "15550102030",
     address:
-      "3rd Floor, Lalan Towers, Banerji Road, High Court Jn., Cochin-682 031, Ernakulam, Kerala, India",
-    gstNumber: "32BIDPK3118B1Z2",
+      "One Analytics Way, Suite 400, Innovation District",
+    gstNumber: "",
   },
   navItems: [
     { label: "Home", href: "/" },
@@ -37,7 +38,7 @@ export const FALLBACK_SITE_SETTINGS = {
     "/contact": true,
   } as Record<string, boolean>,
   footerDescription:
-    `KVJ Analytics is a leading analytics, automation, and training organization with ${CURRENT_EXP_YEARS}+ years of experience in delivering business-focused technology solutions and industry-oriented learning systems.`,
+    "The Strategist is a leading analytics, automation, and training organization with extensive experience in delivering business-focused technology solutions and industry-oriented learning systems.",
   footerTagline:
     "Empowering Businesses and Institutions Through Analytics, Automation & Practical Learning.",
   footerColumns: [
@@ -577,10 +578,10 @@ export const FALLBACK_PRODUCTS_PAGE = {
 };
 
 export const FALLBACK_CONTACT = {
-  heading: "Contact KVJ Analytics",
+  heading: "Let's Build Smarter Systems Together",
   strapline: "Let's Build Smarter Systems Together",
   intro:
-    "Whether you are a corporate organization looking for automation and analytics solutions or an educational institution seeking industry-oriented learning platforms, KVJ Analytics is ready to support your transformation journey.",
+    "Whether you are a corporate organization looking for automation and analytics solutions or an educational institution seeking industry-oriented learning platforms, The Strategist is ready to support your transformation journey.",
   inquiryAreas: [
     "Corporate Consulting",
     "Dashboard Development",

@@ -10,11 +10,11 @@ import { pageMeta } from "@/lib/seo";
 
 export const revalidate = 3600;
 export const metadata = pageMeta({
-  title: "Contact KVJ Analytics — Get a Free Consultation",
+  title: "Contact The Strategist — Let's Build Smarter Systems Together",
   description:
-    "Talk to KVJ Analytics about Power BI, Excel & report automation, analytics consulting, or corporate/college/individual training. Call, WhatsApp, or send an enquiry — we reply within 24 hours.",
+    "Whether you are a corporate organization looking for automation and analytics solutions or an educational institution seeking industry-oriented learning platforms, The Strategist is ready to support your transformation journey.",
   path: "/contact",
-  keywords: ["contact KVJ Analytics", "analytics consultation", "Power BI consultant", "training enquiry", "Cochin analytics company"],
+  keywords: ["contact The Strategist", "analytics consultation", "Power BI consultant", "business intelligence", "report automation", "training enquiry"],
 });
 
 export default async function ContactPage() {
@@ -25,6 +25,8 @@ export default async function ContactPage() {
   const settings = mergePageContent(settingsData, FALLBACK_SITE_SETTINGS);
   const contact = settings.contactInfo || FALLBACK_SITE_SETTINGS.contactInfo;
   const inquiryAreas = page.inquiryAreas || FALLBACK_CONTACT.inquiryAreas;
+
+  const whatsappNumber = (contact.whatsapp || contact.phones?.[0] || "15550102030").replace(/\D/g, "");
 
   return (
     <section className="relative overflow-hidden pt-28 pb-20 md:pb-28 bg-base text-slate min-h-screen text-left">
@@ -38,14 +40,13 @@ export default async function ContactPage() {
         <Reveal className="max-w-3xl mx-auto text-center mb-12 md:mb-14">
           <SplitHeading
             as="h1"
-            className="text-[34px] lg:text-[54px] font-medium tracking-[-0.025em] leading-[1.1] font-display text-ink mb-4"
+            className="text-[34px] lg:text-[54px] font-medium tracking-[-0.025em] leading-[1.1] font-display text-ink mb-5"
           >
-            {page.heading}
+            Let&apos;s Build Smarter Systems Together
           </SplitHeading>
-          <p className="text-xl md:text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] via-[#0D9488] to-[#10B981] animate-[signature-flow_6s_linear_infinite] bg-[size:200%_auto] mb-5">
-            {page.strapline}
+          <p className="text-base md:text-lg text-slate font-light leading-relaxed max-w-2xl mx-auto">
+            Whether you are a corporate organization looking for automation and analytics solutions or an educational institution seeking industry-oriented learning platforms, The Strategist is ready to support your transformation journey.
           </p>
-          <p className="text-lg text-slate font-light leading-relaxed">{page.intro}</p>
         </Reveal>
 
         {/* Unified two-panel card */}
@@ -84,7 +85,7 @@ export default async function ContactPage() {
                     <line x1="80" y1="200" x2="320" y2="200" stroke="rgba(13, 148, 136, 0.2)" strokeWidth="1" />
                   </g>
 
-                  {/* India origin radar waves */}
+                  {/* Origin radar waves */}
                   <g transform="translate(210, 205)">
                     <circle cx="0" cy="0" r="12" fill="none" stroke="#10B981" strokeWidth="1.2" className="animate-ping duration-3000" />
                     <circle cx="0" cy="0" r="30" fill="none" stroke="rgba(16, 185, 129, 0.5)" strokeWidth="1" className="animate-[ping_3.5s_linear_infinite]" />
@@ -106,7 +107,7 @@ export default async function ContactPage() {
               <div className="relative z-10 flex flex-col h-full">
                 {/* Brand block */}
                 <div className="mb-10 text-left">
-                  <h2 className="text-2xl font-bold font-display mb-1.5 text-white">KVJ Analytics</h2>
+                  <h2 className="text-2xl font-bold font-display mb-1.5 text-white">The Strategist</h2>
                   <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#10B981]">
                     Analytics | Automation | Training | Educational Technology
                   </p>
@@ -153,8 +154,8 @@ export default async function ContactPage() {
 
                 {/* WhatsApp button with outer green stroke glow */}
                 <a
-                  href={`https://wa.me/91${contact.phones[0]}?text=${encodeURIComponent(
-                    "Hello KVJ Analytics, I visited your website and would like to discuss training/automation."
+                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                    "Hello The Strategist, I visited your website and would like to discuss solutions and training."
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"

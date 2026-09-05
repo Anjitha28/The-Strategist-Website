@@ -79,12 +79,12 @@ export async function POST(req: NextRequest) {
       try {
         // Send alert to company email
         await resend.emails.send({
-          from: "KVJ Analytics Alerts <onboarding@resend.dev>",
-          to: "info@kvjanalytics.in",
+          from: "The Strategist Alerts <onboarding@resend.dev>",
+          to: "mail@thestrategist.co.in",
           subject: `[New Lead] ${serviceInterest} - ${name} (${organization})`,
           html: `
             <div style="font-family: sans-serif; padding: 20px; line-height: 1.6;">
-              <h2 style="color: #1D4ED8;">New Inquiry Received</h2>
+              <h2 style="color: #10B981;">New Inquiry Received</h2>
               <hr style="border: 0; border-top: 1px solid #E2E8F0;" />
               <p><strong>Name:</strong> ${name}</p>
               <p><strong>Organization:</strong> ${organization}</p>
@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
               <p><strong>Service Interest:</strong> ${serviceInterest}</p>
               <p><strong>Source Page:</strong> ${sourcePage}</p>
               <p><strong>Message:</strong></p>
-              <blockquote style="background: #F8FAFC; border-left: 4px solid #1D4ED8; padding: 10px 15px; margin: 0;">
+              <blockquote style="background: #F8FAFC; border-left: 4px solid #10B981; padding: 10px 15px; margin: 0;">
                 ${message.replace(/\n/g, "<br />")}
               </blockquote>
               ${
@@ -109,20 +109,20 @@ export async function POST(req: NextRequest) {
 
         // Send auto-reply to client
         await resend.emails.send({
-          from: "KVJ Analytics <onboarding@resend.dev>",
+          from: "The Strategist <onboarding@resend.dev>",
           to: email,
-          subject: `Inquiry Received - KVJ Analytics`,
+          subject: `Inquiry Received - The Strategist`,
           html: `
             <div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #0F172A;">
-              <h2 style="color: #0D9488;">Hello ${name},</h2>
-              <p>Thank you for reaching out to KVJ Analytics.</p>
-              <p>We have successfully received your inquiry regarding <strong>${serviceInterest}</strong>. A technical consultant from our Cochin office will review your message and contact you within 24 business hours.</p>
-              <p>If you need immediate assistance, please feel free to call our office directly at 9961813730 or reply to this email.</p>
+              <h2 style="color: #10B981;">Hello ${name},</h2>
+              <p>Thank you for reaching out to The Strategist.</p>
+              <p>We have successfully received your inquiry regarding <strong>${serviceInterest}</strong>. A consultant from our team will review your message and contact you within 24 business hours.</p>
+              <p>If you need immediate assistance, please feel free to contact us or reply to this email.</p>
               <hr style="border: 0; border-top: 1px solid #E2E8F0; margin: 30px 0;" />
               <p style="font-size: 12px; color: #64748B;">
-                <strong>KVJ Analytics</strong><br />
+                <strong>The Strategist</strong><br />
                 Analytics • Automation • Training • Educational Technology<br />
-                Cochin, Kerala, India | info@kvjanalytics.in
+                mail@thestrategist.co.in
               </p>
             </div>
           `,

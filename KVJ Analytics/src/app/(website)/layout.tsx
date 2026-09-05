@@ -32,7 +32,7 @@ export default async function WebsiteLayout({
           {children}
         </main>
         <Footer siteSettings={siteSettings} />
-        <WhatsAppFloat phone={(siteSettings.contactInfo?.phones?.[0] || "9961813730").replace(/\D/g, "").replace(/^(?!91)/, "91")} />
+        <WhatsAppFloat phone={(siteSettings.contactInfo?.whatsapp || siteSettings.contactInfo?.phones?.[0] || "15550102030").replace(/\D/g, "")} />
       </div>
     </AnimationProvider>
   );

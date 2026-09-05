@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://www.kvjanalytics.in";
 
-export const SITE_NAME = "KVJ Analytics";
+export const SITE_NAME = "The Strategist";
 
 const DEFAULT_OG = "/og-image.png";
 
@@ -77,11 +77,11 @@ export async function getSiteSeoSettings(): Promise<SiteSeoSettings> {
   }
 
   const defaults: SiteSeoSettings = {
-    site_title_default: "KVJ Analytics | Power BI, Excel & Report Automation Training & Consulting",
-    title_template: "%s | KVJ Analytics",
-    meta_description_default: "KVJ Analytics delivers Power BI dashboards, Excel & report automation, and data analytics consulting — plus corporate, college & individual training.",
+    site_title_default: "The Strategist | Analytics, Automation & Learning Platforms",
+    title_template: "%s | The Strategist",
+    meta_description_default: "The Strategist is a leading analytics, automation, and training organization delivering business-focused technology solutions and industry-oriented learning systems.",
     default_og_image_url: DEFAULT_OG,
-    twitter_handle: "@kvjanalytics",
+    twitter_handle: "@thestrategist",
     google_analytics_id: process.env.NEXT_PUBLIC_GA_ID || "",
     google_tag_manager_id: process.env.NEXT_PUBLIC_GTM_ID || "",
     google_site_verification: "",
@@ -183,7 +183,7 @@ export async function resolveSeo(
   const globalSettings = await getSiteSeoSettings();
   const pageOverride = await getPageSeo(cleanPath);
 
-  const defaultTitle = fallbackOpts?.title || globalSettings.site_title_default || "KVJ Analytics";
+  const defaultTitle = fallbackOpts?.title || globalSettings.site_title_default || "The Strategist";
   const defaultDesc = fallbackOpts?.description || globalSettings.meta_description_default || "";
   const defaultImg = fallbackOpts?.image || globalSettings.default_og_image_url || DEFAULT_OG;
 
@@ -246,16 +246,13 @@ export function organizationSchema() {
     logo: `${SITE_URL}/logo.png`,
     description:
       "Analytics, automation and training company delivering Power BI dashboards, Excel & report automation, spreadsheet consulting, and corporate, college & individual training.",
-    email: "info@kvjanalytics.in",
-    telephone: "+91-9961813730",
+    email: "mail@thestrategist.co.in",
+    telephone: "+1-555-010-2030",
     areaServed: ["India", "UAE", "Oman", "USA", "Europe"],
     address: {
       "@type": "PostalAddress",
-      streetAddress: "3rd Floor, Lalan Towers, Banerji Road, High Court Jn.",
-      addressLocality: "Cochin",
-      addressRegion: "Kerala",
-      postalCode: "682031",
-      addressCountry: "IN",
+      streetAddress: "One Analytics Way, Suite 400, Innovation District",
+      addressCountry: "US",
     },
     sameAs: [] as string[],
     knowsAbout: [
@@ -283,7 +280,7 @@ export function courseSchema(course: {
     "@context": "https://schema.org",
     "@type": "Course",
     name: course.title,
-    description: course.description || `${course.title} training program by KVJ Analytics.`,
+    description: course.description || `${course.title} training program by The Strategist.`,
     provider: {
       "@type": "Organization",
       name: course.provider || SITE_NAME,
@@ -313,7 +310,7 @@ export function blogPostingSchema(post: {
     datePublished: post.published_at || new Date().toISOString(),
     author: {
       "@type": "Person",
-      name: post.author_name || "KVJ Analytics Team",
+      name: post.author_name || "The Strategist Team",
     },
     publisher: {
       "@type": "Organization",
