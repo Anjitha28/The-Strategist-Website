@@ -24,15 +24,15 @@ const FALLBACK_POSTS = [
     title: "Why Data-Driven Organizations Consistently Outperform Their Competition",
     slug: "why-data-driven-organizations-consistently-outperform-their-competition",
     description: "Leaders who make decisions backed by evidence rather than assumptions consistently outperform. Discover how Business Intelligence creates a single source of truth for competitive advantage.",
-    body_html: "<p>Leaders who make decisions backed by evidence rather than assumptions consistently outperform.</p>",
+    body_html: "<p>Leaders who make decisions backed by evidence rather than assumptions consistently outperform. Discover how Business Intelligence creates a single source of truth for competitive advantage.</p>",
     published_at: "2026-07-20T08:00:00.000Z",
     featured: true,
-    author_name: "K. V. Jacob",
-    author_slug: "k-v-jacob",
+    author_name: "The Strategist",
+    author_slug: "the-strategist",
     category_title: "Business Intelligence",
     category_slug: "business-intelligence",
     cover_url: "",
-    featured_flags: ["featured", "latest"],
+    featured_flags: ["featured"],
     tags: ["business-intelligence", "data-driven", "decision-making"],
   },
   {
@@ -43,12 +43,12 @@ const FALLBACK_POSTS = [
     body_html: "<p>Digital Transformation is a strategic journey that combines people, processes, technology, and data.</p>",
     published_at: "2026-07-15T09:00:00.000Z",
     featured: false,
-    author_name: "K. V. Jacob",
-    author_slug: "k-v-jacob",
+    author_name: "The Strategist",
+    author_slug: "the-strategist",
     category_title: "Digital Transformation",
     category_slug: "digital-transformation",
     cover_url: "",
-    featured_flags: ["trending", "popular"],
+    featured_flags: ["editors_pick", "trending"],
     tags: ["digital-transformation", "cloud", "automation", "strategy"],
   },
   {
@@ -56,11 +56,11 @@ const FALLBACK_POSTS = [
     title: "How Artificial Intelligence is Revolutionising Business Analytics",
     slug: "how-artificial-intelligence-is-revolutionising-business-analytics",
     description: "AI has evolved from a futuristic concept into a practical business tool, empowering organisations to move from reactive analytics to proactive business planning.",
-    body_html: "<p>Artificial Intelligence empowers organisations to make smarter decisions faster than ever before.</p>",
+    body_html: "<p>AI has evolved from a futuristic concept into a practical business tool, empowering organisations to move from reactive analytics to proactive business planning.</p>",
     published_at: "2026-07-10T09:00:00.000Z",
     featured: false,
-    author_name: "K. V. Jacob",
-    author_slug: "k-v-jacob",
+    author_name: "The Strategist",
+    author_slug: "the-strategist",
     category_title: "Artificial Intelligence",
     category_slug: "artificial-intelligence",
     cover_url: "",
@@ -90,7 +90,7 @@ export default async function BlogPage() {
         category_title: r.category_title || "Insights",
         category_slug: r.category_slug || "insights",
         author_name: r.author_name || "The Strategist",
-        author_slug: r.author_slug || "kvj-analytics",
+        author_slug: r.author_slug || "the-strategist",
         published_at: r.published_at,
         featured: !!r.featured,
         featured_flags: r.featured_flags || (r.featured ? ["featured"] : []),
@@ -102,7 +102,7 @@ export default async function BlogPage() {
   }
 
   const header = mergePageContent(await getPageContent("blog"), FALLBACK_BLOG);
-  const posts = fetchedPosts.length > 0 ? fetchedPosts : FALLBACK_POSTS;
+  const posts = fetchedPosts.length >= 3 ? fetchedPosts : FALLBACK_POSTS;
 
   return (
     <div className="relative min-h-screen bg-[#050608] text-white pt-24 pb-16 overflow-hidden">

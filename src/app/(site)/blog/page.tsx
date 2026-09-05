@@ -12,24 +12,21 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { SITE_CONFIG } from "@/config/site";
 
 const CATEGORIES = [
-  "All",
-  "Analytics",
+  "All Insights",
   "Business Intelligence",
-  "Automation",
-  "Technology",
   "Digital Transformation",
-  "Education Technology"
+  "Artificial Intelligence"
 ];
 
 export default function BlogPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("All Insights");
   
   const featured = SITE_CONFIG.blog.featured;
   const articles = SITE_CONFIG.blog.articles;
   const allPosts = [featured, ...articles];
 
   // Filter posts based on category selection
-  const filteredPosts = activeCategory === "All" 
+  const filteredPosts = activeCategory === "All Insights" 
     ? allPosts 
     : allPosts.filter(post => post.category === activeCategory);
 
@@ -46,13 +43,14 @@ export default function BlogPage() {
           <Reveal className="flex flex-col items-center gap-6 max-w-3xl mx-auto">
             <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#e7f6f4] px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#159f95]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
-              Insights &amp; Perspectives
+              INSIGHTS / KNOWLEDGE
             </span>
             <h1 className="font-sans text-4xl sm:text-6xl text-[#071820] leading-[1.08] tracking-tight font-extrabold">
-              Ideas for <span className="text-[#18b8ad]">Smarter Decisions</span>
+              Data Analytics, Excel &amp; <br />
+              <span className="text-[#18b8ad]">Power BI Insights</span>
             </h1>
             <p className="text-base sm:text-lg leading-relaxed text-[#56666b] max-w-2xl">
-              Explore practical insights on analytics, automation, business intelligence, technology, digital transformation, education technology, and modern business practices.
+              Practical guides, expert tutorials, and corporate insights on building automated dashboard reports, writing advanced Excel models, and unlocking data-driven business intelligence.
             </p>
           </Reveal>
         </div>
@@ -207,39 +205,42 @@ export default function BlogPage() {
         </div>
       </Section>
 
-      {/* Blog Final CTA — Teal gradient */}
+      {/* Newsletter — Stay Ahead of What's Next */}
       <section
         className="py-20 text-center"
         style={{ background: "linear-gradient(135deg,#ddf7f4,#a7e9e3)" }}
       >
-        <div className="max-w-2xl mx-auto flex flex-col items-center gap-6">
+        <div className="max-w-2xl mx-auto flex flex-col items-center gap-6 px-4">
           <Reveal>
             <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#18b8ad]/10 px-3.5 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-              Advisory Services
+              Newsletter
             </span>
           </Reveal>
           <Reveal delay={0.08}>
             <h2 className="font-sans text-3xl text-[#071820] sm:text-4xl font-extrabold tracking-tight">
-              Have a Challenge You&apos;d Like Us to Explore?
+              Stay Ahead of What&apos;s Next
             </h2>
           </Reveal>
           <Reveal delay={0.16}>
-            <p className="text-base text-[#2d524f] leading-relaxed">
-              If you have a business, analytics, automation, or technology challenge, start a conversation with The Strategist.
+            <p className="text-base text-[#2d524f] leading-relaxed max-w-xl">
+              Practical perspectives on analytics, technology and business transformation. Join data leaders receiving weekly guides directly.
             </p>
           </Reveal>
-          <Reveal delay={0.24} className="mt-2">
-            <a
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] bg-[#071820] text-white shadow-sm"
-              style={{
-                padding: "13px 24px",
-                fontSize: 13,
-                fontWeight: 800
-              }}
-            >
-              Get In Touch <ArrowRight className="h-3.5 w-3.5" />
-            </a>
+          <Reveal delay={0.24} className="mt-2 w-full max-w-md">
+            <form onSubmit={(e) => { e.preventDefault(); }} className="flex flex-col sm:flex-row gap-2">
+              <input
+                type="email"
+                placeholder="you@company.com"
+                required
+                className="px-4 py-3 text-xs bg-white border border-[#18b8ad]/40 rounded-full text-[#071820] focus:outline-none flex-grow shadow-xs"
+              />
+              <button
+                type="submit"
+                className="px-6 py-3 bg-[#071820] hover:bg-[#0d2f3a] text-white text-xs font-bold rounded-full transition-all shadow-sm shrink-0"
+              >
+                Subscribe →
+              </button>
+            </form>
           </Reveal>
         </div>
       </section>

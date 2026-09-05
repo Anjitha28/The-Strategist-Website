@@ -270,10 +270,10 @@ export const FALLBACK_CAREERS = {
 };
 
 export const FALLBACK_BLOG = {
-  eyebrow: "Insights & Articles",
-  headingLead: "KVJ Analytics Blog",
+  eyebrow: "INSIGHTS / KNOWLEDGE",
+  headingLead: "Data Analytics, Excel & Power BI Insights",
   headingAccent: "",
-  intro: "Discover advanced Excel techniques, dashboard design rules, process automation case studies, and edtech updates.",
+  intro: "Practical guides, expert tutorials, and corporate insights on building automated dashboard reports, writing advanced Excel models, and unlocking data-driven business intelligence.",
 };
 
 export const FALLBACK_IMPACT = {
