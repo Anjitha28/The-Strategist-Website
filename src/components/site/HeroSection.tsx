@@ -49,9 +49,9 @@ export async function HeroSection() {
         }}
       />
 
-      <div className="w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-between pt-24 sm:pt-28 lg:pt-14 pb-8 sm:pb-10 lg:pb-10 gap-8 lg:gap-8">
+      <div className="w-full max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center justify-between">
         {/* Left Column: Headline, tagline, body, CTA */}
-        <div className="w-full lg:w-[38%] lg:max-w-[470px] shrink-0 text-left relative z-20 pt-2 lg:pt-12">
+        <div className="w-full lg:w-[38%] lg:max-w-[480px] shrink-0 text-left relative z-20 pt-24 sm:pt-28 lg:pt-24 pb-8 sm:pb-10 lg:pb-6">
           {/* Eyebrow */}
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad] mb-4 sm:mb-5">
             {hero.eyebrow}
@@ -113,10 +113,10 @@ export async function HeroSection() {
           </div>
         </div>
 
-        {/* Right Column: Hero Graphic - Full height feel, starts near header line and extends below CTA */}
-        <div className="w-full lg:w-[62%] flex-1 flex items-start justify-center lg:justify-end relative lg:-mt-2 xl:-mt-4">
+        {/* Right Column: Hero Graphic - Bigger size, touches top of website and bottom separator */}
+        <div className="w-full lg:w-auto relative lg:absolute lg:-top-6 xl:-top-8 lg:bottom-0 lg:right-0 lg:w-[68%] xl:w-[72%] 2xl:w-[75%] flex items-end justify-center lg:justify-end pb-4 lg:pb-0 pointer-events-none">
           <div
-            className="relative w-full max-w-[1200px] xl:max-w-[1280px] aspect-[1792/878]"
+            className="relative w-full h-full flex items-end justify-end"
             style={{
               maskImage:
                 "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 1.5%, black 3.5%, black 100%)",
@@ -127,7 +127,7 @@ export async function HeroSection() {
             <img
               src="/brand/hero-blend.png"
               alt="The Strategist — Business Growth Progression"
-              className="w-full h-full object-contain object-right-top pointer-events-none select-none"
+              className="w-full lg:w-auto h-auto lg:h-[110%] object-contain object-bottom lg:object-right-bottom pointer-events-none select-none"
             />
           </div>
         </div>
