@@ -53,28 +53,28 @@ export default function AboutPage() {
             </h1>
             <div className="max-w-2xl mx-auto mt-6 py-6 border-l-4 border-[#18b8ad] pl-6 text-left bg-[#F1F6FA] rounded-r-2xl border-y border-r border-[#dce6ee]">
               <p className="font-sans font-medium text-lg sm:text-xl text-[#071820] leading-relaxed">
-                The Strategist is an analytics, automation, and training company with 12+ years of experience supporting corporate enterprises and educational institutions to build intelligent systems and data-driven capabilities.
+                The Strategist is an analytics, automation, and training company with 16+ years of experience supporting corporates
               </p>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* SECTION 02: 7 Stat Cards with Visual Hierarchy */}
+      {/* SECTION 02: Statistics / Highlights matching KVJ Analytics reference with The Strategist styling */}
       <Section className="bg-[#F1F6FA] py-20 border-b border-[#dce6e7]">
         <div className="container-page">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">
-              Key Milestones
+              Key Highlights
             </span>
             <h2 className="font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl mt-2">
               Proven Track Record of Excellence
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
-            {/* Featured Primary Stat Card: 12+ Years of Experience */}
-            <div className="col-span-2 sm:col-span-2 lg:col-span-2 p-8 rounded-3xl bg-[#071820] text-white border border-[#18b8ad]/30 shadow-md flex flex-col justify-between relative overflow-hidden group">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+            {/* Primary Highlight Card: 16+ Years of Experience */}
+            <div className="col-span-1 sm:col-span-2 lg:col-span-2 p-8 rounded-3xl bg-[#071820] text-white border border-[#18b8ad]/30 shadow-md flex flex-col justify-between relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#18b8ad]/15 rounded-full blur-3xl pointer-events-none" />
               <div className="flex items-center justify-between relative z-10 mb-6">
                 <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#18b8ad] bg-[#18b8ad]/15 px-3 py-1 rounded-full border border-[#18b8ad]/30">
@@ -86,9 +86,9 @@ export default function AboutPage() {
               </div>
               <div className="relative z-10">
                 <div className="text-5xl sm:text-6xl font-black text-[#18b8ad] font-sans tracking-tight">
-                  12+
+                  16+
                 </div>
-                <div className="text-lg font-bold text-white mt-2">
+                <div className="text-xl font-bold text-white mt-2">
                   Years of Experience
                 </div>
                 <p className="text-xs text-[#a1b4b9] mt-2 max-w-md leading-relaxed font-medium">
@@ -97,21 +97,21 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Stat 2: 100+ Automation */}
-            <div className="p-6 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
-              <div className="w-10 h-10 rounded-xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-4 group-hover:scale-105 transition-transform">
-                <Zap className="h-5 w-5" />
+            {/* Stat 2: Automation */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+              <div className="w-12 h-12 rounded-2xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-6 group-hover:scale-105 transition-transform">
+                <Zap className="h-6 w-6" />
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-black text-[#071820] font-sans">100+</div>
-                <div className="text-xs sm:text-sm font-bold text-[#56666b] uppercase tracking-wider mt-1">Automation</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#071820] font-sans tracking-tight">Automation</div>
+                <div className="text-xs font-bold text-[#56666b] uppercase tracking-wider mt-1.5">Intelligent Systems</div>
               </div>
             </div>
 
             {/* Stat 3: 50k+ Trained */}
-            <div className="p-6 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
-              <div className="w-10 h-10 rounded-xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-4 group-hover:scale-105 transition-transform">
-                <GraduationCap className="h-5 w-5" />
+            <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+              <div className="w-12 h-12 rounded-2xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-6 group-hover:scale-105 transition-transform">
+                <GraduationCap className="h-6 w-6" />
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl font-black text-[#071820] font-sans">50k+</div>
@@ -119,47 +119,40 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Stat 4: 200+ Analytics */}
-            <div className="p-6 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
-              <div className="w-10 h-10 rounded-xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-4 group-hover:scale-105 transition-transform">
-                <LineChart className="h-5 w-5" />
+            {/* Stat 4: Analytics */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+              <div className="w-12 h-12 rounded-2xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-6 group-hover:scale-105 transition-transform">
+                <LineChart className="h-6 w-6" />
               </div>
               <div>
-                <div className="text-3xl sm:text-4xl font-black text-[#071820] font-sans">200+</div>
-                <div className="text-xs sm:text-sm font-bold text-[#56666b] uppercase tracking-wider mt-1">Analytics</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#071820] font-sans tracking-tight">Analytics</div>
+                <div className="text-xs font-bold text-[#56666b] uppercase tracking-wider mt-1.5">Data-Driven Insights</div>
               </div>
             </div>
 
-            {/* Stat 5: 6 Regions */}
-            <div className="p-6 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
-              <div className="w-10 h-10 rounded-xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-4 group-hover:scale-105 transition-transform">
-                <MapPin className="h-5 w-5" />
+            {/* Stat 5: 6 Regions with Region labels (USA, EUROPE, UAE, OMAN) */}
+            <div className="col-span-1 sm:col-span-2 lg:col-span-3 p-6 sm:p-8 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-6 group">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] shrink-0 group-hover:scale-105 transition-transform">
+                  <MapPin className="h-7 w-7" />
+                </div>
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl sm:text-4xl font-black text-[#071820] font-sans">6</span>
+                    <span className="text-lg sm:text-xl font-bold text-[#071820]">Regions</span>
+                  </div>
+                  <p className="text-xs text-[#56666b] font-medium mt-0.5">Global operational footprint</p>
+                </div>
               </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-black text-[#071820] font-sans">6</div>
-                <div className="text-xs sm:text-sm font-bold text-[#56666b] uppercase tracking-wider mt-1">Regions</div>
-              </div>
-            </div>
-
-            {/* Stat 6: 150+ Clients */}
-            <div className="p-6 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
-              <div className="w-10 h-10 rounded-xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-4 group-hover:scale-105 transition-transform">
-                <Building className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-black text-[#071820] font-sans">150+</div>
-                <div className="text-xs sm:text-sm font-bold text-[#56666b] uppercase tracking-wider mt-1">Clients</div>
-              </div>
-            </div>
-
-            {/* Stat 7: 300+ Projects */}
-            <div className="p-6 rounded-3xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
-              <div className="w-10 h-10 rounded-xl bg-[#e7f6f4] grid place-items-center text-[#18b8ad] mb-4 group-hover:scale-105 transition-transform">
-                <Briefcase className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-3xl sm:text-4xl font-black text-[#071820] font-sans">300+</div>
-                <div className="text-xs sm:text-sm font-bold text-[#56666b] uppercase tracking-wider mt-1">Projects</div>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+                {["USA", "EUROPE", "UAE", "OMAN"].map((region) => (
+                  <span
+                    key={region}
+                    className="px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-wider bg-[#071820] text-[#18b8ad] border border-[#18b8ad]/30 shadow-2xs"
+                  >
+                    {region}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

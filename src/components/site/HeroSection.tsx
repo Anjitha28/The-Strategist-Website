@@ -52,9 +52,9 @@ export async function HeroSection() {
         }}
       />
 
-      <div className="container-page relative z-10 w-full flex flex-col lg:flex-row items-center justify-between pt-28 sm:pt-32 pb-14 sm:pb-16 lg:py-24 gap-8 lg:gap-12">
+      <div className="w-full max-w-[1520px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center justify-between pt-28 sm:pt-32 pb-14 sm:pb-16 lg:py-20 gap-8 lg:gap-10">
         {/* Left Column: Headline, tagline, body, CTA */}
-        <div className="w-full lg:max-w-[480px] xl:max-w-[520px] shrink-0 text-left relative z-20">
+        <div className="w-full lg:w-[42%] lg:max-w-[500px] shrink-0 text-left relative z-20">
           {/* Eyebrow */}
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad] mb-4 sm:mb-5">
             {hero.eyebrow}
@@ -116,29 +116,21 @@ export async function HeroSection() {
           </div>
         </div>
 
-        {/* Right Column: Seamlessly blended Hero Visual Graphic */}
-        <div className="w-full flex-1 flex items-center justify-center lg:justify-end relative">
+        {/* Right Column: Hero Graphic - Bigger, sharp, natural height, subtle left-edge feather */}
+        <div className="w-full lg:w-[58%] flex-1 flex items-center justify-center lg:justify-end relative">
           <div
-            className="relative w-full max-w-[880px] aspect-[1792/878]"
+            className="relative w-full max-w-[1020px] aspect-[1792/878]"
             style={{
               maskImage:
-                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 6%, rgba(0,0,0,0.65) 20%, black 38%, black 100%)",
+                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 1.5%, black 3.5%, black 100%)",
               WebkitMaskImage:
-                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 6%, rgba(0,0,0,0.65) 20%, black 38%, black 100%)",
+                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 1.5%, black 3.5%, black 100%)",
             }}
           >
             <img
               src="/brand/hero-blend.png"
               alt="The Strategist — Business Growth Progression"
               className="w-full h-full object-contain object-right pointer-events-none select-none"
-            />
-            {/* Soft subtle gradient overlay on the left edge for seamless white-to-image dissolve */}
-            <div
-              className="absolute inset-y-0 left-0 w-28 sm:w-44 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.7) 40%, transparent 100%)",
-              }}
             />
           </div>
         </div>
