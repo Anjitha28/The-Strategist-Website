@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getSupabaseSection } from "@/lib/supabase-cms";
@@ -7,7 +6,7 @@ const DEFAULT_HERO = {
   eyebrow: "ANALYTICS • AUTOMATION • TECHNOLOGY • TRANSFORMATION",
   heading: "Transform Data Into",
   tagline: "Business Growth.",
-  body: "We partner with businesses and enterprises to build intelligent analytics platforms, automate reporting workflows, modernize operations, and enable data-driven decision making.",
+  body: "The Strategist partners with businesses, enterprises, and institutions to build intelligent analytics platforms, automate processes, modernize operations, and enable data-driven decision making. We combine technology, strategy, and innovation to create measurable outcomes.",
   ctaLabel: "Schedule a Consultation",
   ctaHref: "/contact",
 };
@@ -17,7 +16,7 @@ async function getHero() {
     // 1. Try Supabase str_website_sections
     const sbHero = await getSupabaseSection("hero");
     if (sbHero) {
-      return { ...DEFAULT_HERO, ...sbHero };
+      return { ...DEFAULT_HERO, ...sbHero, body: DEFAULT_HERO.body };
     }
 
     // 2. Try Prisma
@@ -27,7 +26,7 @@ async function getHero() {
         include: { sections: { where: { key: "hero" } } },
       });
       if (!page || page.sections.length === 0) return DEFAULT_HERO;
-      return { ...DEFAULT_HERO, ...JSON.parse(page.sections[0].data) };
+      return { ...DEFAULT_HERO, ...JSON.parse(page.sections[0].data), body: DEFAULT_HERO.body };
     }
     return DEFAULT_HERO;
   } catch {
@@ -45,11 +44,17 @@ export async function HeroSection() {
     >
       {/* Background subtle radial aura */}
       <div className="absolute top-0 right-0 w-[550px] h-[550px] glow-teal opacity-20 pointer-events-none" />
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #071820 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(circle, #071820 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
 
       <div className="container-page relative z-10 w-full flex flex-col lg:flex-row items-center justify-between pt-28 sm:pt-32 pb-14 sm:pb-16 lg:py-24 gap-8 lg:gap-12">
         {/* Left Column: Headline, tagline, body, CTA */}
-        <div className="w-full lg:max-w-[500px] xl:max-w-[540px] shrink-0 text-left">
+        <div className="w-full lg:max-w-[480px] xl:max-w-[520px] shrink-0 text-left relative z-20">
           {/* Eyebrow */}
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad] mb-4 sm:mb-5">
             {hero.eyebrow}
@@ -88,7 +93,7 @@ export async function HeroSection() {
               fontSize: "clamp(14px, 1.1vw, 16px)",
               color: "#56666b",
               lineHeight: 1.75,
-              maxWidth: 440,
+              maxWidth: 460,
             }}
           >
             {hero.body}
@@ -111,17 +116,29 @@ export async function HeroSection() {
           </div>
         </div>
 
-        {/* Right Column: Hero Visual Graphic (Never cropped, maintains original 2:1 aspect ratio, sharp & responsive) */}
-        <div className="w-full flex-1 flex items-center justify-center lg:justify-end">
-          <div className="relative w-full max-w-[800px] aspect-[2/1] rounded-2xl overflow-hidden shadow-xs border border-[#dce6ee]/60 bg-gradient-to-b from-[#f8fafc] to-white p-1 sm:p-2">
-            <Image
-              src="/brand/hero-visual-final.png"
+        {/* Right Column: Seamlessly blended Hero Visual Graphic */}
+        <div className="w-full flex-1 flex items-center justify-center lg:justify-end relative">
+          <div
+            className="relative w-full max-w-[880px] aspect-[1792/878]"
+            style={{
+              maskImage:
+                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 6%, rgba(0,0,0,0.65) 20%, black 38%, black 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 6%, rgba(0,0,0,0.65) 20%, black 38%, black 100%)",
+            }}
+          >
+            <img
+              src="/brand/hero-blend.png"
               alt="The Strategist — Business Growth Progression"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 750px"
-              className="object-contain object-center"
-              priority
-              unoptimized
+              className="w-full h-full object-contain object-right pointer-events-none select-none"
+            />
+            {/* Soft subtle gradient overlay on the left edge for seamless white-to-image dissolve */}
+            <div
+              className="absolute inset-y-0 left-0 w-28 sm:w-44 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.7) 40%, transparent 100%)",
+              }}
             />
           </div>
         </div>

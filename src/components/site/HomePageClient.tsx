@@ -204,10 +204,6 @@ export default function HomePageClient({
     tags: ["Academic Analytics", "Curriculum Dev", "Assessment Tools", "Industry Programs"],
   };
 
-  const displayArticles =
-    blogPosts && blogPosts.length > 0
-      ? blogPosts.slice(0, 3)
-      : [SITE_CONFIG.blog.featured, ...SITE_CONFIG.blog.articles];
 
   const FOUR_CAPABILITIES = [
     {
@@ -512,9 +508,9 @@ export default function HomePageClient({
       {/* ================================================================
           INSIGHTS SECTION – after Framework
       ================================================================ */}
-      <section id="insights" className="py-24 bg-white border-t border-[#dce6e7]">
+      <section id="insights" className="py-20 sm:py-24 bg-white border-t border-[#dce6e7]">
         <div className="container-page">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 sm:gap-8">
             <div className="max-w-2xl">
               <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">Insights</span>
               <h2 className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl">
@@ -527,35 +523,6 @@ export default function HomePageClient({
             >
               Read All Insights →
             </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {displayArticles.map((article: any, idx: number) => (
-              <Link
-                key={article.slug || idx}
-                href="/blog"
-                className="group flex flex-col justify-between p-6 rounded-2xl bg-[#F1F6FA] border border-[#dce6ee] hover:border-[#18b8ad]/40 hover:shadow-md transition-all duration-300"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-xs text-[#8a979b] mb-3">
-                    <span className="font-bold text-[#18b8ad] bg-[#18b8ad]/10 px-2.5 py-0.5 rounded-full">
-                      {article.category || "Business Intelligence"}
-                    </span>
-                    <span>{article.readTime || "1 min read"}</span>
-                  </div>
-                  <h3 className="font-bold text-[#071820] text-base sm:text-lg group-hover:text-[#18b8ad] transition-colors leading-snug">
-                    {article.title}
-                  </h3>
-                  <p className="mt-2.5 text-xs sm:text-sm text-[#56666b] leading-relaxed line-clamp-3">
-                    {article.excerpt || article.content}
-                  </p>
-                </div>
-                <div className="mt-6 pt-3 border-t border-[#dce6ee] flex items-center justify-between text-xs font-bold text-[#071820] group-hover:text-[#18b8ad]">
-                  <span>Read Article</span>
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
