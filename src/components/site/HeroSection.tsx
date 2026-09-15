@@ -52,9 +52,9 @@ export async function HeroSection() {
         }}
       />
 
-      <div className="w-full max-w-[1520px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center justify-between pt-28 sm:pt-32 pb-14 sm:pb-16 lg:py-20 gap-8 lg:gap-10">
+      <div className="w-full max-w-[1560px] mx-auto px-5 sm:px-8 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-between pt-28 sm:pt-32 pb-14 sm:pb-20 lg:pt-32 lg:pb-24 gap-8 lg:gap-10">
         {/* Left Column: Headline, tagline, body, CTA */}
-        <div className="w-full lg:w-[42%] lg:max-w-[500px] shrink-0 text-left relative z-20">
+        <div className="w-full lg:w-[39%] lg:max-w-[480px] shrink-0 text-left relative z-20">
           {/* Eyebrow */}
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad] mb-4 sm:mb-5">
             {hero.eyebrow}
@@ -116,10 +116,10 @@ export async function HeroSection() {
           </div>
         </div>
 
-        {/* Right Column: Hero Graphic - Bigger, sharp, natural height, subtle left-edge feather */}
-        <div className="w-full lg:w-[58%] flex-1 flex items-center justify-center lg:justify-end relative">
+        {/* Right Column: Hero Graphic - Starts from same level as eyebrow text and ends after CTA button */}
+        <div className="w-full lg:w-[61%] flex-1 flex items-start justify-center lg:justify-end relative lg:pt-0.5">
           <div
-            className="relative w-full max-w-[1020px] aspect-[1792/878]"
+            className="relative w-full max-w-[1140px] aspect-[1792/878]"
             style={{
               maskImage:
                 "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 1.5%, black 3.5%, black 100%)",
@@ -130,7 +130,7 @@ export async function HeroSection() {
             <img
               src="/brand/hero-blend.png"
               alt="The Strategist — Business Growth Progression"
-              className="w-full h-full object-contain object-right pointer-events-none select-none"
+              className="w-full h-full object-contain object-right-top pointer-events-none select-none"
             />
           </div>
         </div>
