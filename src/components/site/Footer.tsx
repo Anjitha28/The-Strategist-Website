@@ -1,7 +1,8 @@
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
-import { NewsletterForm } from "./NewsletterForm";
 import { SITE_CONFIG } from "@/config/site";
 
 const SOCIALS: { key: "linkedin" | "facebook" | "instagram" | "twitter"; icon: string; label: string }[] = [
@@ -9,6 +10,24 @@ const SOCIALS: { key: "linkedin" | "facebook" | "instagram" | "twitter"; icon: s
   { key: "facebook", icon: "facebook", label: "Facebook" },
   { key: "instagram", icon: "instagram", label: "Instagram" },
   { key: "twitter", icon: "twitter", label: "X (Twitter)" },
+];
+
+const REGIONS_SERVED = ["Kerala", "India", "UAE", "Oman", "USA", "Europe"];
+
+const CORPORATE_LINKS = [
+  { label: "Report Automation", url: "/corporate/report-automation" },
+  { label: "Dashboard Development", url: "/corporate/dashboard-development" },
+  { label: "Data Visualization", url: "/corporate/data-visualization" },
+  { label: "Process Automation", url: "/corporate/process-automation" },
+  { label: "Corporate Training", url: "/corporate/corporate-training" },
+];
+
+const EDUCATIONAL_LINKS = [
+  { label: "Certification Programs", url: "/education/certification-programs" },
+  { label: "Curriculum Development", url: "/education/curriculum-development" },
+  { label: "Grade Scope", url: "/products/grade-scope" },
+  { label: "Protrix", url: "/products/protrix" },
+  { label: "Skill Development Programs", url: "/training" },
 ];
 
 interface FooterProps {
@@ -24,7 +43,6 @@ interface FooterProps {
 }
 
 export function Footer({
-  navItems: propNavItems,
   address: propAddress,
   email: propEmail,
   phones: propPhones,
@@ -35,10 +53,13 @@ export function Footer({
   siteName: propSiteName,
 }: FooterProps) {
   const brandName = propSiteName || SITE_CONFIG.brand.name;
-  const companyDescription = "Helping businesses and institutions build smarter systems through analytics, automation, technology, and practical solutions.";
+  const tagline = "Empowering Businesses and Institutions Through Analytics, Automation & Practical Learning.";
+  const description =
+    "The Strategist is a leading analytics, automation, and training organization with extensive experience in delivering business-focused technology solutions and industry-oriented learning systems.";
   const address = propAddress || SITE_CONFIG.brand.address;
   const email = propEmail || SITE_CONFIG.brand.email;
-  const phones = propPhones || SITE_CONFIG.brand.phones;
+  const phones = propPhones && propPhones.length > 0 && propPhones[0] ? propPhones : SITE_CONFIG.brand.phones;
+  const whatsapp = (SITE_CONFIG.brand as any).whatsapp || "9961813730";
   const year = new Date().getFullYear();
 
   const socialUrls: Record<string, string> = {
@@ -48,97 +69,51 @@ export function Footer({
     instagram: instagramUrl || SITE_CONFIG.brand.socials.instagram,
   };
 
-  // Group footer links if provided, else fall back to static SITE_CONFIG/standard
-  const columns: { title: string; links: { label: string; url: string }[] }[] = [];
-
-  if (propNavItems && propNavItems.length > 0) {
-    const grouped = propNavItems.reduce<Record<string, { label: string; url: string }[]>>((acc, item) => {
-      if (item.location === "footer" && item.footerColumn) {
-        if (!acc[item.footerColumn]) acc[item.footerColumn] = [];
-        acc[item.footerColumn].push({ label: item.label, url: item.url });
-      }
-      return acc;
-    }, {});
-
-    Object.entries(grouped).forEach(([colName, links]) => {
-      columns.push({ title: colName, links });
-    });
-  } else {
-    // Standard static fallback columns
-    columns.push(
-      {
-        title: "Company",
-        links: [
-          { label: "Home", url: "/" },
-          { label: "About Us", url: "/about" },
-          { label: "Contact", url: "/contact" },
-        ],
-      },
-      {
-        title: "Corporate Solutions",
-        links: [
-          { label: "Report Automation", url: "/corporate/report-automation" },
-          { label: "Dashboard Development", url: "/corporate/dashboard-development" },
-          { label: "Data Visualization", url: "/corporate/data-visualization" },
-          { label: "Process Automation", url: "/corporate/process-automation" },
-          { label: "Corporate Training", url: "/corporate/corporate-training" },
-        ],
-      },
-      {
-        title: "Educational Solutions",
-        links: [
-          { label: "Certification Programs", url: "/education/certification-programs" },
-          { label: "Curriculum Development", url: "/education/curriculum-development" },
-          { label: "Grade Scope", url: "/products/grade-scope" },
-          { label: "Protrix", url: "/products/protrix" },
-          { label: "Training Programs", url: "/education/training-programs" },
-        ],
-      },
-      {
-        title: "Products",
-        links: [
-          { label: "All Products", url: "/products" },
-          { label: "Grade Scope", url: "/products/grade-scope" },
-          { label: "Protrix", url: "/products/protrix" },
-        ],
-      },
-      {
-        title: "Training",
-        links: [
-          { label: "Training Hub", url: "/training" },
-          { label: "Online Courses", url: "/training/online-courses" },
-          { label: "Corporate Training", url: "/corporate/corporate-training" },
-        ],
-      },
-      {
-        title: "Insights",
-        links: [
-          { label: "Blog", url: "/blog" },
-          { label: "Business Intelligence", url: "/blog" },
-        ],
-      }
-    );
-  }
-
   return (
-    <footer className="relative mt-24 border-t border-[rgba(32,217,160,0.15)] bg-[#062D24] text-[#97aba2] rounded-t-[32px] shadow-lg">
-      <div className="container-page py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr_1.2fr]">
-          {/* Brand & Socials */}
-          <div className="flex flex-col gap-6">
-            <Link href="/" aria-label="The Strategist — Home">
+    <footer className="relative mt-24 border-t border-[rgba(32,217,160,0.15)] bg-[#062D24] text-[#97aba2] rounded-t-[32px] shadow-lg overflow-hidden">
+      {/* Ambient background glows */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#18b8ad]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#18b8ad]/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="container-page py-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 mb-16">
+          {/* Column 1: Brand / Tagline / Regions / Socials */}
+          <div className="lg:col-span-3 flex flex-col justify-start">
+            <Link href="/" className="inline-flex items-center mb-5 group" aria-label="The Strategist">
               <Image
                 src="/brand/strategist-logo.png"
                 alt="The Strategist"
                 width={160}
                 height={40}
-                className="h-8 w-auto object-contain brightness-0 invert"
+                className="h-8 w-auto object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
-            <p className="max-w-sm text-sm leading-relaxed text-[#97aba2]/90">
-              {companyDescription}
+            <p className="text-sm font-semibold text-white/90 mb-3 leading-snug">
+              {tagline}
             </p>
-            <div className="flex gap-2.5">
+            <p className="text-xs text-[#97aba2]/90 leading-relaxed mb-6 font-normal">
+              {description}
+            </p>
+
+            {/* Regions served badge strip */}
+            <div className="mb-6">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#18b8ad] block mb-2">
+                Regions Served
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {REGIONS_SERVED.map((region, idx) => (
+                  <span
+                    key={idx}
+                    className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/5 text-[#c1d3cc] border border-[rgba(32,217,160,0.2)] hover:bg-[#18b8ad]/10 hover:text-[#18b8ad] hover:border-[#18b8ad]/40 transition-all duration-200 cursor-default"
+                  >
+                    {region}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Social media links */}
+            <div className="flex items-center gap-2.5">
               {SOCIALS.map((s) => {
                 const url = socialUrls[s.key];
                 return (
@@ -148,7 +123,7 @@ export function Footer({
                     aria-label={s.label}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="grid h-10 w-10 place-items-center rounded-full bg-[#071820] border border-[#18b8ad]/10 text-[#97aba2] transition-all duration-300 hover:bg-[#18b8ad] hover:text-white hover:scale-110 active:scale-95 shadow-sm"
+                    className="grid h-9 w-9 place-items-center rounded-full bg-[#071820] border border-[rgba(32,217,160,0.2)] text-[#97aba2] transition-all duration-300 hover:bg-[#18b8ad] hover:text-white hover:scale-110 active:scale-95 shadow-sm"
                   >
                     <Icon name={s.icon} className="h-4 w-4" />
                   </a>
@@ -157,59 +132,113 @@ export function Footer({
             </div>
           </div>
 
-          {/* Columns */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {columns.map((col) => (
-              <div key={col.title} className="flex flex-col gap-4">
-                <h3 className="text-xs font-bold text-white uppercase tracking-wider">{col.title}</h3>
-                <ul className="flex flex-col gap-2.5 border-t border-[rgba(32,217,160,0.1)] pt-3">
-                  {col.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.url}
-                        className="text-xs text-[#97aba2] transition-all duration-300 hover:text-[#20D9A0] hover:translate-x-1 inline-block"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          {/* Column 2: Corporate Solutions */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white border-b border-[rgba(32,217,160,0.15)] pb-2.5">
+              Corporate Solutions
+            </h4>
+            <ul className="space-y-3 pt-1">
+              {CORPORATE_LINKS.map((link, idx) => (
+                <li key={idx}>
+                  <Link
+                    href={link.url}
+                    className="text-xs text-[#97aba2] hover:text-[#18b8ad] hover:translate-x-1.5 transition-all duration-200 inline-block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Newsletter & Direct Contact */}
-          <div className="flex flex-col gap-5">
-            <h3 className="text-xs font-bold text-white uppercase tracking-wider font-semibold">Stay Updated</h3>
-            <p className="text-xs text-[#97aba2] leading-relaxed border-t border-[rgba(32,217,160,0.1)] pt-3">
-              Subscribe to receive insights, product updates, technology trends, and learning opportunities.
-            </p>
-            <NewsletterForm />
-            <div className="flex flex-col gap-3 pt-2 text-xs text-[#97aba2]">
-              <a href={`mailto:${email}`} className="flex items-center gap-2.5 hover:text-[#20D9A0] transition-colors">
-                <Icon name="mail" className="h-4 w-4 text-[#20D9A0]" /> {email}
-              </a>
-              {phones.map((phone) => (
-                <a key={phone} href={`tel:${phone}`} className="flex items-center gap-2.5 hover:text-[#20D9A0] transition-colors">
-                  <Icon name="phone" className="h-4 w-4 text-[#20D9A0]" /> {phone}
-                </a>
+          {/* Column 3: Educational Solutions */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white border-b border-[rgba(32,217,160,0.15)] pb-2.5">
+              Educational Solutions
+            </h4>
+            <ul className="space-y-3 pt-1">
+              {EDUCATIONAL_LINKS.map((link, idx) => (
+                <li key={idx}>
+                  <Link
+                    href={link.url}
+                    className="text-xs text-[#97aba2] hover:text-[#18b8ad] hover:translate-x-1.5 transition-all duration-200 inline-block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
               ))}
-              <span className="flex items-start gap-2.5">
-                <Icon name="map-pin" className="mt-0.5 h-4 w-4 text-[#20D9A0] shrink-0" />
-                <span className="leading-snug whitespace-pre-line">{address}</span>
-              </span>
-            </div>
+            </ul>
+          </div>
+
+          {/* Column 4: Contact Us */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white border-b border-[rgba(32,217,160,0.15)] pb-2.5">
+              Contact Us
+            </h4>
+            <ul className="space-y-4 pt-1">
+              <li className="flex items-start">
+                <MapPin className="w-4 h-4 text-[#18b8ad] mr-3 shrink-0 mt-0.5" />
+                <span className="text-xs text-[#97aba2] leading-relaxed whitespace-pre-line">
+                  {address}
+                </span>
+              </li>
+              <li className="flex items-center">
+                <Mail className="w-4 h-4 text-[#18b8ad] mr-3 shrink-0" />
+                <a
+                  href={`mailto:${email}`}
+                  className="text-xs text-[#97aba2] hover:text-[#18b8ad] transition-colors duration-150"
+                >
+                  {email}
+                </a>
+              </li>
+              <li className="flex items-start">
+                <Phone className="w-4 h-4 text-[#18b8ad] mr-3 shrink-0 mt-0.5" />
+                <div className="flex flex-col space-y-1">
+                  {phones.map((phone, pIdx) => (
+                    <a
+                      key={pIdx}
+                      href={`tel:${phone}`}
+                      className="text-xs text-[#97aba2] hover:text-[#18b8ad] transition-colors duration-150"
+                    >
+                      {phone}
+                    </a>
+                  ))}
+                </div>
+              </li>
+              {whatsapp && (
+                <li className="flex items-center">
+                  <MessageSquare className="w-4 h-4 text-[#25D366] mr-3 shrink-0" />
+                  <a
+                    href={`https://wa.me/${whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(
+                      "Hello The Strategist, I visited your website and would like to connect."
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#97aba2] hover:text-[#25D366] transition-colors duration-150 font-medium"
+                  >
+                    WhatsApp Chat
+                  </a>
+                </li>
+              )}
+            </ul>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[rgba(32,217,160,0.1)] pt-6 sm:flex-row">
-          <p className="text-xs text-[#97aba2] font-semibold">
-            © {year} {brandName}. All Rights Reserved.
+        {/* Bottom Bar: Copyright & Legal */}
+        <div className="border-t border-[rgba(32,217,160,0.15)] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-[#97aba2] font-medium text-center md:text-left">
+            &copy; {year} {brandName}. All Rights Reserved.
           </p>
-          <div className="flex gap-6 text-xs text-[#97aba2] font-semibold">
-            <Link href="/privacy-policy" className="hover:text-[#20D9A0] transition-colors">Privacy Policy</Link>
-            <Link href="/terms-conditions" className="hover:text-[#20D9A0] transition-colors">Terms &amp; Conditions</Link>
-            <Link href="/cookie-policy" className="hover:text-[#20D9A0] transition-colors">Cookie Policy</Link>
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#97aba2] font-medium">
+            <Link href="/privacy-policy" className="hover:text-[#18b8ad] transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-conditions" className="hover:text-[#18b8ad] transition-colors">
+              Terms &amp; Conditions
+            </Link>
+            <Link href="/cookie-policy" className="hover:text-[#18b8ad] transition-colors">
+              Cookie Policy
+            </Link>
           </div>
         </div>
       </div>

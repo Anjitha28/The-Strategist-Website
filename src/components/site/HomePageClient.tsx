@@ -21,8 +21,14 @@ const SOL_ICONS: Record<string, React.ReactNode> = {
   "Automation": <Zap className="h-6 w-6 text-[#18b8ad]" />,
   "Artificial Intelligence": <Cpu className="h-6 w-6 text-[#18b8ad]" />,
   "Enterprise Platforms": <Gauge className="h-6 w-6 text-[#18b8ad]" />,
-  "Custom Solutions": <Settings className="h-6 w-6 text-[#18b8ad]" />,
-  "Innovation": <Settings className="h-6 w-6 text-[#18b8ad]" />,
+  "Corporate Analytics": <BarChart3 className="h-6 w-6 text-[#18b8ad]" />,
+  "Digital Transformation": <Zap className="h-6 w-6 text-[#18b8ad]" />,
+  "Enterprise Technology": <Cpu className="h-6 w-6 text-[#18b8ad]" />,
+  "Consulting Services": <Workflow className="h-6 w-6 text-[#18b8ad]" />,
+  "CorporateAnalytics": <BarChart3 className="h-6 w-6 text-[#18b8ad]" />,
+  "DigitalTransformation": <Zap className="h-6 w-6 text-[#18b8ad]" />,
+  "EnterpriseTechnology": <Cpu className="h-6 w-6 text-[#18b8ad]" />,
+  "ConsultingServices": <Workflow className="h-6 w-6 text-[#18b8ad]" />,
 };
 
 const getIndIcon = (name: string) => {
@@ -94,14 +100,42 @@ export default function HomePageClient({
 }: HomePageClientProps) {
   const homeData = SITE_CONFIG.home;
 
-  const trustLogos = clientLogos || [
-    { name: "MIM.KUTTIKKANAM" },
-    { name: "CHRIST(Autonomous)" },
-    { name: "SIMS" },
-    { name: "Federal Bank" },
-    { name: "EY" },
-    { name: "KPMG" },
-    { name: "TATA" },
+  // Trusted section: ONLY TWO official clients
+  const trustClients = [
+    {
+      name: "Berchmans Institute of Management Studies",
+      logoUrl: "https://bdwwgipbrnkgihfjihxz.supabase.co/storage/v1/object/public/site-images/uploads/1786526800084-n4n31k.jpg",
+      localFallback: "/brand/berchmans-logo.jpg",
+    },
+    {
+      name: "Marian College Kuttikkanam",
+      logoUrl: "https://mariancollege.org/wp-content/uploads/2023/03/College-Logo-1024x478.jpg",
+      localFallback: "/brand/marian-college-logo.jpg",
+    },
+  ];
+
+  // Fallback solutions cards matching the full KVJ reference data
+  const DEFAULT_SOLUTIONS_CARDS = [
+    {
+      title: "Corporate Analytics",
+      desc: "Business Intelligence, Executive Dashboards, Data Visualization, Performance Analytics, Decision Support",
+      icon: "Corporate Analytics",
+    },
+    {
+      title: "Digital Transformation",
+      desc: "Business Process Automation, Workflow Optimization, Cloud Transformation, Digital Strategy, Technology Modernization",
+      icon: "Digital Transformation",
+    },
+    {
+      title: "Enterprise Technology",
+      desc: "Custom Business Applications, Enterprise Portals, Analytics Platforms, Data Platforms, System Integration",
+      icon: "Enterprise Technology",
+    },
+    {
+      title: "Consulting Services",
+      desc: "Analytics Consulting, Technology Advisory, Digital Strategy, Business Process Analysis, Implementation Roadmaps",
+      icon: "Consulting Services",
+    },
   ];
 
   // Dynamic solutions fallback
@@ -110,7 +144,12 @@ export default function HomePageClient({
   const solDescription = solutionsData?.description || "We help organizations transform data into strategic assets through intelligent analytics, report automation, and enterprise technology solutions.";
   const solBtnLabel = solutionsData?.buttonLabel || "Explore All Solutions";
   const solBtnLink = solutionsData?.buttonLink || "/solutions/corporate";
-  const displayServices = solutionsData?.cards || services || SITE_CONFIG.corporate.solutions.slice(0, 6);
+  const displayServices =
+    solutionsData?.cards && solutionsData.cards.length > 0
+      ? solutionsData.cards
+      : services && services.length > 0
+      ? services
+      : DEFAULT_SOLUTIONS_CARDS;
 
   // Dynamic framework fallback
   const frameEyebrow = frameworkData?.eyebrow || "Our Approach";
@@ -165,7 +204,10 @@ export default function HomePageClient({
     tags: ["Academic Analytics", "Curriculum Dev", "Assessment Tools", "Industry Programs"],
   };
 
-  const displayArticles = blogPosts || SITE_CONFIG.blog.articles.slice(0, 3);
+  const displayArticles =
+    blogPosts && blogPosts.length > 0
+      ? blogPosts.slice(0, 3)
+      : [SITE_CONFIG.blog.featured, ...SITE_CONFIG.blog.articles];
 
   const FOUR_CAPABILITIES = [
     {
@@ -209,11 +251,11 @@ export default function HomePageClient({
                     {cap.icon}
                   </span>
                 </div>
-                <div className="min-w-0">
-                  <h3 className="font-sans text-sm font-extrabold text-[#071820] leading-snug truncate group-hover:text-[#18b8ad] transition-colors">
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-sans text-sm font-extrabold text-[#071820] leading-snug group-hover:text-[#18b8ad] transition-colors break-words">
                     {cap.title}
                   </h3>
-                  <p className="text-[11px] text-[#56666b] font-medium leading-tight mt-0.5 truncate">
+                  <p className="text-[11px] text-[#56666b] font-medium leading-tight mt-0.5 break-words">
                     {cap.desc}
                   </p>
                 </div>
@@ -234,14 +276,24 @@ export default function HomePageClient({
           >
             Trusted by Forward-Thinking Organizations
           </p>
-          <div className="flex justify-center items-center gap-4 sm:gap-6 lg:gap-8 flex-wrap">
-            {trustLogos.map((logo, i) => (
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto">
+            {trustClients.map((client, i) => (
               <div
-                key={logo.name + "-" + i}
-                className="flex items-center justify-center px-5 py-3 rounded-xl border border-[#dce6ee] bg-[#f8fafc] hover:bg-white hover:border-[#18b8ad]/40 hover:shadow-sm transition-all duration-300"
+                key={client.name + "-" + i}
+                className="w-full sm:w-auto flex items-center justify-center sm:justify-start gap-4 px-6 py-4 rounded-2xl border border-[#dce6ee] bg-[#f8fafc] hover:bg-white hover:border-[#18b8ad]/40 hover:shadow-sm transition-all duration-300"
               >
-                <span className="font-sans font-bold text-[#475569] text-sm sm:text-base tracking-tight">
-                  {logo.name}
+                <div className="relative h-10 w-24 sm:h-12 sm:w-28 shrink-0 flex items-center justify-center">
+                  <img
+                    src={client.logoUrl}
+                    alt={client.name}
+                    className="max-h-full max-w-full object-contain"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = client.localFallback;
+                    }}
+                  />
+                </div>
+                <span className="font-sans font-bold text-[#1f2937] text-sm sm:text-base tracking-tight text-center sm:text-left">
+                  {client.name}
                 </span>
               </div>
             ))}
@@ -288,7 +340,7 @@ export default function HomePageClient({
               return (
                 <RevealItem key={`${sol.title}-${i}`}>
                   <div
-                    className="relative overflow-hidden flex flex-col justify-between p-8 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 transition-all duration-300"
+                    className="relative overflow-hidden flex flex-col justify-between p-5 sm:p-8 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 transition-all duration-300"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-4 mb-5">
@@ -318,7 +370,7 @@ export default function HomePageClient({
                               className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white border border-[#dce6ee] text-xs font-bold text-[#071820] shadow-2xs"
                             >
                               <span className="w-1.5 h-1.5 rounded-full bg-[#18b8ad] shrink-0" />
-                              <span className="truncate">{item}</span>
+                              <span className="break-words leading-tight">{item}</span>
                             </div>
                           ))}
                         </div>
@@ -465,45 +517,85 @@ export default function HomePageClient({
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
             <div className="max-w-2xl">
               <span className="text-xs font-black uppercase tracking-[0.2em] text-[#18b8ad]">Insights</span>
-              <h2 className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl">Insights That Drive Better Decisions</h2>
+              <h2 className="mt-3 font-sans text-[#071820] font-extrabold tracking-tight text-3xl sm:text-4xl lg:text-5xl">
+                Insights That Drive Better Decisions
+              </h2>
             </div>
-            <Link href="/insights" className="shrink-0 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-bold border border-[#dce6ee] bg-[#F1F6FA] text-[#071820] hover:border-[#18b8ad] hover:text-[#18b8ad] hover:shadow-sm transition-all">
+            <Link
+              href="/blog"
+              className="shrink-0 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-xs font-bold border border-[#dce6ee] bg-[#F1F6FA] text-[#071820] hover:border-[#18b8ad] hover:text-[#18b8ad] hover:shadow-sm transition-all"
+            >
               Read All Insights →
             </Link>
           </div>
-          {/* Placeholder for insights list – replace with actual component if exists */}
-          <p className="text-base text-[#56666b]">No insights available yet.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {displayArticles.map((article: any, idx: number) => (
+              <Link
+                key={article.slug || idx}
+                href="/blog"
+                className="group flex flex-col justify-between p-6 rounded-2xl bg-[#F1F6FA] border border-[#dce6ee] hover:border-[#18b8ad]/40 hover:shadow-md transition-all duration-300"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-xs text-[#8a979b] mb-3">
+                    <span className="font-bold text-[#18b8ad] bg-[#18b8ad]/10 px-2.5 py-0.5 rounded-full">
+                      {article.category || "Business Intelligence"}
+                    </span>
+                    <span>{article.readTime || "1 min read"}</span>
+                  </div>
+                  <h3 className="font-bold text-[#071820] text-base sm:text-lg group-hover:text-[#18b8ad] transition-colors leading-snug">
+                    {article.title}
+                  </h3>
+                  <p className="mt-2.5 text-xs sm:text-sm text-[#56666b] leading-relaxed line-clamp-3">
+                    {article.excerpt || article.content}
+                  </p>
+                </div>
+                <div className="mt-6 pt-3 border-t border-[#dce6ee] flex items-center justify-between text-xs font-bold text-[#071820] group-hover:text-[#18b8ad]">
+                  <span>Read Article</span>
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ================================================================
           FINAL CTA SECTION WITH STATISTICS
       ================================================================ */}
-      <section id="final-cta" className="py-24 bg-[#F1F6FA] border-t border-[#dce6e7]">
+      <section id="final-cta" className="py-20 sm:py-24 bg-[#F1F6FA] border-t border-[#dce6e7]">
         <div className="container-page text-center">
-          <h2 className="text-3xl font-extrabold text-[#071820]">Ready to Transform Your Business?</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-base text-[#56666b]">
-            Partner with The Strategist to build intelligent analytics platforms, automate operations and enable data‑driven decisions that create measurable business outcomes.
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071820]">
+            Ready to Transform Your Business?
+          </h2>
+          <p className="mt-4 max-w-2xl mx-auto text-sm sm:text-base text-[#56666b] leading-relaxed">
+            Partner with The Strategist to build intelligent analytics platforms, automate operations and enable data-driven decisions that create measurable business outcomes.
           </p>
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-            <div>
-              <p className="text-4xl font-bold text-[#071820]">500+</p>
-              <p className="mt-2 text-sm text-[#56666b]">Projects Delivered</p>
+          <div className="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center max-w-3xl mx-auto">
+            <div className="p-4 rounded-xl bg-white/60 border border-[#dce6ee]/60 sm:border-0 sm:bg-transparent">
+              <p className="text-3xl sm:text-4xl font-bold text-[#071820]">500+</p>
+              <p className="mt-2 text-xs sm:text-sm text-[#56666b] font-medium">Projects Delivered</p>
             </div>
-            <div>
-              <p className="text-4xl font-bold text-[#071820]">98%</p>
-              <p className="mt-2 text-sm text-[#56666b]">Client Retention</p>
+            <div className="p-4 rounded-xl bg-white/60 border border-[#dce6ee]/60 sm:border-0 sm:bg-transparent">
+              <p className="text-3xl sm:text-4xl font-bold text-[#071820]">98%</p>
+              <p className="mt-2 text-xs sm:text-sm text-[#56666b] font-medium">Client Retention</p>
             </div>
-            <div>
-              <p className="text-4xl font-bold text-[#071820]">12+</p>
-              <p className="mt-2 text-sm text-[#56666b]">Years of Expertise</p>
+            <div className="p-4 rounded-xl bg-white/60 border border-[#dce6ee]/60 sm:border-0 sm:bg-transparent">
+              <p className="text-3xl sm:text-4xl font-bold text-[#071820]">12+</p>
+              <p className="mt-2 text-xs sm:text-sm text-[#56666b] font-medium">Years of Expertise</p>
             </div>
           </div>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/schedule-consultation" className="inline-flex items-center justify-center rounded-full bg-[#18b8ad] px-6 py-3 text-sm font-bold text-white hover:bg-[#13a09a]">
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center items-center gap-3.5 sm:gap-4 w-full max-w-md mx-auto sm:max-w-none">
+            <Link
+              href="/contact"
+              className="w-full sm:w-auto inline-flex items-center justify-center rounded-full bg-[#18b8ad] px-7 py-3.5 text-sm font-bold text-white hover:bg-[#13a09a] transition-all shadow-sm hover:shadow-md"
+            >
               Schedule a Consultation →
             </Link>
-            <Link href="/contact" className="inline-flex items-center justify-center rounded-full border border-[#18b8ad] px-6 py-3 text-sm font-bold text-[#18b8ad] hover:bg-[#18b8ad]/10">
+            <Link
+              href="/contact"
+              className="w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-[#18b8ad] bg-white px-7 py-3.5 text-sm font-bold text-[#18b8ad] hover:bg-[#18b8ad]/10 transition-all shadow-sm"
+            >
               Contact Us
             </Link>
           </div>
