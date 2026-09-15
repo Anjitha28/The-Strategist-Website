@@ -6,10 +6,12 @@ export type SiteSettings = Awaited<ReturnType<typeof loadSiteSettings>>;
 
 async function loadSiteSettings() {
   let s = null;
-  try {
-    s = await prisma.siteSetting.findUnique({ where: { id: "singleton" } });
-  } catch {
-    // DB fallback
+  if (process.env.DATABASE_URL) {
+    try {
+      s = await prisma.siteSetting.findUnique({ where: { id: "singleton" } });
+    } catch {
+      // DB fallback
+    }
   }
   const row = s ?? {
     siteName: "The Strategist",
@@ -76,6 +78,7 @@ export type SectionMap = Record<string, { data: Record<string, unknown>; visible
 
 /** Load a page and return its sections keyed by `key` with parsed data. */
 export const getPage = cache(async (slug: string) => {
+  if (!process.env.DATABASE_URL) return null;
   try {
     const page = await prisma.page.findUnique({
       where: { slug },
@@ -97,6 +100,7 @@ export const getPage = cache(async (slug: string) => {
 });
 
 export const getNavigation = cache(async (location: "header" | "footer" = "header") => {
+  if (!process.env.DATABASE_URL) return [];
   try {
     const items = await prisma.navigationItem.findMany({
       where: { location, visible: true, parentId: null },
@@ -115,6 +119,7 @@ export const getNavigation = cache(async (location: "header" | "footer" = "heade
 });
 
 export const getFaqs = cache(async (group: string) => {
+  if (!process.env.DATABASE_URL) return [];
   try {
     return await prisma.faq.findMany({
       where: { group, visible: true },
@@ -126,6 +131,7 @@ export const getFaqs = cache(async (group: string) => {
 });
 
 export const getTestimonials = cache(async () => {
+  if (!process.env.DATABASE_URL) return [];
   try {
     return await prisma.testimonial.findMany({ where: { visible: true }, orderBy: { order: "asc" } });
   } catch {
@@ -134,6 +140,7 @@ export const getTestimonials = cache(async () => {
 });
 
 export const getClientLogos = cache(async () => {
+  if (!process.env.DATABASE_URL) return [];
   try {
     return await prisma.clientLogo.findMany({ where: { visible: true }, orderBy: { order: "asc" } });
   } catch {

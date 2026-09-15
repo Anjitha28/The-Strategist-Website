@@ -9,10 +9,12 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   let navItems: any[] = [];
   try {
     settings = await getSiteSettings();
-    navItems = await prisma.navigationItem.findMany({
-      where: { visible: true },
-      orderBy: { order: "asc" },
-    });
+    if (process.env.DATABASE_URL) {
+      navItems = await prisma.navigationItem.findMany({
+        where: { visible: true },
+        orderBy: { order: "asc" },
+      });
+    }
   } catch {
     // Database connection fallback — defaults handled below
   }

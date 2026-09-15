@@ -24,30 +24,37 @@ const ICONS: Record<string, React.ReactNode> = {
 
 const SERVICES = [
   {
+    slug: "report-automation",
     title: "Report Automation",
     desc: "Automate MIS, financial, operational, and management reports with speed and accuracy.",
   },
   {
+    slug: "data-visualization",
     title: "Data Visualization",
     desc: "Convert complex data into meaningful visual insights and interactive reports.",
   },
   {
+    slug: "spreadsheet-consulting",
     title: "Spreadsheet Consulting",
     desc: "Advanced Excel systems, automation, validation, and optimization solutions.",
   },
   {
+    slug: "dashboard-development",
     title: "Dashboard Development",
     desc: "Real-time dashboards for KPI tracking, performance monitoring, and business intelligence.",
   },
   {
+    slug: "app-development",
     title: "App Development",
     desc: "Custom business applications for reporting, workflow, and operational management.",
   },
   {
+    slug: "process-automation",
     title: "Process Automation",
     desc: "Reduce manual work through intelligent workflow and process automation.",
   },
   {
+    slug: "corporate-training",
     title: "Corporate Training",
     desc: "Hands-on training in Excel, Power BI, analytics, dashboards, and automation tools.",
   }
@@ -67,7 +74,7 @@ export default function CorporateSolutionsPage() {
           <Reveal className="flex flex-col items-center gap-6 max-w-4xl mx-auto">
             <span className="inline-flex items-center gap-2 w-fit rounded-full border border-[#18b8ad]/30 bg-[#e7f6f4] px-4 py-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#159f95]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#18b8ad] animate-pulse" />
-              For Businesses & Corporates
+              For Businesses &amp; Corporates
             </span>
             
             <h1 className="font-sans text-4xl sm:text-5xl lg:text-6xl text-[#071820] leading-[1.08] tracking-tight font-extrabold">
@@ -91,7 +98,7 @@ export default function CorporateSolutionsPage() {
           <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((sol) => (
               <RevealItem key={sol.title}>
-                <Link href="/contact" className="block group h-full">
+                <Link href={`/corporate/${sol.slug}`} className="block group h-full">
                   <div className="flex flex-col justify-between p-8 bg-white border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300 h-full">
                     <div>
                       <div className="w-12 h-12 rounded-xl bg-[#F1F6FA] border border-[#dce6ee] grid place-items-center text-[#18b8ad] mb-6 shadow-xs group-hover:scale-105 transition-all">
@@ -102,7 +109,7 @@ export default function CorporateSolutionsPage() {
                     </div>
                     <div className="mt-8">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#18b8ad] group-hover:gap-2.5 transition-all">
-                        Learn More <ArrowRight className="h-3.5 w-3.5" />
+                        Learn more <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </div>

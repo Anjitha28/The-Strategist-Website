@@ -16,53 +16,59 @@ export default async function HomePage() {
 
   try {
     // 1. Fetch from Supabase (str_website_sections)
-    const sbSections = await getAllSupabaseSections();
-    sectionMap = { ...sbSections };
-
-    // 2. Fetch from Prisma if available
-    const page = await prisma.page.findUnique({
-      where: { slug: "home" },
-      include: { sections: true },
-    }).catch(() => null);
-
-    if (page?.sections) {
-      for (const sec of page.sections) {
-        try {
-          if (!sectionMap[sec.key]) {
-            sectionMap[sec.key] = JSON.parse(sec.data || "{}");
-          }
-        } catch {
-          // ignore
-        }
-      }
+    try {
+      const sbSections = await getAllSupabaseSections();
+      sectionMap = { ...sbSections };
+    } catch {
+      // Supabase fallback
     }
 
-    clientLogos = await prisma.clientLogo.findMany({
-      where: { visible: true },
-      orderBy: { order: "asc" },
-    });
+    // 2. Fetch from Prisma if DATABASE_URL is available
+    if (process.env.DATABASE_URL) {
+      const page = await prisma.page.findUnique({
+        where: { slug: "home" },
+        include: { sections: true },
+      }).catch(() => null);
 
-    services = await prisma.service.findMany({
-      where: { status: "published", category: { slug: "corporate" } },
-      orderBy: { order: "asc" },
-    });
+      if (page?.sections) {
+        for (const sec of page.sections) {
+          try {
+            if (!sectionMap[sec.key]) {
+              sectionMap[sec.key] = JSON.parse(sec.data || "{}");
+            }
+          } catch {
+            // ignore
+          }
+        }
+      }
 
-    testimonials = await prisma.testimonial.findMany({
-      where: { visible: true },
-      orderBy: { order: "asc" },
-    });
+      clientLogos = await prisma.clientLogo.findMany({
+        where: { visible: true },
+        orderBy: { order: "asc" },
+      }).catch(() => []);
 
-    blogPosts = await prisma.blogPost.findMany({
-      where: { status: "published" },
-      include: { category: true },
-      orderBy: { publishedAt: "desc" },
-      take: 3,
-    });
+      services = await prisma.service.findMany({
+        where: { status: "published", category: { slug: "corporate" } },
+        orderBy: { order: "asc" },
+      }).catch(() => []);
 
-    faqs = await prisma.faq.findMany({
-      where: { visible: true, group: "home" },
-      orderBy: { order: "asc" },
-    });
+      testimonials = await prisma.testimonial.findMany({
+        where: { visible: true },
+        orderBy: { order: "asc" },
+      }).catch(() => []);
+
+      blogPosts = await prisma.blogPost.findMany({
+        where: { status: "published" },
+        include: { category: true },
+        orderBy: { publishedAt: "desc" },
+        take: 3,
+      }).catch(() => []);
+
+      faqs = await prisma.faq.findMany({
+        where: { visible: true, group: "home" },
+        orderBy: { order: "asc" },
+      }).catch(() => []);
+    }
   } catch {
     // Database connection fallback — defaults handled below
   }

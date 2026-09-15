@@ -77,42 +77,44 @@ export function Footer({
       {
         title: "Corporate Solutions",
         links: [
-          { label: "Report Automation", url: "/solutions/corporate" },
-          { label: "Dashboard Development", url: "/solutions/corporate" },
-          { label: "Data Visualization", url: "/solutions/corporate" },
-          { label: "Process Automation", url: "/solutions/corporate" },
-          { label: "Corporate Training", url: "/solutions/corporate" },
+          { label: "Report Automation", url: "/corporate/report-automation" },
+          { label: "Dashboard Development", url: "/corporate/dashboard-development" },
+          { label: "Data Visualization", url: "/corporate/data-visualization" },
+          { label: "Process Automation", url: "/corporate/process-automation" },
+          { label: "Corporate Training", url: "/corporate/corporate-training" },
         ],
       },
       {
         title: "Educational Solutions",
         links: [
-          { label: "Certification Programs", url: "/solutions/educational" },
-          { label: "Curriculum Development", url: "/solutions/educational" },
-          { label: "Grade Scope", url: "/products" },
-          { label: "Protrix", url: "/products" },
-          { label: "Skill Development Programs", url: "/solutions/educational" },
+          { label: "Certification Programs", url: "/education/certification-programs" },
+          { label: "Curriculum Development", url: "/education/curriculum-development" },
+          { label: "Grade Scope", url: "/products/grade-scope" },
+          { label: "Protrix", url: "/products/protrix" },
+          { label: "Training Programs", url: "/education/training-programs" },
         ],
       },
       {
         title: "Products",
         links: [
-          { label: "Products", url: "/products" },
+          { label: "All Products", url: "/products" },
+          { label: "Grade Scope", url: "/products/grade-scope" },
+          { label: "Protrix", url: "/products/protrix" },
         ],
       },
       {
         title: "Training",
         links: [
-          { label: "Training Programs", url: "/training" },
-          { label: "Corporate Training", url: "/training" },
-          { label: "Skill Development", url: "/training" },
+          { label: "Training Hub", url: "/training" },
+          { label: "Online Courses", url: "/training/online-courses" },
+          { label: "Corporate Training", url: "/corporate/corporate-training" },
         ],
       },
       {
         title: "Insights",
         links: [
           { label: "Blog", url: "/blog" },
-          { label: "Insights", url: "/blog" },
+          { label: "Business Intelligence", url: "/blog" },
         ],
       }
     );

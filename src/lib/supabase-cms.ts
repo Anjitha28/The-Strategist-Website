@@ -41,11 +41,17 @@ const LOCAL_SECTIONS_CACHE: Record<string, any> = {};
  */
 export async function getSupabaseSection(sectionKey: string): Promise<any | null> {
   try {
-    const { data, error } = await supabase
+    const fetchPromise = supabase
       .from("str_website_sections")
       .select("*")
       .eq("section_key", sectionKey)
       .maybeSingle();
+
+    const timeoutPromise = new Promise<{ data: null; error: null }>((resolve) =>
+      setTimeout(() => resolve({ data: null, error: null }), 2000)
+    );
+
+    const { data, error } = (await Promise.race([fetchPromise, timeoutPromise])) as any;
 
     if (!error && data) {
       return typeof data.data === "string" ? JSON.parse(data.data) : data.data;
@@ -101,7 +107,6 @@ export async function upsertSection(sectionKey: string, data: any): Promise<{ su
   return await saveSupabaseSection(sectionKey, title, data);
 }
 
-
 /**
  * Fetch all sections for the public website
  */
@@ -109,9 +114,15 @@ export async function getAllSupabaseSections(): Promise<Record<string, any>> {
   const result: Record<string, any> = { ...LOCAL_SECTIONS_CACHE };
 
   try {
-    const { data, error } = await supabase
+    const fetchPromise = supabase
       .from("str_website_sections")
       .select("section_key, title, data");
+
+    const timeoutPromise = new Promise<{ data: null; error: null }>((resolve) =>
+      setTimeout(() => resolve({ data: null, error: null }), 2000)
+    );
+
+    const { data, error } = (await Promise.race([fetchPromise, timeoutPromise])) as any;
 
     if (!error && data) {
       for (const row of data) {

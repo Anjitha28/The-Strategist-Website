@@ -167,53 +167,92 @@ export default function HomePageClient({
 
   const displayArticles = blogPosts || SITE_CONFIG.blog.articles.slice(0, 3);
 
+  const FOUR_CAPABILITIES = [
+    {
+      title: "Business Intelligence",
+      desc: "Interactive dashboards & KPI telemetry",
+      icon: <BarChart3 className="h-5 w-5 text-[#18b8ad]" />,
+    },
+    {
+      title: "Data Analytics",
+      desc: "Predictive models & statistical insights",
+      icon: <Database className="h-5 w-5 text-[#18b8ad]" />,
+    },
+    {
+      title: "Artificial Intelligence",
+      desc: "Smart automation & neural systems",
+      icon: <Cpu className="h-5 w-5 text-[#18b8ad]" />,
+    },
+    {
+      title: "Digital Transformation",
+      desc: "Cloud migration & modern workflow pipelines",
+      icon: <Workflow className="h-5 w-5 text-[#18b8ad]" />,
+    },
+  ];
+
   return (
     <>
       {/* ================================================================
-          TRUST BAR — Client logos / "Trusted by" strip
+          FOUR SMALL FEATURE CARDS — Immediately before "Trusted By"
+          Desktop: 4 in row | Tablet: 2x2 grid | Mobile: 1 or 2 col
           ================================================================ */}
-      <div
-        className="w-full border-y py-7 bg-white border-[#dce6e7]"
-      >
-        <p
-          className="text-center mb-5"
-          style={{ fontSize: "9px", letterSpacing: "0.2em", color: "#8a979b", fontWeight: 850 }}
-        >
-          TRUSTED BY FORWARD-THINKING ORGANIZATIONS
-        </p>
-        <div className="container-page flex justify-around items-center gap-8 flex-wrap">
-          {trustLogos.map((logo, i) => (
-            <div
-              key={logo.name + "-" + i}
-              className="text-center font-bold text-[#687478] text-base opacity-80"
-              style={{ fontWeight: 850, lineHeight: 1.05 }}
-            >
-              {logo.name.includes(".") ? (
-                <>
-                  {logo.name.split(".")[0]}.
-                  <small className="block text-[8px] font-normal uppercase tracking-wider">
-                    {logo.name.split(".")[1]}
-                  </small>
-                </>
-              ) : logo.name.includes("(") ? (
-                <>
-                  {logo.name.split("(")[0]}
-                  <small className="block text-[8px] font-normal uppercase tracking-wider">
-                    ({logo.name.split("(")[1].replace(")", "")})
-                  </small>
-                </>
-              ) : (
-                logo.name
-              )}
-            </div>
-          ))}
+      <section className="w-full bg-[#f8fafc] border-b border-[#dce6e7] py-6 sm:py-8">
+        <div className="container-page">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {FOUR_CAPABILITIES.map((cap, idx) => (
+              <div
+                key={idx}
+                className="flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-[#dce6ee] shadow-xs hover:shadow-md hover:border-[#18b8ad]/50 hover:-translate-y-0.5 transition-all duration-300 group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#e7f6f4] border border-[#18b8ad]/20 grid place-items-center shrink-0 group-hover:scale-105 group-hover:bg-[#18b8ad] group-hover:text-white transition-all duration-300">
+                  <span className="group-hover:text-white transition-colors">
+                    {cap.icon}
+                  </span>
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-sans text-sm font-extrabold text-[#071820] leading-snug truncate group-hover:text-[#18b8ad] transition-colors">
+                    {cap.title}
+                  </h3>
+                  <p className="text-[11px] text-[#56666b] font-medium leading-tight mt-0.5 truncate">
+                    {cap.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          TRUST BAR — "Trusted by Forward-Thinking Organizations"
+          ================================================================ */}
+      <div className="w-full border-b py-10 bg-white border-[#dce6e7]">
+        <div className="container-page text-center">
+          <p
+            className="mb-6 uppercase text-[#8a979b]"
+            style={{ fontSize: "11px", letterSpacing: "0.22em", fontWeight: 850 }}
+          >
+            Trusted by Forward-Thinking Organizations
+          </p>
+          <div className="flex justify-center items-center gap-4 sm:gap-6 lg:gap-8 flex-wrap">
+            {trustLogos.map((logo, i) => (
+              <div
+                key={logo.name + "-" + i}
+                className="flex items-center justify-center px-5 py-3 rounded-xl border border-[#dce6ee] bg-[#f8fafc] hover:bg-white hover:border-[#18b8ad]/40 hover:shadow-sm transition-all duration-300"
+              >
+                <span className="font-sans font-bold text-[#475569] text-sm sm:text-base tracking-tight">
+                  {logo.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* ================================================================
-          SOLUTIONS — Clean white section (Group 1: 6 cards)
+          SOLUTIONS — Enterprise Solutions That Drive Business Growth
           ================================================================ */}
-      <section id="solutions" className="py-24 bg-white border-t border-[#dce6e7]">
+      <section id="solutions" className="py-24 bg-white border-b border-[#dce6e7]">
         <div className="container-page">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-12">
             <div className="max-w-2xl">
@@ -239,36 +278,60 @@ export default function HomePageClient({
             </Link>
           </div>
 
-          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
-            {displayServices.map((sol: any, i) => (
-              <RevealItem key={`${sol.title}-${i}`}>
-                <Link href={sol.link || "/solutions/corporate"} className="block h-full group">
+          <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+            {displayServices.map((sol: any, i) => {
+              const hasCommaList = typeof sol.desc === "string" && sol.desc.includes(",");
+              const featureItems = hasCommaList
+                ? sol.desc.split(",").map((s: string) => s.trim()).filter(Boolean)
+                : [];
+
+              return (
+                <RevealItem key={`${sol.title}-${i}`}>
                   <div
-                    className="relative overflow-hidden flex flex-col justify-between p-7 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 hover:-translate-y-1 transition-all duration-300"
-                    style={{ minHeight: 280 }}
+                    className="relative overflow-hidden flex flex-col justify-between p-8 h-full bg-[#F1F6FA] border border-[#dce6ee] rounded-2xl shadow-xs hover:shadow-md hover:border-[#18b8ad]/40 transition-all duration-300"
                   >
                     <div>
-                      <div className="w-11 h-11 rounded-xl bg-white border border-[#dce6ee] grid place-items-center mb-5 text-[#18b8ad] shadow-xs group-hover:border-[#18b8ad]/40 group-hover:scale-105 transition-all">
-                        {typeof sol.icon === "string" && SOL_ICONS[sol.icon] ? (
-                          SOL_ICONS[sol.icon]
-                        ) : sol.icon && typeof sol.icon !== "string" ? (
-                          sol.icon
-                        ) : (
-                          SOL_ICONS[sol.title] || <Settings className="h-5 w-5" />
-                        )}
+                      <div className="flex items-center justify-between gap-4 mb-5">
+                        <div className="w-12 h-12 rounded-xl bg-white border border-[#dce6ee] grid place-items-center text-[#18b8ad] shadow-xs">
+                          {typeof sol.icon === "string" && SOL_ICONS[sol.icon] ? (
+                            SOL_ICONS[sol.icon]
+                          ) : sol.icon && typeof sol.icon !== "string" ? (
+                            sol.icon
+                          ) : (
+                            SOL_ICONS[sol.title] || <Settings className="h-6 w-6" />
+                          )}
+                        </div>
+                        <span className="font-mono text-xs font-bold text-[#8a979b]">
+                          0{i + 1}
+                        </span>
                       </div>
-                      <h3 className="text-xl font-bold text-[#071820] leading-snug group-hover:text-[#18b8ad] transition-colors">{sol.title}</h3>
-                      <p className="text-sm text-[#56666b] mt-2.5 leading-relaxed">{sol.desc}</p>
-                    </div>
-                    <div className="mt-6 pt-4 border-t border-[#dce6ee]/60">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#18b8ad] group-hover:gap-2.5 transition-all">
-                        Learn more <ArrowRight className="h-3.5 w-3.5" />
-                      </span>
+
+                      <h3 className="text-xl sm:text-2xl font-bold text-[#071820] leading-snug">
+                        {sol.title}
+                      </h3>
+
+                      {hasCommaList ? (
+                        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          {featureItems.map((item: string, idx: number) => (
+                            <div
+                              key={idx}
+                              className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white border border-[#dce6ee] text-xs font-bold text-[#071820] shadow-2xs"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#18b8ad] shrink-0" />
+                              <span className="truncate">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-sm text-[#56666b] mt-3 leading-relaxed">
+                          {sol.desc}
+                        </p>
+                      )}
                     </div>
                   </div>
-                </Link>
-              </RevealItem>
-            ))}
+                </RevealItem>
+              );
+            })}
           </RevealGroup>
         </div>
       </section>

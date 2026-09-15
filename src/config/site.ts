@@ -28,6 +28,7 @@ export interface Product {
   slug: string;
   name: string;
   category: string;
+  tagline?: string;
   description: string;
   features: string[];
   icon: string;
@@ -239,7 +240,8 @@ Ernakulam, Kerala, India`,
       slug: "grade-scope",
       name: "Grade Scope",
       category: "EDUCATIONAL REPORTING & ANALYTICS PLATFORM",
-      description: "Grade Scope helps institutions automate student progress reports, placement reports, training reports, and institutional analytics.",
+      tagline: "Educational Reporting & Analytics Platform",
+      description: "Grade Scope automates student progress reports, placement reports, training reports, and institutional analytics.",
       features: [
         "Automated Reporting",
         "Student Progress Tracking",
@@ -250,29 +252,32 @@ Ernakulam, Kerala, India`,
       icon: "bar-chart"
     },
     {
-      slug: "proctrix",
-      name: "Proctrix",
+      slug: "protrix",
+      name: "Protrix",
       category: "ASSIGNMENT & ASSESSMENT AUTOMATION PLATFORM",
-      description: "Proctrix helps teachers generate, manage, and evaluate practical assignments while helping students practice and improve skills.",
+      tagline: "Assignment & Assessment Automation Platform",
+      description: "Protrix helps teachers generate, manage, and evaluate practical assignments while helping students practice and improve skills.",
       features: [
         "Assignment Automation",
         "Automated Evaluation",
+        "Excel-Based Learning",
         "Practical Skill Assessment",
-        "Time-Saving Evaluation System",
-        "Structured Learning Activities"
+        "Time-Saving Evaluation System"
       ],
       icon: "shield-check"
     },
     {
       slug: "beintrack",
       name: "BeInTrack",
-      category: "TRACKING & MANAGEMENT PLATFORM",
-      description: "BeInTrack is designed to provide structured tracking and visibility across organizational or institutional processes.",
+      category: "PROCESS & OPERATIONS ANALYTICS PLATFORM",
+      tagline: "Process & Operations Analytics Platform",
+      description: "BeInTrack delivers deep institutional process analytics, continuous operational tracking, and automated task workflows.",
       features: [
-        "Process Tracking & Progress Visibility",
-        "Goal and Milestone Mapping",
-        "Performance Analytics",
-        "Adaptable Process Flows"
+        "Process Milestone Tracking",
+        "Operational Bottleneck Detection",
+        "Automated Task Orchestration",
+        "Custom Audit Trail Generation",
+        "Real-Time Executive Telemetry"
       ],
       icon: "target"
     }

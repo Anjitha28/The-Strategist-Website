@@ -26,14 +26,18 @@ function ContactContent() {
     { name: "organization", label: "Company / Organization", required: true },
     {
       name: "subject",
-      label: "Subject",
+      label: "Inquiry Area / Subject",
       type: "select",
       required: true,
       options: [
-        "Corporate Solutions",
-        "Educational Solutions",
-        "Products",
-        "Training Programs",
+        "Corporate Consulting",
+        "Dashboard Development",
+        "Process Automation",
+        "Corporate Training",
+        "Educational Partnerships",
+        "Curriculum Development",
+        "Product Demonstrations",
+        "Institutional Collaborations",
         "Other"
       ],
       defaultValue: defaultService

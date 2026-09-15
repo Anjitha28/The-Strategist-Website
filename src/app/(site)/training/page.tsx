@@ -38,22 +38,16 @@ export default function TrainingPage() {
             </p>
             
             <div className="flex flex-wrap gap-4 mt-6 justify-center">
-              <a
-                href="#courses"
+              <Link
+                href="/training/online-courses"
                 className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] bg-[#071820] text-white shadow-sm"
                 style={{
-                  padding: "13px 24px",
+                  padding: "14px 28px",
                   fontSize: 13,
                   fontWeight: 800
                 }}
               >
-                Explore Courses <ArrowRight className="h-3.5 w-3.5" />
-              </a>
-              <Link
-                href="/admin/login"
-                className="inline-flex items-center gap-2 rounded-full border border-[#dce6ee] bg-[#F1F6FA] px-6 py-3 text-xs font-bold text-[#071820] hover:border-[#18b8ad] hover:text-[#18b8ad] transition-all"
-              >
-                Student Portal Login
+                Explore Courses <ArrowRight className="h-3.5 w-3.5 text-[#18b8ad]" />
               </Link>
             </div>
           </Reveal>
@@ -188,19 +182,13 @@ export default function TrainingPage() {
                   </div>
 
                   {/* Bottom Content */}
-                  <div className="relative z-20 mt-auto pt-10 space-y-3">
+                  <div className="relative z-20 mt-auto pt-6 space-y-2">
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-[#18b8ad] transition-colors duration-300 leading-tight">
                       {path.title}
                     </h3>
                     <p className="text-sm sm:text-base text-zinc-300 group-hover:text-zinc-100 transition-colors duration-300 leading-relaxed max-w-xl">
                       {path.desc}
                     </p>
-                    <div className="pt-3">
-                      <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 border border-white/15 text-xs font-bold uppercase tracking-wider text-white group-hover:bg-[#18b8ad] group-hover:text-[#071820] group-hover:border-[#18b8ad] transition-all duration-300 shadow-md">
-                        <span>Explore Track</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                      </div>
-                    </div>
                   </div>
                 </Link>
               </RevealItem>
@@ -318,7 +306,7 @@ export default function TrainingPage() {
           </Reveal>
           <Reveal delay={0.16} className="mt-6 flex flex-wrap justify-center gap-4">
             <Link
-              href="#courses"
+              href="/training/online-courses"
               className="inline-flex items-center gap-2 rounded-full font-bold transition-all hover:bg-[#0d2f3a] bg-[#071820] text-white shadow-sm"
               style={{
                 padding: "14px 28px",
@@ -326,7 +314,7 @@ export default function TrainingPage() {
                 fontWeight: 800
               }}
             >
-              Explore Courses <ArrowRight className="h-4 w-4" />
+              Explore Courses <ArrowRight className="h-4 w-4 text-[#18b8ad]" />
             </Link>
             <Link
               href="/contact"

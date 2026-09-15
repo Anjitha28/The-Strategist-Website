@@ -11,12 +11,14 @@ import { SITE_CONFIG } from "@/config/site";
 
 const PROD_ICONS: Record<string, React.ReactNode> = {
   "grade-scope": <BarChart3 className="h-12 w-12 text-[#18b8ad]" />,
+  protrix: <ShieldCheck className="h-12 w-12 text-[#18b8ad]" />,
   proctrix: <ShieldCheck className="h-12 w-12 text-[#18b8ad]" />,
   beintrack: <Target className="h-12 w-12 text-[#18b8ad]" />,
 };
 
 const PROD_COLORS: Record<string, string> = {
   "grade-scope": "from-[#071820] to-[#0f3a35]",
+  protrix: "from-[#071820] to-[#122e3c]",
   proctrix: "from-[#071820] to-[#122e3c]",
   beintrack: "from-[#071820] to-[#251838]",
 };

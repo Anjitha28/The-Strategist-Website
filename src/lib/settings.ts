@@ -26,6 +26,9 @@ export interface SettingsData {
 }
 
 export async function getSiteSettings(): Promise<SettingsData> {
+  if (!process.env.DATABASE_URL) {
+    return getFallbackSettings();
+  }
   try {
     const settings = await prisma.siteSetting.findUnique({
       where: { id: "singleton" },
